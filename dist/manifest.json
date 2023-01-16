@@ -1,0 +1,72 @@
+{
+  "assets/images/no-thumbnail.png": {
+    "file": "assets/no-thumbnail.2e94d652.png",
+    "src": "assets/images/no-thumbnail.png"
+  },
+  "assets/scss/ckeditor.scss": {
+    "file": "assets/ckeditor.1aad1421.css",
+    "src": "assets/scss/ckeditor.scss",
+    "isEntry": true
+  },
+  "assets/js/modules/back-top.css": {
+    "file": "assets/back-top.a693ff1a.css",
+    "src": "assets/js/modules/back-top.css"
+  },
+  "assets/js/modules/mobile-menu.css": {
+    "file": "assets/mobile-menu.d713d16c.css",
+    "src": "assets/js/modules/mobile-menu.css"
+  },
+  "assets/scss/app.scss": {
+    "file": "assets/app.da943d8d.css",
+    "src": "assets/scss/app.scss",
+    "isEntry": true
+  },
+  "assets/scss/bootstrap.scss": {
+    "file": "assets/bootstrap.265cf37c.css",
+    "src": "assets/scss/bootstrap.scss",
+    "isEntry": true
+  },
+  "assets/js/app.js": {
+    "file": "assets/app-d5178360.js",
+    "src": "assets/js/app.js",
+    "isEntry": true,
+    "dynamicImports": [
+      "assets/js/modules/fontawesome.js",
+      "assets/js/modules/main-menu.js",
+      "assets/js/modules/bootstrap.js",
+      "assets/js/modules/mobile-menu.js",
+      "assets/js/modules/back-top.js"
+    ]
+  },
+  "assets/js/modules/back-top.js": {
+    "file": "assets/back-top-bec0ddcb.js",
+    "src": "assets/js/modules/back-top.js",
+    "isDynamicEntry": true,
+    "css": [
+      "assets/back-top.a693ff1a.css"
+    ]
+  },
+  "assets/js/modules/mobile-menu.js": {
+    "file": "assets/mobile-menu-7375b6c2.js",
+    "src": "assets/js/modules/mobile-menu.js",
+    "isDynamicEntry": true,
+    "css": [
+      "assets/mobile-menu.d713d16c.css"
+    ]
+  },
+  "assets/js/modules/main-menu.js": {
+    "file": "assets/main-menu-c5f470e0.js",
+    "src": "assets/js/modules/main-menu.js",
+    "isDynamicEntry": true
+  },
+  "assets/js/modules/fontawesome.js": {
+    "file": "assets/fontawesome-8e928453.js",
+    "src": "assets/js/modules/fontawesome.js",
+    "isDynamicEntry": true
+  },
+  "assets/js/modules/bootstrap.js": {
+    "file": "assets/bootstrap-260ec5a0.js",
+    "src": "assets/js/modules/bootstrap.js",
+    "isDynamicEntry": true
+  }
+}

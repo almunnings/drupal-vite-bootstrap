@@ -7,6 +7,12 @@
   transition: opacity 0.2s ease-in-out;
   opacity: 1;
 
+  .btn {
+    // Square up the button.
+    --bs-btn-padding-y: var(--bs-btn-padding-x);
+    --bs-btn-line-height: 1;
+  }
+
   &.position-absolute {
     bottom: auto;
     transform: translateY(-50%);

@@ -1,34 +1,26 @@
 /**
- * IconAgency fontawesome.js
+ * DVB fontawesome.js
+ *
+ * https://fontawesome.com/docs/apis/javascript/import-icons#package-names
  */
 
 import { library, dom } from '@fortawesome/fontawesome-svg-core';
 
 // Font Awesome Icons
 import {
-  faRocketLaunch,
   faChevronDown,
   faChevronUp,
   faChevronRight,
   faChevronLeft,
+  faCircleNotch,
+  faBell,
   faSquareRss,
-} from '@fortawesome/pro-light-svg-icons';
-
-import { faCircleNotch, faBell } from '@fortawesome/pro-solid-svg-icons';
+} from '@fortawesome/free-solid-svg-icons';
 
 export default class Module {
   constructor() {
     // Add icons
-    library.add(
-      faRocketLaunch,
-      faChevronDown,
-      faChevronUp,
-      faChevronRight,
-      faChevronLeft,
-      faBell,
-      faCircleNotch,
-      faSquareRss,
-    );
+    library.add(faChevronDown, faChevronUp, faChevronRight, faChevronLeft, faBell, faCircleNotch, faSquareRss);
 
     // Attach to a drupal behaviour to update on content changes.
     Drupal.behaviors.fa = {

@@ -1,6 +1,6 @@
 footer.site-footer {
-  --bs-link-color: #{$purple-200};
-  --bs-link-hover-color: #{$purple-300};
+  --bs-link-color: var(--bs-white);
+  --bs-link-hover-color: var(--bs-teal);
 
   a {
     @include transition;

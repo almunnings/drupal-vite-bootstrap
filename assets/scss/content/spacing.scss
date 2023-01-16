@@ -5,11 +5,15 @@
 :is(
   .field,
   .layout,
-  .block-layout-builder
+  .paragraph,
+  .block-layout-builder,
+  .field__item
 ) + :is(
   .field,
   .layout,
-  .block-layout-builder
+  .paragraph,
+  .block-layout-builder,
+  .field__item
 ) {
   margin-top: map-get($spacers, 3);
 }

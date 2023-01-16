@@ -21,7 +21,7 @@ export default class Module {
     const html = `
     <div class="back-to-top">
       <a href="#top" class="btn btn-primary rounded-circle" title="Top of page">
-        <i class="fal fa-chevron-up" aria-hidden="true"></i>
+        <i class="fas fa-chevron-up" aria-hidden="true"></i>
       </a>
     </div>
     `;

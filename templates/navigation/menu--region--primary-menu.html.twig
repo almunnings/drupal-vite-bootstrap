@@ -40,7 +40,7 @@
       ]
     %}
 
-    {% 
+    {%
       set link_classes = [
         'nav-link',
         'd-flex',
@@ -48,16 +48,16 @@
         'justify-content-center',
         'align-items-center',
         item.in_active_trail ? 'active',
-      ] 
+      ]
     %}
 
     <li{{ create_attribute().addClass(classes) }}>
       {% set link_title %}
         <span>{{ item.title }}</span>
-        
+
         {% if item.below %}
           <span class="ms-2">
-            <i class="fal fa-chevron-down" aria-hidden="true"></i>
+            <i class="fas fa-chevron-down" aria-hidden="true"></i>
           </span>
         {% endif %}
       {% endset %}
@@ -91,18 +91,18 @@
         ]
       %}
 
-      {% 
+      {%
         set link_classes = [
           'd-flex',
           'w-100',
           'border-bottom',
           'py-2',
-        ] 
+        ]
       %}
 
       {% set link_text -%}
         <span class="flex-grow-1">{{ item.title }}</span>
-        <span class="ms-2"><i class="fal fa-chevron-right"></i></span>
+        <span class="ms-2"><i class="fas fa-chevron-right"></i></span>
       {% endset %}
 
       <li{{ create_attribute().addClass(classes) }}>
@@ -128,7 +128,7 @@
         item.in_active_trail ? 'menu-item--active-trail',
       ]
     %}
-    
+
     <li{{ create_attribute().addClass(classes) }}>
       {{ link(item.title, item.url) }}
     </li>

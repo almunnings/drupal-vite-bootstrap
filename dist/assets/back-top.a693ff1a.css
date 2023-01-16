@@ -1,0 +1,1 @@
+.back-to-top{position:fixed;z-index:20;right:1rem;bottom:1rem;transition:opacity .2s ease-in-out;opacity:1}.back-to-top .btn{--bs-btn-padding-y: var(--bs-btn-padding-x);--bs-btn-line-height: 1}.back-to-top.position-absolute{bottom:auto;transform:translateY(-50%)}.back-to-top:not(.show){pointer-events:none;opacity:0}

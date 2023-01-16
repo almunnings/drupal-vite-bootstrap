@@ -1,6 +1,6 @@
 .site-header {
-  --bs-link-color: #{$cyan-400};
-  --bs-link-hover-color: #{$cyan-600};
+  --bs-link-color: var(--bs-white);
+  --bs-link-hover-color: var(--bs-teal);
 }
 
 // Very top of page, eg beta bar.
@@ -33,6 +33,10 @@
 
   .site-logo {
     max-width: clamp(2rem, 7vw, 25vw);
+
+    img {
+      max-height: clamp(2rem, 7vw, 4rem);
+    }
   }
 
   &:hover,

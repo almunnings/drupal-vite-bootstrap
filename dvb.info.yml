@@ -5,7 +5,7 @@ description: |
 type: theme
 'base theme': stable9
 starterkit: true
-core_version_requirement: ^10
+core_version_requirement: ^9.5 || ^10
 php: 8.1
 
 ckeditor5-stylesheets:
@@ -29,3 +29,8 @@ regions:
   sidebar_second: 'Sidebar second'
   footer: 'Footer'
   mobile_menu: 'Mobile menu'
+
+dependencies:
+  - core:help
+  - core:menu_ui
+  - core:menu_link_content

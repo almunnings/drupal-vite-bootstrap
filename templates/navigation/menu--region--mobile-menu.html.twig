@@ -47,18 +47,18 @@
 
       <li{{ item.attributes.addClass(classes) }}>
 
-          {% 
+          {%
             set link_classes = [
               'text-break',
               'py-2',
               menu_level > 0 ? 'small'
-            ] 
+            ]
           %}
-          
+
           {{ link(item.title, item.url, {'class': link_classes }) }}
-        
+
           {% if item.below %}
-            {% 
+            {%
               set button_classes = [
                 'btn',
                 'btn-dark',
@@ -66,28 +66,28 @@
                 'py-0',
                 'ms-2',
                 not item.in_active_trail ? 'collapsed',
-              ] 
+              ]
             %}
-            <button 
+            <button
               class="{{ button_classes|join(' ') }}"
-              data-bs-toggle="collapse" 
-              data-bs-target="#{{ collapse_id }}" 
-              aria-expanded="false" 
-              aria-controls="{{ collapse_id }}" 
+              data-bs-toggle="collapse"
+              data-bs-target="#{{ collapse_id }}"
+              aria-expanded="false"
+              aria-controls="{{ collapse_id }}"
               aria-label="Toggle sub menu for {{ item.title }}"
             >
-              <i class="fal fa-chevron-up" aria-hidden="true"></i>
+              <i class="fas fa-chevron-up" aria-hidden="true"></i>
             </button>
           {% endif %}
 
-          
+
 
         {% if item.below %}
           <div class="collapse{{ item.in_active_trail ? ' show' }}" id="{{ collapse_id }}">
             {{ menus.menu_links(item.below, attributes, menu_level + 1) }}
           </div>
         {% endif %}
-        
+
       </li>
     {% endfor %}
     </ul>
