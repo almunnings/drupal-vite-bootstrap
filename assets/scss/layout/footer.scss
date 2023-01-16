@@ -1,0 +1,10 @@
+footer.site-footer {
+  --bs-link-color: #{$purple-200};
+  --bs-link-hover-color: #{$purple-300};
+
+  a {
+    @include transition;
+
+    text-decoration: none;
+  }
+}

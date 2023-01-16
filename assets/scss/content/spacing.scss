@@ -1,0 +1,35 @@
+// Basic spacing flow for fields in content.
+
+/* stylelint-disable */
+// Remove if you go manual spacing with d-grid.
+:is(
+  .field,
+  .layout,
+  .block-layout-builder
+) + :is(
+  .field,
+  .layout,
+  .block-layout-builder
+) {
+  margin-top: map-get($spacers, 3);
+}
+/* stylelint-enable */
+
+// Match the doc flow.
+ul,
+ol,
+blockquote,
+.table-responsive {
+  margin-bottom: map-get($spacers, 3);
+}
+
+// Squares up everything in grids.
+// Without this, you need to pay close attention to margins.
+:is(p,ul,ol,table,blockquote,.table-responsive):last-child {
+  margin-bottom: 0;
+}
+
+// ul ul
+.list-group .list-group {
+  margin-top: var(--bs-list-group-item-padding-y);
+}

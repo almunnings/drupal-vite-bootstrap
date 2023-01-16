@@ -1,0 +1,17 @@
+// @see https://jonsuh.com/hamburgers/
+
+$hamburger-padding-x: 0.5rem;
+$hamburger-padding-y: 0.5rem;
+$hamburger-layer-border-radius: 0;
+$hamburger-layer-width: 26px;
+$hamburger-layer-height: 2px;
+$hamburger-layer-spacing: 7px;
+$hamburger-types: (squeeze);
+$hamburger-layer-color: currentColor;
+
+@import 'hamburgers/_sass/hamburgers/hamburgers';
+
+.hamburger {
+  border-radius: $btn-border-radius;
+  line-height: 1;
+}

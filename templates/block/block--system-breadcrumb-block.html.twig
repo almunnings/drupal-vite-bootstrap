@@ -1,0 +1,9 @@
+{% extends 'block.html.twig' %}
+
+{% do attributes.addClass('border-top') %}
+
+{% block content %}
+  <div class="container py-2">
+    {{ content }}
+  </div>
+{% endblock %}

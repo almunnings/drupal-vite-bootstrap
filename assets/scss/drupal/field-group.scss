@@ -1,0 +1,157 @@
+/**
+ * @file
+ * Contains minimal layout styling for the field-group elements.
+ */
+
+// Details with chevron fontawesome toggle on right.
+details {
+  > summary {
+    display: grid;
+    grid-template-areas:
+      'title icon'
+      'summary icon';
+    grid-template-rows: max-content auto;
+    grid-template-columns: auto min-content;
+    grid-auto-flow: row;
+    gap: 0 0;
+
+    &::marker { display: none; }
+
+    .title {
+      grid-area: title;
+      color: var(--bs-link-color);
+    }
+
+    .icon {
+      grid-area: icon;
+      .svg-inline--fa { @include transition; }
+    }
+
+    .summary {
+      @include font-size($font-size-sm);
+
+      grid-area: summary;
+      font-weight: var(--bs-body-font-weight);
+    }
+
+    &:hover .title {
+      text-decoration: underline;
+      color: var(--bs-link-hover-color);
+    }
+  }
+
+  &[open] > summary {
+    .title { color: inherit; }
+    .svg-inline--fa { transform: rotate(-180deg); }
+  }
+
+  &:not([open]) > summary { border-bottom: none; }
+}
+
+// Mobile detail flow
+div[data-vertical-tabs-panes]:not(.vertical-tabs__panes),
+div[data-horizontal-tabs-panes]:not(.horizontal-tabs-panes) {
+  > details + details {
+    margin-top: map-get($spacers, 3);
+  }
+}
+
+// Vertical tabs
+.vertical-tabs {
+  --vertical-tabs-width: clamp(10rem, 20vw, 18rem);
+
+  margin: 0 0 0 var(--vertical-tabs-width);
+  border-color: var(--bs-border-color-translucent);
+  border-top-right-radius: var(--bs-border-radius);
+  border-bottom-right-radius: var(--bs-border-radius);
+  background: var(--bs-white);
+}
+
+.vertical-tabs__menu {
+  width: var(--vertical-tabs-width);
+  margin-left: calc(-1 * var(--vertical-tabs-width));
+  border-color: var(--bs-border-color-translucent);
+  border-top-left-radius: var(--bs-border-radius);
+}
+
+.vertical-tabs__menu-item {
+  border-color: var(--bs-border-color-translucent);
+  background: rgba(var(--bs-black-rgb), 0.03);
+
+  a { padding: $card-spacer-y $card-spacer-x; }
+  &.first { border-top-left-radius: var(--bs-border-radius); }
+  &.last { border-bottom-left-radius: var(--bs-border-radius); }
+  &.is-selected { background: var(--bs-white); }
+  &.is-selected .vertical-tabs__menu-item-title { color: var(--bs-dark); }
+}
+
+.vertical-tabs__menu-item-title {
+  display: flex;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: var(--bs-body-font-weight);
+}
+
+.vertical-tabs__menu-item-summary {
+  @include font-size($font-size-base * 0.75);
+
+  color: rgba(var(--bs-body-color-rgb), 0.75);
+}
+
+.vertical-tabs__panes > * {
+  border: none;
+  border-radius: 0;
+  background: transparent;
+}
+
+// horizontal-tabs
+.horizontal-tabs {
+  margin: 0;
+  border: none;
+}
+
+.horizontal-tab-button a {
+  @include font-size(var(--bs-nav-link-font-size));
+  @include transition($nav-link-transition);
+  @include border-top-radius(var(--bs-nav-tabs-border-radius));
+
+  display: block;
+  margin-bottom: calc(var(--bs-nav-tabs-border-width) * -1);
+  padding: var(--bs-nav-link-padding-y) var(--bs-nav-link-padding-x);
+  text-decoration: if($link-decoration == none, null, none);
+  color: var(--bs-nav-link-color);
+  border: var(--bs-nav-tabs-border-width) solid transparent;
+  background: none;
+  font-weight: var(--bs-nav-link-font-weight);
+
+  strong { font-weight: inherit; }
+
+  &:hover,
+  &:focus {
+    text-decoration: if($link-hover-decoration == underline, none, null);
+    color: var(--bs-nav-link-hover-color);
+    border-color: var(--bs-nav-tabs-link-hover-border-color);
+    isolation: isolate;
+  }
+}
+
+.horizontal-tab-button.selected a {
+  color: var(--bs-nav-tabs-link-active-color);
+  border-color: var(--bs-nav-tabs-link-active-border-color);
+  background-color: var(--bs-nav-tabs-link-active-bg);
+}
+
+.horizontal-tabs-panes .horizontal-tabs-pane {
+  padding: 0;
+}
+
+.horizontal-tabs-pane > .details-wrapper {
+  border: var(--bs-border-width) var(--bs-border-style) var(--bs-border-color);
+  border-top: none;
+  border-bottom-right-radius: var(--bs-border-radius);
+  border-bottom-left-radius: var(--bs-border-radius);
+}
+
+ul[data-horizontal-tabs-list]:empty {
+  border: none;
+}

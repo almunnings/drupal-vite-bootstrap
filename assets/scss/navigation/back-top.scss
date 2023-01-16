@@ -1,0 +1,19 @@
+// This will conflict with marketing chat popups.
+.back-to-top {
+  position: fixed;
+  z-index: 20;
+  right: $spacer;
+  bottom: $spacer;
+  transition: opacity 0.2s ease-in-out;
+  opacity: 1;
+
+  &.position-absolute {
+    bottom: auto;
+    transform: translateY(-50%);
+  }
+
+  &:not(.show) {
+    pointer-events: none;
+    opacity: 0;
+  }
+}

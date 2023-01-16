@@ -1,0 +1,12 @@
+// The ckeditor caption filter's styling overrides ours.
+.media-embed-error,
+.caption > .media-embed-error {
+  max-width: 200px;
+  padding: 100px 20px 20px;
+  text-align: center;
+  background-color: #ebebeb;
+  background-image: url('/assets/images/no-thumbnail.png');
+  background-repeat: no-repeat;
+  background-position: center top;
+  background-size: 100px 100px;
+}

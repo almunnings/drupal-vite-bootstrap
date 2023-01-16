@@ -1,0 +1,31 @@
+{% extends "field.html.twig" %}
+
+{%
+  set classes = [
+    'border',
+    'rounded',
+    'p-4',
+  ]
+%}
+
+{% do attributes.addClass(classes) %}
+
+{% block content %}
+<section{{ attributes }}>
+  {% if comments and not label_hidden %}
+    {{ title_prefix }}
+    <h2{{ title_attributes.addClass(title_classes) }}>{{ label }}</h2>
+    {{ title_suffix }}
+  {% endif %}
+
+  {% if comments %}
+    {{ comments }}
+  {% endif %}
+
+  {% if comment_form %}
+    <h2 class="title comment-form__title">{{ 'Add new comment'|t }}</h2>
+    {{ comment_form }}
+  {% endif %}
+
+</section>
+{% endblock %}

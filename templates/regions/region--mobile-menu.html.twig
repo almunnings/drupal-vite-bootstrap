@@ -1,0 +1,26 @@
+{% extends 'region.html.twig' %}
+
+{%
+  set classes = [
+    'offcanvas',
+    'offcanvas-end',
+    'bg-dark',
+    'text-light',
+  ]
+%}
+
+{% do attributes.addClass(classes) %}
+{% do attributes.setAttribute('tabindex', '-1') %}
+{% do attributes.setAttribute('id', 'mobile-menu') %}
+{% do attributes.setAttribute('aria-labelledby', 'mobile-menu-label') %}
+{% do attributes.setAttribute('hidden', 'hidden') %}
+
+{% block content %}
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="mobile-menu-label">{{ 'Menu'|t }}</h5>
+    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="{{ 'Close'|t }}"></button>
+  </div>
+  <div class="offcanvas-body border-top">
+    {{ content }}
+  </div>
+{% endblock %}

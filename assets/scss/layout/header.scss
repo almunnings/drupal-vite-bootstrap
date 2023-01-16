@@ -1,0 +1,42 @@
+.site-header {
+  --bs-link-color: #{$cyan-400};
+  --bs-link-hover-color: #{$cyan-600};
+}
+
+// Very top of page, eg beta bar.
+.region-alerts {
+  --bs-link-color: var(--bs-dark);
+  --bs-link-hover-color: var(--bs-dark);
+}
+
+// Fix devel z-indexes.
+.region-messages {
+  position: relative;
+  z-index: 1;
+}
+
+// Square up as its 100% width.
+.region-messages .alert {
+  --bs-alert-border-radius: 0;
+  --bs-alert-margin-bottom: 0;
+}
+
+// This also appears on the maintenance page.
+.site-branding {
+  --bs-link-color: var(--bs-white);
+  --bs-link-hover-color: var(--bs-white);
+
+  @include transition;
+
+  text-decoration: none;
+  opacity: 1;
+
+  .site-logo {
+    max-width: clamp(2rem, 7vw, 25vw);
+  }
+
+  &:hover,
+  &:focus {
+    opacity: 0.75;
+  }
+}

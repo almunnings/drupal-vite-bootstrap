@@ -1,0 +1,137 @@
+{#
+/**
+ * @file
+ * Theme override to display a menu.
+ *
+ * Available variables:
+ * - menu_name: The machine name of the menu.
+ * - items: A nested list of menu items. Each menu item contains:
+ *   - attributes: HTML attributes for the menu item.
+ *   - below: The menu item child items.
+ *   - title: The menu link title.
+ *   - url: The menu link url, instance of \Drupal\Core\Url
+ *   - localized_options: Menu link localized options.
+ *   - is_expanded: TRUE if the link has visible children within the current
+ *     menu tree.
+ *   - is_collapsed: TRUE if the link has children within the current menu tree
+ *     that are not currently visible.
+ *   - in_active_trail: TRUE if the link is in the active trail.
+ */
+#}
+{% import _self as menus %}
+
+{% if items %}
+<div{{ attributes.addClass('container') }}>
+  {{ menus.level_one(items) }}
+</div>
+{% endif %}
+
+
+{% macro level_one(items) %}
+  {% import _self as menus %}
+  <ul class="nav nav-fill nav-pills flex-nowrap">
+  {% for item in items %}
+    {%
+      set classes = [
+        'nav-item',
+        item.is_expanded ? 'menu-item--expanded',
+        item.is_collapsed ? 'menu-item--collapsed',
+        item.in_active_trail ? 'menu-item--active-trail',
+      ]
+    %}
+
+    {% 
+      set link_classes = [
+        'nav-link',
+        'd-flex',
+        'h-100',
+        'justify-content-center',
+        'align-items-center',
+        item.in_active_trail ? 'active',
+      ] 
+    %}
+
+    <li{{ create_attribute().addClass(classes) }}>
+      {% set link_title %}
+        <span>{{ item.title }}</span>
+        
+        {% if item.below %}
+          <span class="ms-2">
+            <i class="fal fa-chevron-down" aria-hidden="true"></i>
+          </span>
+        {% endif %}
+      {% endset %}
+
+      {{ link(link_title, item.url, {'class': link_classes }) }}
+
+      {%- if item.below -%}
+        <button type="button" class="js-submenu-expand btn btn-warning btn-sm position-absolute visually-hidden-focusable">
+          {{ 'Expand <em>@title</em> sub menu'|t({'@title': item.title}) }}
+        </button>
+
+        <div class="js-submenu position-absolute start-0 end-0 text-start py-5 bg-dark">
+          {{ menus.level_two(item.below) }}
+        </div>
+      {%- endif -%}
+    </li>
+  {% endfor %}
+  </ul>
+{% endmacro %}
+
+
+{% macro level_two(items) %}
+  {% import _self as menus %}
+  <ul class="container list-unstyled mb-0">
+    {% for item in items %}
+      {%
+        set classes = [
+          item.is_expanded ? 'menu-item--expanded',
+          item.is_collapsed ? 'menu-item--collapsed',
+          item.in_active_trail ? 'menu-item--active-trail',
+        ]
+      %}
+
+      {% 
+        set link_classes = [
+          'd-flex',
+          'w-100',
+          'border-bottom',
+          'py-2',
+        ] 
+      %}
+
+      {% set link_text -%}
+        <span class="flex-grow-1">{{ item.title }}</span>
+        <span class="ms-2"><i class="fal fa-chevron-right"></i></span>
+      {% endset %}
+
+      <li{{ create_attribute().addClass(classes) }}>
+        {{ link(link_text, item.url, {'class': link_classes }) }}
+
+        {%- if item.below -%}
+          {{ menus.level_three(item.below) }}
+        {%- endif -%}
+      </li>
+    {% endfor %}
+  </ul>
+{% endmacro %}
+
+
+{% macro level_three(items) %}
+  <ul class="list-unstyled small mt-2 mb-3">
+  {% for item in items %}
+    {%
+      set classes = [
+        'my-2',
+        item.is_expanded ? 'menu-item--expanded',
+        item.is_collapsed ? 'menu-item--collapsed',
+        item.in_active_trail ? 'menu-item--active-trail',
+      ]
+    %}
+    
+    <li{{ create_attribute().addClass(classes) }}>
+      {{ link(item.title, item.url) }}
+    </li>
+  {% endfor %}
+  </ul>
+{% endmacro %}

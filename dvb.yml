@@ -1,0 +1,31 @@
+name: Drupal Vite Bootstrap Theme
+description: |
+  A custom theme specifically created for this website.
+
+type: theme
+'base theme': stable9
+starterkit: true
+core_version_requirement: ^10
+php: 8.1
+
+ckeditor5-stylesheets:
+  - dist/assets/ckeditor.css
+
+libraries:
+  - dvb/hmr
+  - dvb/app
+
+regions:
+  alerts: Alerts
+  header: Header
+  primary_menu: 'Primary menu'
+  secondary_menu: 'Secondary menu'
+  messages: Messages
+  breadcrumb: Breadcrumb
+  highlighted: Highlighted
+  help: Help
+  content: Content
+  sidebar_first: 'Sidebar first'
+  sidebar_second: 'Sidebar second'
+  footer: 'Footer'
+  mobile_menu: 'Mobile menu'

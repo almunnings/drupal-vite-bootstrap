@@ -1,0 +1,10 @@
+{% extends 'links.html.twig' %}
+
+{% do attributes.addClass('list-inline', 'small', 'field') %}
+
+{% for item in links %}
+  {% do item.attributes.addClass('list-inline-item') %}
+  {% if 'hidden' in item.link['#options'].attributes.class %}
+    {% do item.attributes.addClass('visually-hidden') %}
+  {% endif %}
+{% endfor %}

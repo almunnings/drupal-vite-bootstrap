@@ -1,0 +1,36 @@
+.field__label,
+.field .field-label-inline,
+.field .field-label-above {
+  font-weight: bold;
+}
+
+.field--label-inline {
+  > .field__label,
+  > .field__items,
+  > .field__items > .field__item,
+  > .field__item {
+    display: inline;
+  }
+}
+
+.field--type-image > a {
+  display: block;
+}
+
+// Tables in forms use a h4 for the label. Why.
+.field-label :is(h1,h2,h3,h4).label {
+  display: inline-block;
+  margin: 0;
+  color: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  font-style: inherit;
+}
+
+.node__meta .field--name-user-picture {
+  max-width: 3rem;
+}
+
+.comment__meta .field--name-user-picture {
+  max-width: 2rem;
+}

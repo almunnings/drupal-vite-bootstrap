@@ -1,0 +1,19 @@
+{% extends 'region.html.twig' %}
+
+{%
+  set classes = [
+    'container',
+  ]
+%}
+
+{% do attributes.addClass(classes) %}
+{% do attributes.setAttribute('role', 'alert') %}
+
+
+{% block content %}
+  <div class="card">
+    <div class="card-body text-secondary small">
+     {{ content }}
+    </div>
+  </div>
+{% endblock %}

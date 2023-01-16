@@ -1,0 +1,8 @@
+// This file is intended to house WYSIWYG content from ckeditor.
+// Styles defined here are available within ckeditor.
+//
+// ckeditor will not have bootstrap grids etc unless you explicitly add bootstrap.css to ckeditor.scss
+
+p.test {
+  color: pink;
+}

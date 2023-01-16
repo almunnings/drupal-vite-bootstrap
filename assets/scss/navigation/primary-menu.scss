@@ -1,0 +1,80 @@
+// Menu styling.
+.region-primary-menu .nav {
+
+  a { text-decoration: none; }
+
+  // Level 1
+  .nav-link {
+    --bs-nav-pills-border-radius: 0;
+
+    &:hover,
+    &:focus {
+      color: white;
+      background: var(--bs-gray-800);
+    }
+  }
+
+  // Level 2
+  .nav-link ~ div {
+    --bs-link-color: var(--bs-white);
+    --bs-link-hover-color: var(--bs-info);
+    --bs-border-color: var(--bs-gray-700);
+
+    z-index: 100;
+
+    // Split into columns.
+    > ul {
+      columns: 2;
+      column-gap: var(--bs-gutter-x);
+
+      @include media-breakpoint-up(lg) {
+        columns: 3;
+      }
+    }
+
+    // Fix border wrapping in columns.
+    li { break-inside: avoid-column; }
+    ul ul { border-bottom: 1px solid transparent; }
+
+    // Active trail.
+    .menu-item--active-trail > a {
+      --bs-link-color: var(--bs-danger);
+    }
+
+    // Active page.
+    a.is-active {
+      --bs-link-color: var(--bs-info);
+    }
+  }
+}
+
+// Expand/collapse.
+.region-primary-menu .nav-item {
+  .nav-link ~ div {
+    @include transition;
+
+    position: absolute;
+    z-index: 15;
+    top: 100%;
+    right: 0;
+    left: 0;
+    visibility: hidden;
+    opacity: 0;
+  }
+
+  .js-submenu-expand[aria-expanded='true'] ~ div,
+  &:hover .nav-link ~ div {
+    visibility: visible;
+    opacity: 1;
+  }
+}
+
+// Accessible button.
+.js-submenu-expand {
+  position: absolute;
+  z-index: 101;
+  top: 0;
+  height: -webkit-fill-available;
+  height: fill-available;
+  transform: translateX(-50%);
+}

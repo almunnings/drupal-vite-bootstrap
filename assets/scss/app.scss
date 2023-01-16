@@ -1,0 +1,21 @@
+// IconAgency app.scss
+
+// Drupal specific fixes that cant be templated.
+@import 'drupal/drupal';
+
+// Regions
+@import 'layout/header';
+@import 'layout/footer';
+
+// Navigation
+@import 'navigation/primary-menu';
+
+// Text
+@import 'content/spacing';
+@import 'content/fields';
+
+// WYSIWYG content
+.text-formatted {
+  /* stylelint-disable-next-line no-invalid-position-at-import-rule */
+  @import 'content/wysiwyg';
+}

@@ -1,0 +1,96 @@
+// Drupal clobber.
+input.form-text {
+  margin-top: 0;
+}
+
+// Pad in a bit. Looks better.
+.js input.form-autocomplete {
+  background-position-x: calc(100% - #{$input-padding-x});
+  &.is-invalid {
+    background-image: escape-svg($form-feedback-icon-invalid);
+  }
+}
+
+// Some elements contain multiple form-items in the form-item.
+// Eg password on registration page.
+.form-item > .form-item + .form-item {
+  margin-top: map-get($spacers, 3);
+}
+
+// Add an asterix.
+.form-required:after {
+  content: '\00a0*';
+  color: var(--bs-danger);
+}
+
+.required.error + .ck-editor {
+  --ck-color-base-border: var(--bs-danger);
+}
+
+// Button to style as plain text.
+button.webform-details-toggle-state,
+button.link:not(.btn) {
+  @include font-size($font-size-sm);
+
+  margin: 0;
+  padding: 0;
+  color: var(--bs-secondary);
+  border: none;
+  background: transparent;
+  font-family: inherit;
+  font-weight: normal;
+  line-height: inherit;
+
+  &:hover,
+  &:focus,
+  &:active {
+    color: var(--bs-link-hover-color);
+  }
+}
+
+// Webform
+.webform-wizard-pages-links { display: none !important; }
+.webform-details-toggle-state-wrapper { margin-top: 0; }
+.webform-scale-option .form-check { padding-left: 0; }
+.webform-scale-option .form-check-label { line-height: 1.6; }
+.rateit-range { vertical-align: middle; }
+
+// Select 2
+.select2-container .select2-selection {
+  height: 38px;
+  border-color: var(--bs-border-color);
+  &.select2-selection--single .select2-selection__rendered {
+    line-height: 38px;
+  }
+}
+
+// Signup form injected by Drupal JS.
+.password-suggestions,
+.password-confirm-message,
+.password-strength {
+  @include font-size($font-size-sm);
+
+  margin-top: map-get($spacers, 1);
+  color: var(--bs-secondary);
+
+  ul { margin: 0; }
+  .ok { color: var(--bs-success); }
+  .error { color: var(--bs-danger); }
+}
+
+// Use bootstrap colors.
+.password-strength {
+  .is-weak { background: var(--bs-danger); }
+  .is-fair { background: var(--bs-warning); }
+  .is-good { background: var(--bs-info); }
+  .is-strong { background: var(--bs-success); }
+
+  .password-strength__indicator,
+  .password-strength__meter {
+    border-radius: $progress-border-radius;
+  }
+
+  .password-strength__title {
+    margin-top: map-get($spacers, 1);
+  }
+}

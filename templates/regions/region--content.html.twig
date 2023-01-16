@@ -1,0 +1,10 @@
+{% extends 'region.html.twig' %}
+
+{%
+  set classes = [
+    'd-grid',
+    'gap-3',
+  ]
+%}
+
+{% do attributes.addClass(classes) %}

@@ -1,0 +1,43 @@
+// Tide up sidebar clipping.
+.draggable {
+  @include transition(background 0.2s ease-in-out);
+
+  box-sizing: content-box;
+
+  .handle,
+  .tabledrag-handle {
+    box-sizing: content-box;
+  }
+
+  &.drag { background: rgba(var(--bs-info-rgb), 0.125); }
+
+  // > td:first-child {
+  //   width: 1px;
+  //   padding-right: 0;
+  //   padding-left: 0;
+  //   white-space: nowrap;
+  //   * {
+  //     box-sizing: content-box;
+  //   }
+  // }
+  // a.tabledrag-handle {
+  //   margin: 0;
+  //   .handle {
+  //     margin: 0;
+  //   }
+  // }
+  // .tabledrag-changed {
+  //   display: inline-block;
+  //   margin-top: 0.35em;
+  //   margin-left: -0.21em;
+  //   vertical-align: middle;
+  // }
+}
+// Multiple table input alert injected by drupal JS.
+.tabledrag-changed-warning {
+  --bs-text-opacity: 0.75;
+
+  @include font-size($font-size-sm);
+
+  color: rgba(var(--bs-body-color-rgb), 0.75) !important;
+}

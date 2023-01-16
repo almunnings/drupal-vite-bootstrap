@@ -1,0 +1,59 @@
+form + .layout-builder {
+  margin-top: map-get($spacers, 3);
+}
+
+#drupal-off-canvas {
+  --bs-body-color-rgb: 255, 255, 255;
+  --bs-body-bg-rgb: var(--bs-dark-rgb);
+  --bs-body-color: var(--bs-white);
+
+  > form {
+    display: block !important;
+    padding-top: 10px;
+  }
+
+  .form-label { display: block; }
+
+  .form-item {
+    min-height: revert;
+    padding-left: revert;
+  }
+
+  #formatter-settings-wrapper {
+    margin-bottom: $spacer;
+  }
+
+  .form-actions {
+    margin-top: 15px;
+    > * {
+      margin: 0;
+    }
+  }
+
+  .list-group-item {
+    clear: both;
+  }
+
+  .layout-selection li a {
+    display: flex;
+    align-items: center;
+
+    .layout-icon {
+      flex-shrink: 0;
+      align-self: start;
+      margin-right: 15px;
+    }
+  }
+
+  .inline-block-create-button {
+    background-color: var(--bs-link-color);
+    &:hover,
+    &:focus {
+      background-color: var(--bs-link-hover-color);
+    }
+  }
+
+  .table-responsive {
+    overflow: initial;
+  }
+}

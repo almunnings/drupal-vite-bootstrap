@@ -1,0 +1,42 @@
+.region-mobile-menu {
+  --bs-link-color: var(--bs-light);
+  --bs-link-hover-color: var(--bs-info);
+  --bs-border-color: #{$gray-700};
+
+  .menu {
+    li {
+      display: grid;
+      grid-template-areas:
+        'link button'
+        'expand expand';
+      grid-template-rows: max-content auto;
+      grid-template-columns: auto min-content;
+      grid-auto-flow: row;
+      gap: 0 0;
+
+      > a { grid-area: link; }
+      .btn { grid-area: button; }
+      .collapse { grid-area: expand; }
+    }
+
+    a {
+      @include transition;
+
+      text-decoration: none;
+    }
+
+    a.is-active,
+    .menu-item--active-trail > a {
+      --bs-link-color: var(--bs-link-hover-color);
+    }
+
+    .fa-chevron-up { @include transition; }
+    .btn.collapsed .fa-chevron-up { transform: rotate(-180deg); }
+  }
+
+  .block + .block {
+    margin-top: map-get($spacers, 3);
+    padding-top: map-get($spacers, 3);
+    border-top: 1px solid var(--bs-border-color);
+  }
+}

@@ -1,0 +1,36 @@
+/**
+ * @file
+ * Contains minimal fixes for Drupal and Bootstrap.
+ */
+
+@import 'field-group';
+@import 'forms';
+@import 'layout-builder';
+@import 'media-library-errors';
+@import 'media-library';
+@import 'table-draggable';
+@import 'ui-dialog';
+
+// Inline errors smaller.
+.region-content div[data-drupal-messages] {
+  @include font-size($font-size-sm);
+}
+
+// Drupal clobber.
+em.placeholder {
+  display: initial;
+  min-height: unset;
+  cursor: initial;
+  vertical-align: initial;
+  opacity: initial;
+  background-color: initial;
+  font-style: inherit;
+}
+
+// Warnign injected by drupal JS.
+abbr.warning { text-decoration: none; }
+
+// Comments and forums.
+.indented {
+  margin-left: var(--bs-gutter-x);
+}

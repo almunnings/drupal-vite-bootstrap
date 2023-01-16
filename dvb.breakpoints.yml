@@ -1,0 +1,30 @@
+dvb.sm:
+  label: sm
+  mediaQuery: 'all and (max-width: 767px)'
+  weight: 1
+  multipliers:
+    - 1x
+dvb.md:
+  label: md
+  mediaQuery: 'all and (min-width: 768px) and (max-width: 991px)'
+  weight: 2
+  multipliers:
+    - 1x
+dvb.lg:
+  label: lg
+  mediaQuery: 'all and (min-width: 992px) and (max-width: 1199px)'
+  weight: 3
+  multipliers:
+    - 1x
+dvb.xl:
+  label: xl
+  mediaQuery: 'all and (min-width: 1200px) and (max-width: 1399px)'
+  weight: 4
+  multipliers:
+    - 1x
+dvb.xxl:
+  label: xxl
+  mediaQuery: 'all and (min-width: 1400px)'
+  weight: 5
+  multipliers:
+    - 1x

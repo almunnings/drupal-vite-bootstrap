@@ -1,0 +1,30 @@
+// IconAgency _variables.scss
+@import 'bootstrap/scss/functions';
+
+// Optional variable overrides here
+$enable-smooth-scroll: false;
+
+$custom-color: #df711b;
+$custom-theme-colors: (
+  'custom': $custom-color
+);
+
+// Variables come next
+@import 'bootstrap/scss/variables';
+
+$breadcrumb-font-size: $font-size-sm;
+$breadcrumb-margin-bottom: 0;
+
+$form-label-font-weight: bold;
+
+$legend-margin-bottom: $form-label-margin-bottom;
+$legend-font-size: $form-label-font-size;
+$legend-font-weight: $form-label-font-weight;
+
+// Optional Sass map overrides here
+$theme-colors: map-merge($theme-colors, $custom-theme-colors);
+
+// Rest of bootstrap imports
+@import 'bootstrap/scss/maps';
+@import 'bootstrap/scss/mixins';
+@import 'bootstrap/scss/utilities';

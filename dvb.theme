@@ -1,0 +1,203 @@
+<?php
+
+/**
+ * @file
+ * Drupal Vite Bootstrap Theme.
+ */
+
+use Drupal\block\Entity\Block;
+use Drupal\Component\Utility\Xss;
+use Drupal\dvb\Vite;
+
+/**
+ * Implements hook_library_info_alter().
+ */
+function dvb_library_info_alter(array &$libraries, string $extension): void {
+  if ($extension === 'dvb') {
+    Vite::alter($libraries);
+  }
+}
+
+/**
+ * Get the URL to a vite asset.
+ *
+ * Usage: vite_asset('assets/images/something.jpg');
+ */
+function vite_asset(string $file, ?string $library_name = NULL): string {
+  return Vite::create($library_name ?? 'dvb/app')->find($file);
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ *
+ * - Pass block region to THEME_theme_suggestions_menu_alter.
+ */
+function dvb_preprocess_block(array &$variables): void {
+  if (isset($variables['elements']['#id'])) {
+    if ($block = Block::load($variables['elements']['#id'])) {
+      $variables['content']['#attributes']['data-region'] = $block->getRegion();
+    }
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ *
+ * - Allow HTML safely in buttons.
+ */
+function dvb_preprocess_input(array &$variables): void {
+  if (in_array($variables['element']['#type'] ?? [], ['button', 'submit'])) {
+    $variables['safe_value_label'] = Xss::filter((string) $variables['attributes']['value']);
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ *
+ * - Pass input type THEME_theme_suggestions_form_element_label_alter.
+ */
+function dvb_preprocess_form_element(array &$variables): void {
+  if (isset($variables['element']['#type'])) {
+    $variables['label']['#form_element_type'] = $variables['element']['#type'];
+  }
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ */
+function dvb_theme_suggestions_block_alter(array &$suggestions, array $variables): void {
+  if (isset($variables['element']['#id']) && $block = Block::load($variables['elements']['#id'])) {
+    foreach ($suggestions as $suggestion) {
+      $suggestions[] = $suggestion . '__region__' . $block->getRegion();
+    }
+  }
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ *
+ * - Add block region theme suggestions for menu.
+ */
+function dvb_theme_suggestions_menu_alter(array &$suggestions, array $variables): void {
+  if (isset($variables['attributes']['data-region'])) {
+    $suggestions[] = 'menu__region__' . $variables['attributes']['data-region'];
+  }
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ */
+function dvb_theme_suggestions_form_alter(array &$suggestions, array $variables): void {
+  if (isset($variables['element']['#id'])) {
+    $suggestions[] = 'form__' . $variables['element']['#id'];
+  }
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ */
+function dvb_theme_suggestions_form_element_alter(array &$suggestions, array $variables): void {
+  if (isset($variables['element']['#type'])) {
+    $suggestions[] = 'form_element__' . $variables['element']['#type'];
+  }
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ */
+function dvb_theme_suggestions_form_element_label_alter(array &$suggestions, array $variables): void {
+  if (isset($variables['element']['#form_element_type'])) {
+    $suggestions[] = 'form_element_label__type__' . $variables['element']['#form_element_type'];
+  }
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ */
+function dvb_theme_suggestions_container_alter(array &$suggestions, array $variables): void {
+  if (isset($variables['element']['#type'])) {
+    $suggestions[] = 'container__' . $variables['element']['#type'];
+  }
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ */
+function dvb_theme_suggestions_field_alter(array &$suggestions, array $variables) {
+  $element = $variables['element'];
+
+  // Inject at specific position. @see system_theme_suggestions_field().
+  $pos = 1;
+  $suggestions = array_merge(
+    array_slice($suggestions, 0, $pos),
+    ['field__' . $element['#field_type'] . '__' . $element['#formatter']],
+    array_slice($suggestions, $pos)
+  );
+
+  if (!empty($element['#view_mode']) || !empty($element['#ds_view_mode'])) {
+    $view_mode = $element['#ds_view_mode'] ?? $element['#view_mode'];
+    foreach ($suggestions as $suggestion) {
+      $suggestions[] = $suggestion . '__' . $view_mode;
+    }
+  }
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ */
+function dvb_theme_suggestions_views_view_alter(array &$suggestions, array $variables): void {
+  /** @var \Drupal\views\Entity\View $view */
+  $view = $variables['view'];
+
+  $suggestions[] = 'views_view__' . $view->id();
+  $suggestions[] = 'views_view__' . $view->id() . '__' . $view->current_display;
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ */
+function dvb_theme_suggestions_views_view_grouping_alter(array &$suggestions, array $variables): void {
+  /** @var \Drupal\views\Entity\View $view */
+  $view = $variables['view'];
+
+  $suggestions[] = 'views_view_grouping__' . $view->id();
+  $suggestions[] = 'views_view_grouping__' . $view->id() . '__' . $view->current_display;
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ */
+function dvb_theme_suggestions_views_view_list_alter(array &$suggestions, array $variables): void {
+  /** @var \Drupal\views\Entity\View $view */
+  $view = $variables['view'];
+
+  $suggestions[] = 'views_view_list__' . $view->id();
+  $suggestions[] = 'views_view_list__' . $view->id() . '__' . $view->current_display;
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ */
+function dvb_theme_suggestions_views_view_unformatted_alter(array &$suggestions, array $variables): void {
+  /** @var \Drupal\views\Entity\View $view */
+  $view = $variables['view'];
+
+  $suggestions[] = 'views_view_unformatted__' . $view->id();
+  $suggestions[] = 'views_view_unformatted__' . $view->id() . '__' . $view->current_display;
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ */
+function dvb_theme_suggestions_views_view_field_alter(array &$suggestions, array $variables): void {
+  /** @var \Drupal\views\Entity\View $view */
+  $view = $variables['view'];
+
+  /** @var \Drupal\views\Plugin\views\field\EntityField $field */
+  $field = $variables['field'];
+
+  $suggestions[] = 'views_view_field__' . $view->id();
+  $suggestions[] = 'views_view_field__' . $view->id() . '__field__' . $field->field;
+  $suggestions[] = 'views_view_field__' . $view->id() . '__' . $view->current_display;
+  $suggestions[] = 'views_view_field__' . $view->id() . '__' . $view->current_display . '__field__' . $field->field;
+}

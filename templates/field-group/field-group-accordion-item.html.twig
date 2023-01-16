@@ -1,0 +1,52 @@
+{#
+/**
+ * @file
+ * Default theme implementation for a fieldgroup accordion item.
+ *
+ * Available variables:
+ * - title: Title of the group.
+ * - children: The children of the group.
+ * - label_attributes: A list of HTML attributes for the label.
+ * - attributes: A list of HTML attributes for the group wrapper.
+ *
+ * @see template_preprocess_field_group_accordion()
+ *
+ * @ingroup themeable
+ */
+#}
+
+{% set id = element['#group_name'] %}
+
+<div{{ attributes.addClass('accordion-item') }}>
+  <h2{{ label_attributes.addClass('accordion-header').setAttribute('id', id) }}>
+    <button 
+      class="accordion-button" 
+      type="button" 
+      data-bs-toggle="collapse" 
+      data-bs-target="#{{ id ~ '__body' }}" 
+      aria-expanded="{{ open ? 'true' : 'false' }}" 
+      aria-controls="{{ id ~ '__body' }}"
+    >
+      {{ title }}
+    </button>
+  </h2>
+
+  {% 
+    set body_attributes = create_attribute({ 
+      'id': id ~ '__body',
+      'aria-labelledby': id,
+      'class': [
+        'accordion-collapse',
+        'collapse',
+        open ? 'show',
+      ]
+    }) 
+  %}
+
+  <div{{ body_attributes }}>
+    <div class="accordion-body">
+        {% if description %}<div class="description"></div>{% endif %}
+        {{children}}
+    </div>
+  </div>
+</div>
