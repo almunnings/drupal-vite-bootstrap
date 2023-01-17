@@ -17,6 +17,10 @@ input.form-text {
   margin-top: map-get($spacers, 3);
 }
 
+.form-wrapper + .form-wrapper {
+  margin-top: map-get($spacers, 3);
+}
+
 // Add an asterix.
 .form-required:after {
   content: '\00a0*';
@@ -92,5 +96,13 @@ button.link:not(.btn) {
 
   .password-strength__title {
     margin-top: map-get($spacers, 1);
+  }
+}
+
+.description.small {
+  > .list-group {
+    --bs-list-group-color: inherit;
+
+    margin-top: map-get($spacers, 3);
   }
 }

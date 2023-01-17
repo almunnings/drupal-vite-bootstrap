@@ -15,6 +15,11 @@ libraries:
   - dvb/hmr
   - dvb/app
 
+libraries-override:
+  gin/ajax: false
+  gin/dialog: false
+  gin/media_library: false
+
 regions:
   alerts: Alerts
   header: Header

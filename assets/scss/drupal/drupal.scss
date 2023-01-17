@@ -6,10 +6,12 @@
 @import 'field-group';
 @import 'forms';
 @import 'layout-builder';
+@import 'layout-paragraphs';
 @import 'media-library-errors';
 @import 'media-library';
 @import 'table-draggable';
 @import 'ui-dialog';
+@import 'messages';
 
 // Inline errors smaller.
 .region-content div[data-drupal-messages] {
@@ -33,4 +35,8 @@ abbr.warning { text-decoration: none; }
 // Comments and forums.
 .indented {
   margin-left: var(--bs-gutter-x);
+}
+
+:root {
+  --sk-color: var(--bs-gray-500);
 }

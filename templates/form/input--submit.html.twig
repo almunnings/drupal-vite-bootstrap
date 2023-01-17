@@ -13,11 +13,11 @@
 
 {% do attributes.addClass('btn') %}
 
-{% if safe_value_label matches '{(reset|undo)}i' %}
+{% if safe_value_label matches '{(reset|cancel|undo)}i' %}
   {% do attributes.addClass('btn-outline-danger') %}
 {% elseif safe_value_label matches '{(delete|remove)}i' %}
   {% do attributes.addClass('btn-danger') %}
-{% elseif safe_value_label matches '{(back|previous|discard|revert|preview)}i' %}
+{% elseif safe_value_label matches '{(back|close|previous|discard|revert|preview)}i' %}
   {% do attributes.addClass('btn-outline-secondary') %}
 {% elseif safe_value_label matches '{^(add|edit)}i' %}
   {% do attributes.addClass('btn-outline-secondary', 'btn-sm') %}

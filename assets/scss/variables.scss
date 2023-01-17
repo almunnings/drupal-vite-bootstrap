@@ -24,6 +24,9 @@ $legend-font-weight: $form-label-font-weight;
 // Optional Sass map overrides here
 $theme-colors: map-merge($theme-colors, $custom-theme-colors);
 
+$modal-backdrop-bg: var(--bs-gray-500);
+$modal-backdrop-opacity: 0.8;
+
 // Rest of bootstrap imports
 @import 'bootstrap/scss/maps';
 @import 'bootstrap/scss/mixins';

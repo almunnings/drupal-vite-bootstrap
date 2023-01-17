@@ -1,0 +1,41 @@
+// Messages coming from an admin action and injected dynamically into the interface dont get themed.
+
+@mixin message-variant($state, $value) {
+  $alert-background: shift-color($value, $alert-bg-scale);
+  $alert-border: shift-color($value, $alert-border-scale);
+  $alert-color: shift-color($value, $alert-color-scale);
+
+  @if (contrast-ratio($alert-background, $alert-color) < $min-contrast-ratio) {
+    $alert-color: mix($value, color-contrast($alert-background), abs($alert-color-scale));
+  }
+
+  /* stylelint-disable-line */
+  &.messages--#{$state} {
+    @include alert-variant($alert-background, $alert-border, $alert-color);
+  }
+}
+
+.messages {
+  --#{$prefix}alert-bg: transparent;
+  --#{$prefix}alert-padding-x: #{$alert-padding-x};
+  --#{$prefix}alert-padding-y: #{$alert-padding-y};
+  --#{$prefix}alert-margin-bottom: #{$alert-margin-bottom};
+  --#{$prefix}alert-color: inherit;
+  --#{$prefix}alert-border-color: transparent;
+  --#{$prefix}alert-border: #{$alert-border-width} solid var(--#{$prefix}alert-border-color);
+  --#{$prefix}alert-border-radius: #{$alert-border-radius};
+
+  @include border-radius(var(--#{$prefix}alert-border-radius));
+
+  position: relative;
+  margin-bottom: var(--#{$prefix}alert-margin-bottom);
+  padding: var(--#{$prefix}alert-padding-y) var(--#{$prefix}alert-padding-x);
+  color: var(--#{$prefix}alert-color);
+  border: var(--#{$prefix}alert-border);
+  background-color: var(--#{$prefix}alert-bg);
+}
+
+.messages {
+  @include message-variant('status', $success);
+  @include message-variant('warning', $danger);
+}

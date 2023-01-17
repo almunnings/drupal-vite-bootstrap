@@ -16,7 +16,8 @@
 }
 
 // Square up as its 100% width.
-.region-messages .alert {
+.region-messages .alert,
+.region-messages .messages {
   --bs-alert-border-radius: 0;
   --bs-alert-margin-bottom: 0;
 }

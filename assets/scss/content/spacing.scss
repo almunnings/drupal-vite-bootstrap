@@ -37,3 +37,7 @@ blockquote,
 .list-group .list-group {
   margin-top: var(--bs-list-group-item-padding-y);
 }
+
+.layout--twocol {
+  row-gap: map-get($spacers, 4);
+}

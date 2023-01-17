@@ -3,8 +3,8 @@
  * Styles for Drupal's modal windows
  */
 .ui-widget-overlay {
-  opacity: #{$modal-backdrop-opacity};
-  background: #{$modal-backdrop-bg};
+  opacity: $modal-backdrop-opacity;
+  background: $modal-backdrop-bg;
 }
 
 .ui-widget-content {
@@ -51,3 +51,56 @@
 .ui-dialog .ui-dialog-content { padding: $modal-inner-padding; }
 
 .ui-widget.ui-widget-content { border: none; }
+
+.ui-dialog:not(.ui-dialog-off-canvas) .views-exposed-form.views-exposed-form {
+  border-radius: var(--bs-border-radius);
+}
+
+.ui-dialog-titlebar.ui-corner-all {
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.ui-dialog > .ui-dialog-buttonpane {
+  margin-top: 0;
+}
+
+.ui-dialog .ui-dialog-titlebar .ui-dialog-title {
+  @include font-size($font-size-base);
+
+  font-weight: $font-weight-bold;
+}
+
+.ui-dialog-titlebar-close {
+  top: 50%;
+
+  &:before,
+  &:after {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 3px;
+    height: 1rem;
+    content: '';
+    transform: rotate(45deg) translate(-50%, -50%);
+    transform-origin: top left;
+    background-color: #f0f0f0;
+  }
+  &:after {
+    transform: rotate(-45deg) translate(-50%, -50%);
+  }
+}
+
+.ui-dialog:not(.ui-dialog-off-canvas) {
+  max-width: map-get($container-max-widths, 'xxl');
+  // Dialog without title
+  .ui-dialog-content:first-of-type {
+    border-top-left-radius: var(--bs-border-radius);
+    border-top-right-radius: var(--bs-border-radius);
+  }
+
+  &:focus {
+    outline: 2px dotted transparent;
+    box-shadow: $input-focus-box-shadow;
+  }
+}

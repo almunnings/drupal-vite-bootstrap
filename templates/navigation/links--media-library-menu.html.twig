@@ -1,0 +1,45 @@
+{% do attributes.addClass('nav', 'nav-tabs', 'mb-4') %}
+
+{% for item in links %}
+  {% do item.attributes.addClass('nav-item') %}
+  {% if 'hidden' in item.link['#options'].attributes.class %}
+    {% do item.attributes.addClass('visually-hidden') %}
+  {% endif %}
+{% endfor %}
+
+
+
+
+
+{# Build as tabs #}
+{% if links -%}
+  {%- if heading -%}
+    {%- if heading.level -%}
+      <{{ heading.level }}{{ heading.attributes }}>{{ heading.text }}</{{ heading.level }}>
+    {%- else -%}
+      <h2{{ heading.attributes }}>{{ heading.text }}</h2>
+    {%- endif -%}
+  {%- endif -%}
+  <ul{{ attributes }}>
+    {%- for item in links -%}
+
+      {% set link_attributes = create_attribute() %}
+      {% do link_attributes.addClass('nav-link') %}
+
+      {% if item.text_attributes.hasClass('active') %}
+        {% do link_attributes.setAttribute('aria-current', 'page') %}
+        {% do link_attributes.addClass('active') %}
+      {% endif %}
+
+      <li{{ item.attributes }}>
+        {%- if item.link -%}
+          {{ link(item.link['#title'], item.link['#url'], link_attributes) }}
+        {%- elseif item.text_attributes -%}
+          <span{{ item.text_attributes }}>{{ item.text }}</span>
+        {%- else -%}
+          {{ item.text }}
+        {%- endif -%}
+      </li>
+    {%- endfor -%}
+  </ul>
+{%- endif %}
