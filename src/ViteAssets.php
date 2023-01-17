@@ -12,9 +12,9 @@ use Drupal\Component\Serialization\Json;
  *
  * Usage:
  * vite_asset('assets/js/modules/main-menu.js');
- * Vite::alter($libraries);
+ * ViteAssets::alter($libraries);
  */
-final class Vite {
+final class ViteAssets {
 
   /**
    * Construct a vite manifest on a library.

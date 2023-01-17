@@ -7,7 +7,7 @@ dependencies:
     - dvb
 id: dvb_messages
 theme: dvb
-region: breadcrumb
+region: messages
 weight: -7
 provider: null
 plugin: system_messages_block

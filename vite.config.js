@@ -26,8 +26,10 @@ const output_map = {
   'assets/scss/ckeditor.css': 'assets/[name].[ext]'
 }
 
+
 export default ({ mode }) => {
   const env = loadEnv(mode, resolve(__dirname, '../../../../'), '')
+  const installDir = resolve(__dirname, '.').match(/\/themes\/(contrib|custom)\//)[1]
 
   return defineConfig({
     plugins: [
@@ -36,7 +38,7 @@ export default ({ mode }) => {
       liveReload(__dirname+'/**/*.(php|theme|twig|module)'),
     ],
 
-    base: mode === 'development' ? '/' : `/themes/custom/dvb/${outDir}/`,
+    base: mode === 'development' ? '/' : `/themes/${installDir}/dvb/${outDir}/`,
 
     build: {
       outDir,

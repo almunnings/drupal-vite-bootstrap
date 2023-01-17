@@ -7,14 +7,14 @@
 
 use Drupal\block\Entity\Block;
 use Drupal\Component\Utility\Xss;
-use Drupal\dvb\Vite;
+use Drupal\dvb\ViteAssets;
 
 /**
  * Implements hook_library_info_alter().
  */
 function dvb_library_info_alter(array &$libraries, string $extension): void {
   if ($extension === 'dvb') {
-    Vite::alter($libraries);
+    ViteAssets::alter($libraries);
   }
 }
 
@@ -24,7 +24,7 @@ function dvb_library_info_alter(array &$libraries, string $extension): void {
  * Usage: vite_asset('assets/images/something.jpg');
  */
 function vite_asset(string $file, ?string $library_name = NULL): string {
-  return Vite::create($library_name ?? 'dvb/app')->find($file);
+  return ViteAssets::create($library_name ?: 'dvb/app')->find($file);
 }
 
 /**
@@ -33,6 +33,7 @@ function vite_asset(string $file, ?string $library_name = NULL): string {
  * - Pass block region to THEME_theme_suggestions_menu_alter.
  */
 function dvb_preprocess_block(array &$variables): void {
+  Drupal::messenger()->addStatus('Testing');
   if (isset($variables['elements']['#id'])) {
     if ($block = Block::load($variables['elements']['#id'])) {
       $variables['content']['#attributes']['data-region'] = $block->getRegion();
