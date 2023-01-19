@@ -77,6 +77,20 @@
     object-position: center;
   }
 
+  .field--name-thumbnail {
+    display: flex;
+
+    img[src*='generic.png'] {
+      max-width: 90px;
+      object-fit: contain;
+    }
+
+    @include media-breakpoint-up(md) {
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
   .media-library-item--disabled {
     pointer-events: none;
     opacity: 0.5;

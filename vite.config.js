@@ -63,6 +63,7 @@ export default ({ mode }) => {
     server: {
       host: true,
       strictPort: true,
+      port,
       https: scheme === 'https',
       origin: `${scheme}://${host}:${port}`,
       hmr: {

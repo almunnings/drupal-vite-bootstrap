@@ -8,10 +8,6 @@
 
 form.layout-paragraphs-builder-form .js-lpb-component-list {
   padding: 0;
-
-  // .contextual-region > .contextual {
-  //   display: none;
-  // }
 }
 
 a.lpb-enable-button,
@@ -27,13 +23,23 @@ a.lpb-enable-button,
 a.lpb-enable-button,
 .lpb-btn {
   @include transition($btn-transition);
-  @include font-size($font-size-sm);
-  @include border-radius();
+  @include font-size($btn-font-size);
+  @include border-radius($btn-border-radius);
 
-  padding: map-get($spacers, 1) map-get($spacers, 2) !important;
+  display: inline-flex;
+  padding: $btn-padding-y $btn-padding-x !important;
+  cursor: pointer;
+  user-select: none;
+  text-align: center;
+  vertical-align: middle;
+  white-space: $btn-white-space;
   text-decoration: none;
   color: var(--bs-white);
+  border: $btn-border-width solid transparent;
   background: var(--bs-primary);
+  box-shadow: $btn-box-shadow !important;
+  font-weight: $btn-font-weight;
+  line-height: $btn-line-height;
 
   &:hover {
     color: var(--bs-white);
