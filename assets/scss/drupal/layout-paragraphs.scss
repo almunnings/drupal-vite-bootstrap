@@ -15,6 +15,17 @@ a.lpb-enable-button,
   background: var(--bs-primary);
 }
 
+.lpb-tooltiptext {
+  @include font-size($tooltip-font-size);
+  @include border-radius($tooltip-border-radius);
+
+  margin: $tooltip-font-size;
+  padding: $tooltip-arrow-height;
+  word-wrap: break-word;
+  color: $tooltip-color;
+  background-color: $tooltip-bg;
+}
+
 .lp-builder:not(.is-navigating) .js-lpb-component:hover,
 .lp-builder:not(.is-navigating) .js-lpb-component:focus-within {
   outline-color: var(--bs-primary);

@@ -27,6 +27,8 @@ $theme-colors: map-merge($theme-colors, $custom-theme-colors);
 $modal-backdrop-bg: var(--bs-gray-500);
 $modal-backdrop-opacity: 0.8;
 
+$tooltip-font-size: 0.75rem;
+
 // Rest of bootstrap imports
 @import 'bootstrap/scss/maps';
 @import 'bootstrap/scss/mixins';

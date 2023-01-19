@@ -18,7 +18,7 @@
  */
 #}
 
-{% 
+{%
   set classes = [
     has_parent ? 'js-form-wrapper',
     has_parent ? 'form-wrapper',
@@ -38,6 +38,7 @@
   %}
 {% endif %}
 
+{# Developer note: With twig debug on, this will always have something in it. #}
 {% if children %}
 <div{{ attributes.addClass(classes).removeClass('container', 'container-inline') }}>{{ children }}</div>
 {% endif %}
