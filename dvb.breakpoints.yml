@@ -6,19 +6,19 @@ dvb.sm:
     - 1x
 dvb.md:
   label: md
-  mediaQuery: 'all and (min-width: 768px) and (max-width: 991px)'
+  mediaQuery: 'all and (min-width: 768px)'
   weight: 2
   multipliers:
     - 1x
 dvb.lg:
   label: lg
-  mediaQuery: 'all and (min-width: 992px) and (max-width: 1199px)'
+  mediaQuery: 'all and (min-width: 992px)'
   weight: 3
   multipliers:
     - 1x
 dvb.xl:
   label: xl
-  mediaQuery: 'all and (min-width: 1200px) and (max-width: 1399px)'
+  mediaQuery: 'all and (min-width: 1200px)'
   weight: 4
   multipliers:
     - 1x

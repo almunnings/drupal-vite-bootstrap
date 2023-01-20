@@ -14,3 +14,8 @@ blockquote,
     margin-top: map-get($spacers, 1);
   }
 }
+
+picture,
+.picture {
+  display: inline-block;
+}
