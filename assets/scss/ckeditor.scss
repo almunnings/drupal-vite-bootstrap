@@ -1,6 +1,6 @@
 // An entrypoint file to inject styles into ckeditor 5.
 
 .ck-content {
-  /* stylelint-disable-next-line no-invalid-position-at-import-rule */
+  /* stylelint-disable no-invalid-position-at-import-rule */
   @import 'content/wysiwyg';
 }

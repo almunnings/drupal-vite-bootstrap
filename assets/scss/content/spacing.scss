@@ -27,9 +27,9 @@ blockquote,
   margin-bottom: map-get($spacers, 3);
 }
 
-// Squares up everything in grids.
+// Squares up some elements in grids.
 // Without this, you need to pay close attention to margins.
-:is(p,ul,ol,table,blockquote,.table-responsive):last-child {
+:is(p,ul,ol,table,blockquote,.table-responsive,img):last-child {
   margin-bottom: 0;
 }
 

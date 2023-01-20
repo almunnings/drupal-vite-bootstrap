@@ -1,0 +1,16 @@
+// Generic HTML elements that could be in wisiwyg or elsewhere.
+
+// Blockquotes in wisiwyg dont have a class .blockquote
+// make a generic blockquote.
+blockquote,
+.blockquote {
+  @include font-size($blockquote-font-size);
+
+  padding-left: var(--bs-gutter-x);
+  border-left: 4px solid var(--bs-border-color);
+  font-style: italic;
+
+  .field + .field {
+    margin-top: map-get($spacers, 1);
+  }
+}

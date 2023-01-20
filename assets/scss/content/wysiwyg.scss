@@ -1,8 +1,20 @@
 // This file is intended to house WYSIWYG content from ckeditor.
-// Styles defined here are available within ckeditor.
+// Styles defined here are available within ckeditor and will apply to .text-formatted.
 //
-// ckeditor will not have bootstrap grids etc unless you explicitly add bootstrap.css to ckeditor.scss
+// ckeditor will not have bootstrap grids etc unless you explicitly add bootstrap to ckeditor.scss
 
-p.test {
-  color: pink;
+img {
+  @include img-fluid();
+
+  margin-bottom: $paragraph-margin-bottom;
+}
+
+.align-left {
+  clear: left;
+  margin-right: var(--bs-gutter-x);
+}
+
+.align-right {
+  clear: right;
+  margin-left: var(--bs-gutter-x);
 }

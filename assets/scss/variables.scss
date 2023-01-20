@@ -9,11 +9,15 @@ $custom-theme-colors: (
   'viva-magenta': $custom-color
 );
 
+$font-size-lg: 1.15rem;
+
 // Variables come next
 @import 'bootstrap/scss/variables';
 
 $breadcrumb-font-size: $font-size-sm;
 $breadcrumb-margin-bottom: 0;
+
+$blockquote-font-size: $font-size-lg;
 
 $form-label-font-weight: bold;
 
