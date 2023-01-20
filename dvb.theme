@@ -43,11 +43,35 @@ function dvb_preprocess_block(array &$variables): void {
 /**
  * Implements hook_preprocess_HOOK().
  *
- * - Allow HTML safely in buttons.
+ * - Allow HTML safely in buttons. Useful for icons.
  */
 function dvb_preprocess_input(array &$variables): void {
   if (in_array($variables['element']['#type'] ?? [], ['button', 'submit'])) {
     $variables['safe_value_label'] = Xss::filter((string) $variables['attributes']['value']);
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ *
+ * - Add wrapper to remote videos iframes.
+ */
+function dvb_preprocess_field(&$variables) {
+  $formatter = $variables['element']['#formatter'] ?? NULL;
+  $bundle = $variables['element']['#bundle'] ?? NULL;
+
+  if ($formatter === 'oembed' && $bundle === 'remote_video') {
+    foreach ($variables['items'] as $delta => $item) {
+      $variables['items'][$delta] = [
+        'content' => [
+          '#type' => 'container',
+          '#attributes' => [
+            'class' => ['ratio', 'ratio-16x9'],
+          ],
+          'content' => $item['content'],
+        ],
+      ];
+    }
   }
 }
 

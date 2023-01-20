@@ -1,23 +1,21 @@
 // Basic spacing flow for fields in content.
 
-/* stylelint-disable */
 // Remove if you go manual spacing with d-grid.
 :is(
-  .field,
-  .layout,
-  .paragraph,
-  .block-layout-builder,
-  .field__item
+.field,
+.layout,
+.paragraph,
+.block-layout-builder,
+.field__item
 ) + :is(
-  .field,
-  .layout,
-  .paragraph,
-  .block-layout-builder,
-  .field__item
+.field,
+.layout,
+.paragraph,
+.block-layout-builder,
+.field__item
 ) {
   margin-top: map-get($spacers, 3);
 }
-/* stylelint-enable */
 
 // Match the doc flow.
 ul,
@@ -36,8 +34,4 @@ blockquote,
 // ul ul
 .list-group .list-group {
   margin-top: var(--bs-list-group-item-padding-y);
-}
-
-.layout--twocol {
-  row-gap: map-get($spacers, 4);
 }
