@@ -7,6 +7,8 @@
 
 use Drupal\block\Entity\Block;
 use Drupal\Component\Utility\Xss;
+use Drupal\Core\Entity\FieldableEntityInterface;
+use Drupal\Core\Render\Element;
 use Drupal\dvb\ViteAssets;
 
 /**
@@ -59,6 +61,27 @@ function dvb_preprocess_input(array &$variables): void {
 function dvb_preprocess_form_element(array &$variables): void {
   if (isset($variables['element']['#type'])) {
     $variables['label']['#form_element_type'] = $variables['element']['#type'];
+  }
+}
+
+/**
+ * Implements hook_preprocess_field_group_accordion_item().
+ *
+ * - Get the entity from the first child element within the group.
+ * - Set the value of title to any field_title on entity.
+ */
+function dvb_preprocess_field_group_accordion_item(array &$variables): void {
+  $element = $variables['element'];
+
+  $entity = NULL;
+  foreach (Element::children($element) as $child_name) {
+    $child = $element[$child_name];
+    $entity = $child['#object'];
+    break;
+  }
+
+  if ($entity instanceof FieldableEntityInterface && $entity->hasField('field_title')) {
+    $variables['title'] = $entity->field_title->value;
   }
 }
 
