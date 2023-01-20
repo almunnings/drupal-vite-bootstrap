@@ -54,30 +54,6 @@ function dvb_preprocess_input(array &$variables): void {
 /**
  * Implements hook_preprocess_HOOK().
  *
- * - Add wrapper to remote videos iframes.
- */
-function dvb_preprocess_field(&$variables) {
-  $formatter = $variables['element']['#formatter'] ?? NULL;
-  $bundle = $variables['element']['#bundle'] ?? NULL;
-
-  if ($formatter === 'oembed' && $bundle === 'remote_video') {
-    foreach ($variables['items'] as $delta => $item) {
-      $variables['items'][$delta] = [
-        'content' => [
-          '#type' => 'container',
-          '#attributes' => [
-            'class' => ['ratio', 'ratio-16x9'],
-          ],
-          'content' => $item['content'],
-        ],
-      ];
-    }
-  }
-}
-
-/**
- * Implements hook_preprocess_HOOK().
- *
  * - Pass input type THEME_theme_suggestions_form_element_label_alter.
  */
 function dvb_preprocess_form_element(array &$variables): void {

@@ -1,0 +1,16 @@
+{% extends 'field.html.twig' %}
+
+{%
+  set item_classes = [
+    'ratio',
+    'ratio-16x9'
+  ]
+%}
+
+{% if multiple %}
+  {% for item in items %}
+    {% do item.attributes.addClass(item_classes) %}
+  {% endfor %}
+{% else %}
+  {% do attributes.addClass(item_classes) %}
+{% endif %}
