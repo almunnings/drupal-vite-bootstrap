@@ -73,14 +73,13 @@ function dvb_preprocess_form_element(array &$variables): void {
 function dvb_preprocess_field_group_accordion_item(array &$variables): void {
   $element = $variables['element'];
 
-  $entity = NULL;
   foreach (Element::children($element) as $child_name) {
-    $child = $element[$child_name];
-    $entity = $child['#object'];
-    break;
+    if ($entity = $element[$child_name]['#object'] ?? NULL) {
+      break;
+    }
   }
 
-  if ($entity instanceof FieldableEntityInterface && $entity->hasField('field_title')) {
+  if (isset($entity) && $entity instanceof FieldableEntityInterface && $entity->hasField('field_title')) {
     $variables['title'] = $entity->field_title->value;
   }
 }
