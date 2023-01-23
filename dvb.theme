@@ -39,7 +39,7 @@ function dvb_preprocess_node(&$variables) {
     unset($variables['elements']['#contextual_links']);
 
     $variables['attributes']['class'] = array_diff(
-      $variables['attributes']['class'],
+      $variables['attributes']['class'] ?? [],
       ['contextual-region']
     );
   }

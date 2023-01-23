@@ -11,13 +11,13 @@
   --jui-dialog-title-color: var(--bs-light);
   --jui-dialog-border-radius: var(--bs-border-radius);
   --jui-dialog-title-bg-color: var(--bs-dark);
+  --jui-dialog-close-button-size: 2rem;
+  --jui-dialog-close-button-border-radius: 50%;
+  --jui-dialog--focus-outline: none;
   --color-text: var(--bs-body-color);
   --color-white: var(--bs-white);
   --color-focus: var(--bs-primary);
   --color-gray-050: var(--bs-light);
-  --jui-dialog-close-button-size: 2rem;
-  --jui-dialog-close-button-border-radius: 50%;
-  --jui-dialog--focus-outline: none;
 }
 
 .ui-widget-content {
