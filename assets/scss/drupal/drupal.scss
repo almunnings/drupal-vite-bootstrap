@@ -9,34 +9,16 @@
 @import 'layout-paragraphs';
 @import 'media-library-errors';
 @import 'media-library';
+@import 'messages';
 @import 'table-draggable';
 @import 'ui-dialog';
-@import 'messages';
 
-// Inline errors smaller.
-.region-content div[data-drupal-messages] {
-  @include font-size($font-size-sm);
-}
-
-// Drupal clobber.
-em.placeholder {
-  display: initial;
-  min-height: unset;
-  cursor: initial;
-  vertical-align: initial;
-  opacity: initial;
-  background-color: initial;
-  font-style: inherit;
-}
-
-// Warnign injected by drupal JS.
-abbr.warning { text-decoration: none; }
-
-// Comments and forums.
 .indented {
+  // Comments and forums.
   margin-left: var(--bs-gutter-x);
 }
 
 :root {
+  // Ajax loader replacement animation colour
   --sk-color: var(--bs-gray-500);
 }

@@ -11,6 +11,8 @@
  */
 #}
 
+{% do attributes.setAttribute('role', 'switch') %}
+
 {% if attributes.hasClass('error') %}
   {% do attributes.addClass('is-invalid') %}
 {% endif %}

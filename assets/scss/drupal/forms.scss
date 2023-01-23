@@ -31,6 +31,26 @@ input.form-text {
   --ck-color-base-border: var(--bs-danger);
 }
 
+// Unstyled button.
+.button:not(.btn) {
+  @include button-outline-variant($secondary);
+
+  &.button--primary {
+    @include button-outline-variant($primary);
+  }
+
+  &.button--danger {
+    @include button-outline-variant($danger);
+  }
+}
+
+// Small buttons from Drupal.
+.small .button:not(.btn),
+.button--small,
+.button--extrasmall {
+  @include button-size($btn-padding-y-sm, $btn-padding-x-sm, $btn-font-size-sm, $btn-border-radius-sm);
+}
+
 // Button to style as plain text.
 button.webform-details-toggle-state,
 button.link:not(.btn) {
@@ -50,6 +70,11 @@ button.link:not(.btn) {
   &:active {
     color: var(--bs-link-hover-color);
   }
+}
+
+.form-check-input,
+.form-check-label {
+  cursor: pointer;
 }
 
 // Webform
@@ -105,4 +130,34 @@ button.link:not(.btn) {
 
     margin-top: map-get($spacers, 3);
   }
+}
+
+.node-preview-form-select.gin-layout-container {
+  display: flex !important;
+  .form-label {
+    margin: 0;
+    white-space: nowrap;
+    font-weight: normal;
+  }
+  .form-item-view-mode {
+    display: none;
+
+    .form-select {
+      @include font-size($font-size-sm);
+    }
+
+    @include media-breakpoint-up(sm) {
+      display: flex;
+      align-items: center;
+      margin-left: auto;
+    }
+  }
+}
+
+.entity-content-form-footer {
+  @include border-radius();
+
+  margin: map-get($spacers, 3) 0;
+  padding: map-get($spacers, 3);
+  border: var(--bs-border-width) solid var(--bs-border-color-translucent);
 }

@@ -1,5 +1,23 @@
-// Messages coming from an admin action and injected dynamically into the interface dont get themed.
+// Inline errors smaller.
+.region-content div[data-drupal-messages] {
+  @include font-size($font-size-sm);
+}
 
+// Drupal clobber.
+em.placeholder {
+  display: initial;
+  min-height: unset;
+  cursor: unset;
+  vertical-align: initial;
+  opacity: initial;
+  background-color: initial;
+  font-style: inherit;
+}
+
+// Warnign injected by drupal JS.
+abbr.warning { text-decoration: none; }
+
+// Messages coming from an admin action and injected dynamically into the interface dont get themed.
 @mixin message-variant($state, $value) {
   $alert-background: shift-color($value, $alert-bg-scale);
   $alert-border: shift-color($value, $alert-border-scale);
@@ -9,30 +27,11 @@
     $alert-color: mix($value, color-contrast($alert-background), abs($alert-color-scale));
   }
 
-  /* stylelint-disable-line */
+  /* stylelint-disable */
   &.messages--#{$state} {
     @include alert-variant($alert-background, $alert-border, $alert-color);
   }
-}
-
-.messages {
-  --#{$prefix}alert-bg: transparent;
-  --#{$prefix}alert-padding-x: #{$alert-padding-x};
-  --#{$prefix}alert-padding-y: #{$alert-padding-y};
-  --#{$prefix}alert-margin-bottom: #{$alert-margin-bottom};
-  --#{$prefix}alert-color: inherit;
-  --#{$prefix}alert-border-color: transparent;
-  --#{$prefix}alert-border: #{$alert-border-width} solid var(--#{$prefix}alert-border-color);
-  --#{$prefix}alert-border-radius: #{$alert-border-radius};
-
-  @include border-radius(var(--#{$prefix}alert-border-radius));
-
-  position: relative;
-  margin-bottom: var(--#{$prefix}alert-margin-bottom);
-  padding: var(--#{$prefix}alert-padding-y) var(--#{$prefix}alert-padding-x);
-  color: var(--#{$prefix}alert-color);
-  border: var(--#{$prefix}alert-border);
-  background-color: var(--#{$prefix}alert-bg);
+  /* stylelint-enable */
 }
 
 .messages {

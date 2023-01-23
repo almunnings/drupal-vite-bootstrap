@@ -17,8 +17,10 @@
   {% do attributes.addClass('btn-outline-danger') %}
 {% elseif safe_value_label matches '{(delete|remove)}i' %}
   {% do attributes.addClass('btn-danger') %}
-{% elseif safe_value_label matches '{(back|close|previous|discard|revert|preview)}i' %}
+{% elseif safe_value_label matches '{(back|close|previous|discard|revert)}i' %}
   {% do attributes.addClass('btn-outline-secondary') %}
+{% elseif safe_value_label matches '{(preview)}i' %}
+  {% do attributes.addClass('btn-outline-primary') %}
 {% elseif safe_value_label matches '{^(add|edit)}i' %}
   {% do attributes.addClass('btn-outline-secondary', 'btn-sm') %}
 {% else %}

@@ -53,6 +53,7 @@
     'js-form-item-' ~ name|clean_class,
     'form-item-' ~ name|clean_class,
     type in ['checkbox', 'radio'] ? 'form-check',
+    type == 'checkbox' ? 'form-switch',
     title_display not in ['after', 'before'] ? 'form-no-label',
     disabled == 'disabled' ? 'form-disabled',
     errors ? 'form-item--error',

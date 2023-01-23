@@ -2,10 +2,6 @@
  * @file
  * Styles for Drupal's modal windows
  */
-.ui-widget-overlay {
-  opacity: $modal-backdrop-opacity;
-  background: $modal-backdrop-bg;
-}
 
 .ui-widget-content {
   .view-header {
@@ -27,18 +23,21 @@
 .ui-corner-tl {
   border-top-left-radius: var(--bs-border-radius);
 }
+
 .ui-corner-all,
 .ui-corner-top,
 .ui-corner-right,
 .ui-corner-tr {
   border-top-right-radius: var(--bs-border-radius);
 }
+
 .ui-corner-all,
 .ui-corner-bottom,
 .ui-corner-left,
 .ui-corner-bl {
   border-bottom-left-radius: var(--bs-border-radius);
 }
+
 .ui-corner-all,
 .ui-corner-bottom,
 .ui-corner-right,
@@ -46,11 +45,17 @@
   border-bottom-right-radius: var(--bs-border-radius);
 }
 
-.ui-dialog { padding: 0; }
+.ui-dialog {
+  padding: 0;
+}
 
-.ui-dialog .ui-dialog-content { padding: $modal-inner-padding; }
+.ui-dialog .ui-dialog-content {
+  padding: $modal-inner-padding;
+}
 
-.ui-widget.ui-widget-content { border: none; }
+.ui-widget.ui-widget-content {
+  border: none;
+}
 
 .ui-dialog:not(.ui-dialog-off-canvas) .views-exposed-form.views-exposed-form {
   border-radius: var(--bs-border-radius);
@@ -103,4 +108,10 @@
     outline: 2px dotted transparent;
     box-shadow: $input-focus-box-shadow;
   }
+}
+
+.ui-widget-overlay {
+  z-index: 1259;
+  opacity: $modal-backdrop-opacity;
+  background: $modal-backdrop-bg;
 }

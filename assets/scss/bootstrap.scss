@@ -38,3 +38,12 @@
 // Utilities
 @import 'bootstrap/scss/utilities/api';
 // scss-docs-end import-stack
+
+// Oddball extensions.
+.button {
+  @extend .btn;
+}
+
+.messages {
+  @extend .alert;
+}
