@@ -3,6 +3,23 @@
  * Styles for Drupal's modal windows
  */
 
+.ui-dialog {
+  --space-m: #{map-get($spacers, 3)};
+  --space-l: #{map-get($spacers, 4)};
+  --space-s: #{map-get($spacers, 1)};
+  --jui-dialog-close-button-reserved-space: 4rem;
+  --jui-dialog-title-color: var(--bs-light);
+  --jui-dialog-border-radius: var(--bs-border-radius);
+  --jui-dialog-title-bg-color: var(--bs-dark);
+  --color-text: var(--bs-body-color);
+  --color-white: var(--bs-white);
+  --color-focus: var(--bs-primary);
+  --color-gray-050: var(--bs-light);
+  --jui-dialog-close-button-size: 2rem;
+  --jui-dialog-close-button-border-radius: 50%;
+  --jui-dialog--focus-outline: none;
+}
+
 .ui-widget-content {
   .view-header {
     margin: map-get($spacers, 2) 0 map-get($spacers, 4);
