@@ -5,13 +5,15 @@ import { defineConfig, loadEnv } from 'vite'
 import eslint from 'vite-plugin-eslint'
 import liveReload from 'vite-plugin-live-reload'
 
-// Check if installed as contrib or as custom.
-const installedAs = resolve(__dirname, '.').match(/\/themes\/(custom)\//) ? 'custom' : 'contrib'
-
-// Pull config from dvb.libraries.yml
-const yml = YAML.parse(fs.readFileSync('./dvb.libraries.yml', 'utf8'))
+// Resolve dirs.
+const pwd = resolve(__dirname, '.')
+const drupalPath = resolve(__dirname, '../../../../')
+const [themePath] = pwd.match(/\/themes\/[^\/]+\/[^\/]+/i) || []
+const [ymlPath] = fs.readdirSync(pwd).filter(fn => fn.endsWith('.libraries.yml')) || [];
+const baseUrl = (themePath ? `${themePath}/dist/` : '/themes/contrib/dvb/dist')
 
 // Find scss and js in the app yml
+const yml = YAML.parse(fs.readFileSync(ymlPath, 'utf8'))
 const theme_input = [
   ...Object.keys(yml.app.css.theme),
   ...Object.keys(yml.app.js),
@@ -28,16 +30,16 @@ const output_map = {
 }
 
 export default ({ mode }) => {
-  const env = loadEnv(mode, resolve(__dirname, '../../../../'), '')
+  const env = loadEnv(mode, drupalPath, '')
   const lando = env?.LANDO_APP_NAME
 
   return defineConfig({
     plugins: [
       eslint(),
-      liveReload(__dirname+'/**/*.(php|theme|twig|module)'),
+      liveReload(__dirname + '/**/*.(php|theme|twig|module)'),
     ],
 
-    base: mode === 'development' ? '/' : `/themes/${installedAs}/dvb/dist/`,
+    base: mode === 'development' ? '/' : baseUrl,
 
     build: {
       outDir: 'dist',
