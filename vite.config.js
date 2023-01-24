@@ -3,12 +3,10 @@ import YAML from 'yaml'
 import { resolve } from 'path'
 import { defineConfig, loadEnv } from 'vite'
 import eslint from 'vite-plugin-eslint'
-import basicSsl from '@vitejs/plugin-basic-ssl'
 import liveReload from 'vite-plugin-live-reload'
 
 // Pull config from dvb.libraries.yml
 const yml = YAML.parse(fs.readFileSync('./dvb.libraries.yml', 'utf8'))
-const { outDir,scheme,host,port } = yml.app.vite
 
 // Find scss and js in the app yml
 const theme_input = [
@@ -19,13 +17,12 @@ const theme_input = [
 // Anything not in the theme we wantto add to the entrypoint.
 const extra_input = [
   'assets/scss/ckeditor.scss',
-];
+]
 
 // Change output hashing for specific files. (scss = css)
 const output_map = {
   'assets/scss/ckeditor.css': 'assets/[name].[ext]'
 }
-
 
 export default ({ mode }) => {
   const env = loadEnv(mode, resolve(__dirname, '../../../../'), '')
@@ -34,14 +31,13 @@ export default ({ mode }) => {
   return defineConfig({
     plugins: [
       eslint(),
-      scheme === 'https' ? basicSsl() : null,
       liveReload(__dirname+'/**/*.(php|theme|twig|module)'),
     ],
 
-    base: mode === 'development' ? '/' : `/themes/${installDir}/dvb/${outDir}/`,
+    base: mode === 'development' ? '/' : `/themes/${installDir}/dvb/dist/`,
 
     build: {
-      outDir,
+      outDir: 'dist',
       manifest: true,
       rollupOptions: {
         input: [...theme_input, ...extra_input],
@@ -61,17 +57,16 @@ export default ({ mode }) => {
     },
 
     server: {
+      https: false,
       host: true,
-      strictPort: true,
-      port,
-      https: scheme === 'https',
-      origin: `${scheme}://${host}:${port}`,
+      port: 3000,
       hmr: {
-        protocol: scheme === 'https' ? 'wss' : 'ws',
+        protocol: env.LANDO_APP_NAME ? 'wss' : 'ws',
+        host: env.LANDO_APP_NAME ? `node.${env.LANDO_APP_NAME}.lndo.site` : 'localhost',
       },
       proxy: {
         '^/(system|api|jsonapi|graphql)/.*': {
-          target: `${scheme}://${env.COMPOSE_PROJECT_NAME}.lndo.site`,
+          target: `https://${env.LANDO_APP_NAME}.lndo.site`,
           changeOrigin: true,
         },
       }

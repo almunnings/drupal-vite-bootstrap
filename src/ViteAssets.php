@@ -2,6 +2,7 @@
 
 namespace Drupal\dvb;
 
+use GuzzleHttp\Exception\ConnectException;
 use GuzzleHttp\Client;
 use Drupal\Core\Theme\ActiveTheme;
 use Drupal\Core\Config\ImmutableConfig;
@@ -15,6 +16,11 @@ use Drupal\Component\Serialization\Json;
  * ViteAssets::alter($libraries);
  */
 final class ViteAssets {
+
+  /**
+   * Vite supported port.
+   */
+  const PORT = 3000;
 
   /**
    * Construct a vite manifest on a library.
@@ -63,7 +69,7 @@ final class ViteAssets {
         $libraries['hmr'] = [
           'header' => TRUE,
           'js' => [
-            $vite->devPath('@vite/client') => [
+            $vite->developmentPath('@vite/client') => [
               'type' => 'external',
               'attributes' => ['type' => 'module'],
             ],
@@ -104,7 +110,7 @@ final class ViteAssets {
     foreach ($manifest as $asset) {
       if (!empty($asset['isEntry'])) {
         foreach ($asset['css'] ?? [] as $child) {
-          $library['css']['theme'][$this->outPath($child)] = [
+          $library['css']['theme'][$this->productionPath($child)] = [
             'minified' => TRUE,
             'weight' => 10,
             'preprocess' => FALSE,
@@ -123,12 +129,12 @@ final class ViteAssets {
     $file = ltrim($file, '/');
 
     if ($this->dev()) {
-      return $this->devPath($file);
+      return $this->developmentPath($file);
     }
 
     $manifest = $this->manifest();
     if (isset($manifest[$file]['file'])) {
-      $file = $this->outPath($manifest[$file]['file']);
+      $file = $this->productionPath($manifest[$file]['file']);
     }
 
     if (!$relative) {
@@ -139,13 +145,24 @@ final class ViteAssets {
   }
 
   /**
+   * Check if vite client is running locally.
+   */
+  public function dev(): bool {
+    if ($this->performance->get('cache.page.max_age') <= 0) {
+      return (bool) $this->getInternalUrl();
+    }
+
+    return FALSE;
+  }
+
+  /**
    * Get the manifest contents.
    */
-  protected function manifest(): array {
+  private function manifest(): array {
     $manifest = &drupal_static(__FUNCTION__);
 
     if (!isset($manifest)) {
-      $file = $this->theme->getPath() . '/' . $this->outPath('manifest.json');
+      $file = $this->theme->getPath() . '/' . $this->productionPath('manifest.json');
       $manifest = file_exists($file) ? Json::decode(file_get_contents($file)) : [];
     }
 
@@ -153,60 +170,93 @@ final class ViteAssets {
   }
 
   /**
-   * Check if vite client is running locally.
+   * Return the hostname of the first accessible internal domain.
    */
-  protected function dev(): bool {
-    $dev = &drupal_static(__FUNCTION__);
+  private function getInternalUrl(): ?string {
+    $result = &drupal_static(__FUNCTION__);
 
-    if (!isset($dev)) {
-      $dev = FALSE;
+    if (!isset($result)) {
+      $urls[] = 'http://localhost:' . self::PORT;
+      $urls[] = 'http://host.docker.internal:' . self::PORT;
 
-      if (!$this->performance->get('cache.page.max_age') > 0) {
+      $services = Json::decode(getenv('LANDO_INFO') ?? '{[]}');
 
-        try {
-          $dev = (bool) $this->guzzle->head(
-            $this->devHost(TRUE), [
-              'timeout' => 0.25,
-              'verify' => FALSE,
-              'http_errors' => FALSE,
-            ]);
+      foreach ($services as $service_info) {
+        if ($service_info['type'] !== 'node') {
+          continue;
         }
-        catch (\Exception $e) {
-          // ... Swallow error
+
+        foreach ($service_info['hostnames'] ?? [] as $hostname) {
+          $urls[] = 'http://' . $hostname . ':' . self::PORT;
+        }
+      }
+
+      $urls = array_reverse($urls);
+
+      foreach ($urls as $url) {
+        if ($this->checkUrlConnection($url)) {
+          $result = $url;
+          break;
         }
       }
     }
 
-    return $dev;
+    return $result;
   }
 
   /**
-   * Path for the HMR client.
+   * Check if an internal domain is accessible.
    */
-  protected function devHost($internal = FALSE): string {
-    $vite = $this->library['vite'];
+  private function checkUrlConnection($url): bool {
+    $options = [
+      'timeout' => 0.05,
+      'verify' => FALSE,
+      'http_errors' => FALSE,
+    ];
 
-    if (file_exists('/.dockerenv')) {
-      $docker = getenv('LANDO_HOST_IP') ?? 'host.docker.internal';
+    try {
+      $result = (bool) $this->guzzle->head($url, $options);
+    }
+    catch (ConnectException $e) {
+      $result = FALSE;
     }
 
-    $host = ($internal && isset($docker)) ? $docker : $vite['host'];
-
-    return $vite['scheme'] . '://' . $host . ':' . $vite['port'];
+    return $result;
   }
 
   /**
    * Path for the HMR client.
    */
-  protected function devPath(string $file): string {
-    return $this->devHost() . '/' . $file;
+  private function developmentPath(string $file): string {
+    $internal = $this->getInternalUrl();
+
+    if (preg_match('#localhost|host\.docker\.internal#i', $internal)) {
+      $base_url = 'http://localhost:' . self::PORT;
+    }
+    else {
+      $services = Json::decode(getenv('LANDO_INFO') ?? '{[]}');
+
+      foreach ($services as $service_info) {
+        if ($service_info['type'] !== 'node') {
+          continue;
+        }
+        foreach ($service_info['urls'] ?? [] as $url) {
+          $hosts[] = rtrim($url, '/');
+        }
+      }
+
+      $hosts = array_reverse($hosts);
+      $base_url = reset($hosts);
+    }
+
+    return $base_url . '/' . $file;
   }
 
   /**
    * Path relative to theme dist.
    */
-  protected function outPath($file): string {
-    return rtrim($this->library['vite']['outDir'], '/') . '/' . $file;
+  private function productionPath($file): string {
+    return 'dist/' . $file;
   }
 
 }

@@ -6,6 +6,13 @@
   padding: map-get($spacers, 4);
 }
 
+.lpb-formatter:hover,
+.lpb-formatter:focus-within {
+  @include border-radius($btn-border-radius);
+
+  outline-color: var(--bs-primary);
+}
+
 form.layout-paragraphs-builder-form .js-lpb-component-list {
   padding: 0;
 }
@@ -54,6 +61,21 @@ a.lpb-enable-button,
   &:hover {
     color: var(--bs-white);
     background: var(--bs-teal);
+  }
+}
+
+.lpb-enable__empty-message__wrapper {
+  @include border-radius($btn-border-radius);
+
+  padding: map-get($spacers, 4);
+  border: var(--bs-border-width) solid var(--bs-border-color-translucent);
+}
+
+.lpb-enable__empty-message {
+  .lpb-enable-button {
+    display: flex;
+    width: fit-content;
+    margin-top: map-get($spacers, 4);
   }
 }
 

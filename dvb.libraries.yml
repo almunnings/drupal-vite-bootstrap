@@ -1,6 +1,7 @@
 # Mofified by ViteManifest, use the original source location.
 
 app:
+  vite: true
   version: 3.0.0
   dependencies:
     - core/drupal
@@ -11,8 +12,3 @@ app:
       assets/scss/app.scss: { minified: true, preprocess: false }
   js:
     assets/js/app.js: { minified: true, preprocess: false, attributes: { type: 'module' } }
-  vite:
-    outDir: dist
-    scheme: http
-    host: localhost
-    port: 5173

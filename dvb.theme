@@ -45,7 +45,6 @@ function dvb_preprocess_node(&$variables) {
   }
 }
 
-
 /**
  * Implements hook_preprocess_HOOK().
  *
