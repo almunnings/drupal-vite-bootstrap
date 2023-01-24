@@ -5,6 +5,9 @@ import { defineConfig, loadEnv } from 'vite'
 import eslint from 'vite-plugin-eslint'
 import liveReload from 'vite-plugin-live-reload'
 
+// Check if installed as contrib or as custom.
+const installedAs = resolve(__dirname, '.').match(/\/themes\/(custom)\//) ? 'custom' : 'contrib'
+
 // Pull config from dvb.libraries.yml
 const yml = YAML.parse(fs.readFileSync('./dvb.libraries.yml', 'utf8'))
 
@@ -26,7 +29,7 @@ const output_map = {
 
 export default ({ mode }) => {
   const env = loadEnv(mode, resolve(__dirname, '../../../../'), '')
-  const installDir = resolve(__dirname, '.').match(/\/themes\/(contrib|custom)\//)[1]
+  const lando = env?.LANDO_APP_NAME
 
   return defineConfig({
     plugins: [
@@ -34,7 +37,7 @@ export default ({ mode }) => {
       liveReload(__dirname+'/**/*.(php|theme|twig|module)'),
     ],
 
-    base: mode === 'development' ? '/' : `/themes/${installDir}/dvb/dist/`,
+    base: mode === 'development' ? '/' : `/themes/${installedAs}/dvb/dist/`,
 
     build: {
       outDir: 'dist',
@@ -61,12 +64,12 @@ export default ({ mode }) => {
       host: true,
       port: 3000,
       hmr: {
-        protocol: env.LANDO_APP_NAME ? 'wss' : 'ws',
-        host: env.LANDO_APP_NAME ? `node.${env.LANDO_APP_NAME}.lndo.site` : 'localhost',
+        protocol: lando ? 'wss' : 'ws',
+        host: lando ? `node.${lando}.lndo.site` : 'localhost',
       },
       proxy: {
         '^/(system|api|jsonapi|graphql)/.*': {
-          target: `https://${env.LANDO_APP_NAME}.lndo.site`,
+          target: `https://${lando}.lndo.site`,
           changeOrigin: true,
         },
       }
