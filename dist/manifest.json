@@ -3,13 +3,13 @@
     "file": "assets/no-thumbnail.2e94d652.png",
     "src": "assets/images/no-thumbnail.png"
   },
-  "assets/js/modules/mobile-menu.css": {
-    "file": "assets/mobile-menu.d713d16c.css",
-    "src": "assets/js/modules/mobile-menu.css"
-  },
   "assets/js/modules/back-top.css": {
     "file": "assets/back-top.a693ff1a.css",
     "src": "assets/js/modules/back-top.css"
+  },
+  "assets/js/modules/mobile-menu.css": {
+    "file": "assets/mobile-menu.d713d16c.css",
+    "src": "assets/js/modules/mobile-menu.css"
   },
   "assets/scss/ckeditor.scss": {
     "file": "assets/ckeditor.4452c54b.css",
@@ -38,14 +38,6 @@
       "assets/js/modules/back-top.js"
     ]
   },
-  "assets/js/modules/back-top.js": {
-    "file": "assets/back-top-bec0ddcb.js",
-    "src": "assets/js/modules/back-top.js",
-    "isDynamicEntry": true,
-    "css": [
-      "assets/back-top.a693ff1a.css"
-    ]
-  },
   "assets/js/modules/mobile-menu.js": {
     "file": "assets/mobile-menu-7375b6c2.js",
     "src": "assets/js/modules/mobile-menu.js",
@@ -58,6 +50,14 @@
     "file": "assets/main-menu-c5f470e0.js",
     "src": "assets/js/modules/main-menu.js",
     "isDynamicEntry": true
+  },
+  "assets/js/modules/back-top.js": {
+    "file": "assets/back-top-bec0ddcb.js",
+    "src": "assets/js/modules/back-top.js",
+    "isDynamicEntry": true,
+    "css": [
+      "assets/back-top.a693ff1a.css"
+    ]
   },
   "assets/js/modules/fontawesome.js": {
     "file": "assets/fontawesome-8e928453.js",
