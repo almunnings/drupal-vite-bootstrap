@@ -23,3 +23,19 @@ npm run dev
 ```bash
 npm run build
 ```
+
+## Lando config
+
+```yml
+services:
+  node:
+    type: node:18
+    ssl: true
+    sslExpose: false
+    port: 3000
+    scanner: false
+
+proxy:
+  node:
+    - node.drupal-boilerplate.lndo.site:3000
+```
