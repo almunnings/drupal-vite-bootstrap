@@ -8,10 +8,11 @@
 // Optional variable overrides here
 $enable-smooth-scroll: false;
 
-$custom-color: #bb2649;
+$viva-magenta: #bb2649;
+
 $custom-theme-colors: (
   'teal': $teal,
-  'viva-magenta': $custom-color
+  'viva-magenta': $viva-magenta
 );
 
 $font-size-lg: 1.15rem;
