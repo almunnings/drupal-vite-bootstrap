@@ -16,8 +16,8 @@
 
   // Level 2
   .nav-link ~ div {
-    --bs-link-color: var(--bs-white);
-    --bs-link-hover-color: var(--bs-info);
+    --bs-link-color-rgb: var(--bs-light-rgb);
+    --bs-link-hover-color-rgb: var(--bs-teal-rgb);
     --bs-border-color: var(--bs-gray-700);
 
     z-index: 100;

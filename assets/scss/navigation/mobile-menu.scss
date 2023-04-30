@@ -1,6 +1,6 @@
 .region-mobile-menu {
-  --bs-link-color: var(--bs-light);
-  --bs-link-hover-color: var(--bs-info);
+  --bs-link-color-rgb: var(--bs-light-rgb);
+  --bs-link-hover-color-rgb: var(--bs-teal-rgb);
   --bs-border-color: #{$gray-700};
 
   .menu {

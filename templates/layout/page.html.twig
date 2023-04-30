@@ -47,97 +47,98 @@
 
 <a id="top" tabindex="-1"></a>
 
-{% if page.alerts %}
-  {{ page.alerts }}
-{% endif %}
+<div id="page">
+  {% if page.alerts %}
+    {{ page.alerts }}
+  {% endif %}
 
-
-<header role="banner" class="site-header bg-dark text-light py-2 py-sm-4">
-  <div class="container d-flex align-items-center gap-3">
-    {# Page logo #}
-    <div class="me-auto">
-      {{ page.header }}
-    </div>
-
-    {# Top right links #}
-    <div class="d-none d-md-block">
-      {{ page.secondary_menu }}
-    </div>
-
-    {# Mobile menu #}
-    <div class="d-md-none">
-      <button class="hamburger hamburger--squeeze d-flex align-items-center" type="button" aria-label="{{'Menu'|t}}" id="mobile-nav-button" data-bs-toggle="offcanvas" data-bs-target="#mobile-menu" aria-controls="mobile-menu">
-        <span class="me-3 small d-none d-sm-block">{{ 'Menu'|t }}</span>
-        <span class="hamburger-box">
-          <span class="hamburger-inner"></span>
-        </span>
-      </button>
-    </div>
-  </div>
-</header>
-
-
-{% if page.primary_menu %}
-  {{ page.primary_menu }}
-{% endif %}
-
-
-{# page.messages is always true. Put borders and padding within blocks. #}
-{{ page.messages }}
-
-
-{# page.breadcrumb is always true. Put borders and padding within blocks. #}
-{{ page.breadcrumb }}
-
-
-{% if page.highlighted %}
-  {{ page.highlighted }}
-{% endif %}
-
-
-{% if page.primary_menu %}
-  {{ page.help }}
-{% endif %}
-
-
-<main role="main" class="container py-3 py-md-5">
-
-  {# link is in html.html.twig #}
-  <a id="main-content" tabindex="-1"></a>
-
-  {# Sidebar layout #}
-  {% block main %}
-    <div class="row">
-      <div class="col">
-        {{ page.content }}
+  <header role="banner" class="site-header bg-dark text-light py-2 py-sm-4">
+    <div class="container d-flex align-items-center gap-3">
+      {# Page logo #}
+      <div class="me-auto">
+        {{ page.header }}
       </div>
 
-      {% if page.sidebar_first %}
-        <aside class="col-md-4 order-md-first mt-4 mt-mb-0" role="complementary">
-          {{ page.sidebar_first }}
-        </aside>
-      {% endif %}
-
-      {% if page.sidebar_second %}
-        <aside class="col-md-4 order-md-last mt-4 mt-mb-0" role="complementary">
-          {{ page.sidebar_second }}
-        </aside>
-      {% endif %}
-    </div>
-  {% endblock %}
-</main>
-
-
-{% if page.footer %}
-  {% block footer %}
-    <footer role="contentinfo" class="site-footer bg-dark text-light py-3">
-      <div class="container d-flex align-items-center gap-3">
-        {{ page.footer }}
+      {# Top right links #}
+      <div class="d-none d-md-block">
+        {{ page.secondary_menu }}
       </div>
-    </footer>
-  {% endblock %}
-{% endif %}
 
+      {# Mobile menu #}
+      <div class="d-md-none">
+        <button class="hamburger hamburger--squeeze d-flex align-items-center" type="button" aria-label="{{'Menu'|t}}" id="mobile-nav-button" data-bs-toggle="offcanvas" data-bs-target="#mobile-menu" aria-controls="mobile-menu">
+          <span class="me-3 small d-none d-sm-block">{{ 'Menu'|t }}</span>
+          <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+          </span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+
+  {% if page.primary_menu %}
+    {{ page.primary_menu }}
+  {% endif %}
+
+
+  {# page.messages is always true. Put borders and padding within blocks. #}
+  {{ page.messages }}
+
+
+  {# page.breadcrumb is always true. Put borders and padding within blocks. #}
+  {{ page.breadcrumb }}
+
+
+  {% if page.highlighted %}
+    {{ page.highlighted }}
+  {% endif %}
+
+
+  {% if page.primary_menu %}
+    {{ page.help }}
+  {% endif %}
+
+
+  <main role="main" class="container py-3 py-md-5 flex-grow-1">
+
+    {# link is in html.html.twig #}
+    <a id="main-content" tabindex="-1"></a>
+
+    {# Sidebar layout #}
+    {% block main %}
+      <div class="row">
+        <div class="col">
+          {{ page.content }}
+        </div>
+
+        {% if page.sidebar_first %}
+          <aside class="col-md-4 order-md-first mt-4 mt-mb-0" role="complementary">
+            {{ page.sidebar_first }}
+          </aside>
+        {% endif %}
+
+        {% if page.sidebar_second %}
+          <aside class="col-md-4 order-md-last mt-4 mt-mb-0" role="complementary">
+            {{ page.sidebar_second }}
+          </aside>
+        {% endif %}
+      </div>
+    {% endblock %}
+  </main>
+
+
+  {% if page.footer %}
+    {% block footer %}
+      <footer role="contentinfo" class="site-footer bg-dark text-light py-3">
+        <div class="container d-flex align-items-center gap-3">
+          {{ page.footer }}
+        </div>
+      </footer>
+    {% endblock %}
+  {% endif %}
+
+</div> {# /#page #}
 
 {% if page.mobile_menu %}
   {{ page.mobile_menu }}

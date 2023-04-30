@@ -1,20 +1,21 @@
 // This will conflict with marketing chat popups.
 .back-to-top {
-  position: fixed;
+  position: sticky;
   z-index: 20;
-  right: $spacer;
-  bottom: $spacer;
+  bottom: $spacer * 2;
   transition: opacity 0.2s ease-in-out;
-  opacity: 1;
+
+  a {
+    position: absolute;
+    top: 0;
+    right: $spacer;
+  }
 
   .btn {
     // Square up the button.
     --bs-btn-padding-y: var(--bs-btn-padding-x);
     --bs-btn-line-height: 1;
-  }
 
-  &.position-absolute {
-    bottom: auto;
     transform: translateY(-50%);
   }
 

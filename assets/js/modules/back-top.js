@@ -38,7 +38,6 @@ export default class Module {
     const button = document.querySelector('.back-to-top');
     const offset = document.querySelector('.site-footer').offsetTop - window.innerHeight + 32;
 
-    button.classList.toggle('show', y >= 200 || y >= offset);
-    button.classList.toggle('position-absolute', y >= offset);
+    button.classList.toggle('show', y >= 200 || (y >= offset && offset > 0));
   }
 }
