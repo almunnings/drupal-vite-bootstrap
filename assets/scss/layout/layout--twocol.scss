@@ -2,7 +2,8 @@
 
 .layout--twocol {
   display: grid;
-  gap: map-get($spacers, 3);
+  row-gap: map-get($spacers, 3);
+  column-gap: map-get($spacers, 4);
 
   @include media-breakpoint-up(md) {
     grid-template-areas:

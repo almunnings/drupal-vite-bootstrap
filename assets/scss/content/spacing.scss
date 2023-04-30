@@ -2,12 +2,16 @@
 
 // Remove if you go manual spacing with d-grid.
 :is(
+form,
+.lpb-formatter,
 .field,
 .layout,
 .paragraph,
 .block-layout-builder,
 .field__item
 ) + :is(
+form,
+.lpb-formatter,
 .field,
 .layout,
 .paragraph,
@@ -15,6 +19,10 @@
 .field__item
 ) {
   margin-top: map-get($spacers, 3);
+}
+
+.field + .field--name-field-description {
+  margin-top: map-get($spacers, 2);
 }
 
 // Match the doc flow.

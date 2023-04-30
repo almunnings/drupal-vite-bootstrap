@@ -1,6 +1,6 @@
-// Generic HTML elements that could be in wisiwyg or elsewhere.
+// Generic HTML elements that could be in WYSIWYG or elsewhere.
 
-// Blockquotes in wisiwyg dont have a class .blockquote
+// Block quotes in WYSIWYG don't have a class .blockquote
 // make a generic blockquote.
 blockquote,
 .blockquote {
@@ -18,4 +18,27 @@ blockquote,
 picture,
 .picture {
   display: inline-block;
+}
+
+audio,
+video {
+  width: 100%;
+}
+
+.paragraph--type--media {
+  @include border-radius();
+
+  padding: map-get($spacers, 3);
+  border: var(--bs-border-width) solid var(--bs-border-color);
+
+  &:has(.ratio) {
+    max-width: map-get($container-max-widths, 'lg');
+    margin: 0 auto;
+  }
+
+  img,
+  video,
+  iframe {
+    @include border-radius();
+  }
 }

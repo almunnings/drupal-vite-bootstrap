@@ -45,6 +45,7 @@
 .js-media-library-item {
   position: relative;
   max-width: 100%;
+  cursor: pointer;
 
   .btn {
     @include font-size($font-size-sm);
@@ -73,12 +74,14 @@
   img {
     width: 100%;
     height: 100%;
+    pointer-events: none;
     object-fit: cover;
     object-position: center;
   }
 
   .field--name-thumbnail {
     display: flex;
+    user-select: none;
 
     img[src*='/generic/'] {
       max-width: 90px;

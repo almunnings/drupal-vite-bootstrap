@@ -1,12 +1,17 @@
-.site-header {
-  --bs-link-color: var(--bs-white);
-  --bs-link-hover-color: var(--bs-teal);
-}
-
 // Very top of page, eg beta bar.
 .region-alerts {
-  --bs-link-color: var(--bs-dark);
-  --bs-link-hover-color: var(--bs-dark);
+  --bs-link-color-rgb: var(--bs-dark-rgb);
+  --bs-link-hover-color-rgb: var(--bs-dark-rgb);
+}
+
+.site-header {
+  // Generic links.
+  --bs-link-color-rgb: var(--bs-white-rgb);
+  --bs-link-hover-color-rgb: var(--bs-teal-rgb);
+
+  // Nav links.
+  --bs-link-color: var(--bs-white);
+  --bs-link-hover-color: var(--bs-teal);
 }
 
 // Fix devel z-indexes.
@@ -24,13 +29,9 @@
 
 // This also appears on the maintenance page.
 .site-branding {
-  --bs-link-color: var(--bs-white);
-  --bs-link-hover-color: var(--bs-white);
-
   @include transition;
 
   text-decoration: none;
-  opacity: 1;
 
   .site-logo {
     max-width: clamp(2rem, 7vw, 25vw);
@@ -38,10 +39,5 @@
     img {
       max-height: clamp(2rem, 7vw, 4rem);
     }
-  }
-
-  &:hover,
-  &:focus {
-    opacity: 0.75;
   }
 }

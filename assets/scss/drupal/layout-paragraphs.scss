@@ -1,3 +1,9 @@
+// Give the paragraphs some breathing room.
+.field--widget-layout-paragraphs {
+  margin-top: map-get($spacers, 4);
+  margin-bottom: map-get($spacers, 4);
+}
+
 .lpb-enable {
   z-index: 100;
 }

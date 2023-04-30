@@ -1,0 +1,14 @@
+{%
+  set classes = [
+    'field--name-' ~ field_name|clean_class,
+    'field--type-' ~ field_type|clean_class,
+    'field--label-' ~ label_display,
+    'h5',
+  ]
+%}
+
+{% for item in items %}
+<h3{{ attributes.addClass(classes) }}>
+{{ item.content }}
+</h3>
+{% endfor %}

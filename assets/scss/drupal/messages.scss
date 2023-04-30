@@ -14,27 +14,19 @@ em.placeholder {
   font-style: inherit;
 }
 
-// Warnign injected by drupal JS.
+// Warning injected by drupal JS.
 abbr.warning { text-decoration: none; }
 
-// Messages coming from an admin action and injected dynamically into the interface dont get themed.
-@mixin message-variant($state, $value) {
-  $alert-background: shift-color($value, $alert-bg-scale);
-  $alert-border: shift-color($value, $alert-border-scale);
-  $alert-color: shift-color($value, $alert-color-scale);
-
-  @if (contrast-ratio($alert-background, $alert-color) < $min-contrast-ratio) {
-    $alert-color: mix($value, color-contrast($alert-background), abs($alert-color-scale));
-  }
-
-  /* stylelint-disable */
-  &.messages--#{$state} {
-    @include alert-variant($alert-background, $alert-border, $alert-color);
-  }
-  /* stylelint-enable */
-}
-
+// Messages coming from an admin action and injected dynamically into the interface don't get themed.
 .messages {
-  @include message-variant('status', $success);
-  @include message-variant('warning', $danger);
+  $messages: ('status': 'success', 'warning': 'danger');
+
+  @each $key, $state in $messages {
+    .messages--#{$key} {
+      --#{$prefix}alert-color: var(--#{$prefix}#{$state}-text-emphasis);
+      --#{$prefix}alert-bg: var(--#{$prefix}#{$state}-bg-subtle);
+      --#{$prefix}alert-border-color: var(--#{$prefix}#{$state}-border-subtle);
+      --#{$prefix}alert-link-color: var(--#{$prefix}#{$state}-text-emphasis);
+    }
+  }
 }

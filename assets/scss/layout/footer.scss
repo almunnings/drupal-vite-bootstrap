@@ -1,6 +1,7 @@
 footer.site-footer {
-  --bs-link-color: var(--bs-white);
-  --bs-link-hover-color: var(--bs-teal);
+  // generic links.
+  --bs-link-color-rgb: var(--bs-white-rgb);
+  --bs-link-hover-color-rgb: var(--bs-teal-rgb);
 
   a {
     @include transition;

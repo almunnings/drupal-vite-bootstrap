@@ -1,0 +1,48 @@
+// Pad in a bit. Looks better.
+.js input.form-autocomplete {
+  background-position-x: calc(100% - #{$input-padding-x});
+  &.is-invalid {
+    background-image: escape-svg($form-feedback-icon-invalid);
+  }
+}
+
+.ui-widget.ui-widget-content.ui-autocomplete {
+  @include border-radius();
+  @include box-shadow;
+
+  border: $input-border-width solid $input-border-color;
+
+  .ui-menu-item {
+    display: block;
+
+    &:first-child .ui-menu-item-wrapper {
+      border-top-left-radius: $border-radius;
+      border-top-right-radius: $border-radius;
+    }
+
+    &:last-child .ui-menu-item-wrapper {
+      border-bottom-right-radius: $border-radius;
+      border-bottom-left-radius: $border-radius;
+    }
+  }
+
+  .ui-menu-item + .ui-menu-item {
+    border-top: $input-border-width solid $input-border-color;
+  }
+
+  .ui-menu-item-wrapper {
+    display: block;
+    margin: 0 !important;
+    padding: map-get($spacers, 1) map-get($spacers, 3);
+    text-decoration: none;
+    border: none !important;
+
+    &:hover,
+    &:active,
+    &:focus,
+    &.ui-state-active {
+      color: var(--bs-white);
+      background-color: var(--bs-primary);
+    }
+  }
+}
