@@ -15,7 +15,9 @@ details {
     grid-auto-flow: row;
     gap: 0 0;
 
-    &::marker { display: none; }
+    &::marker {
+      display: none;
+    }
 
     .title {
       grid-area: title;
@@ -24,7 +26,9 @@ details {
 
     .icon {
       grid-area: icon;
-      .svg-inline--fa { @include transition; }
+      .svg-inline--fa {
+        @include transition;
+      }
     }
 
     .summary {
@@ -41,11 +45,17 @@ details {
   }
 
   &[open] > summary {
-    .title { color: inherit; }
-    .svg-inline--fa { transform: rotate(-180deg); }
+    .title {
+      color: inherit;
+    }
+    .svg-inline--fa {
+      transform: rotate(-180deg);
+    }
   }
 
-  &:not([open]) > summary { border-bottom: none; }
+  &:not([open]) > summary {
+    border-bottom: none;
+  }
 }
 
 // Mobile detail flow
@@ -78,11 +88,21 @@ div[data-horizontal-tabs-panes]:not(.horizontal-tabs-panes) {
   border-color: var(--bs-border-color-translucent);
   background: rgba(var(--bs-black-rgb), 0.03);
 
-  a { padding: $card-spacer-y $card-spacer-x; }
-  &.first { border-top-left-radius: var(--bs-border-radius); }
-  &.last { border-bottom-left-radius: var(--bs-border-radius); }
-  &.is-selected { background: var(--bs-white); }
-  &.is-selected .vertical-tabs__menu-item-title { color: var(--bs-dark); }
+  a {
+    padding: $card-spacer-y $card-spacer-x;
+  }
+  &.first {
+    border-top-left-radius: var(--bs-border-radius);
+  }
+  &.last {
+    border-bottom-left-radius: var(--bs-border-radius);
+  }
+  &.is-selected {
+    background: var(--bs-white);
+  }
+  &.is-selected .vertical-tabs__menu-item-title {
+    color: var(--bs-dark);
+  }
 }
 
 .vertical-tabs__menu-item-title {
@@ -124,7 +144,9 @@ div[data-horizontal-tabs-panes]:not(.horizontal-tabs-panes) {
   background: none;
   font-weight: var(--bs-nav-link-font-weight);
 
-  strong { font-weight: inherit; }
+  strong {
+    font-weight: inherit;
+  }
 
   &:hover,
   &:focus {

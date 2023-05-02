@@ -14,7 +14,7 @@ input.form-text {
 }
 
 // Add an asterisk.
-.form-required:after {
+.form-required::after {
   content: '\00a0*';
   color: var(--bs-danger);
 }
@@ -70,11 +70,21 @@ button.link:not(.btn) {
 }
 
 // Webform
-.webform-wizard-pages-links { display: none !important; }
-.webform-details-toggle-state-wrapper { margin-top: 0; }
-.webform-scale-option .form-check { padding-left: 0; }
-.webform-scale-option .form-check-label { line-height: 1.6; }
-.rateit-range { vertical-align: middle; }
+.webform-wizard-pages-links {
+  display: none !important;
+}
+.webform-details-toggle-state-wrapper {
+  margin-top: 0;
+}
+.webform-scale-option .form-check {
+  padding-left: 0;
+}
+.webform-scale-option .form-check-label {
+  line-height: 1.6;
+}
+.rateit-range {
+  vertical-align: middle;
+}
 
 // Select 2
 .select2-container .select2-selection {
@@ -94,17 +104,31 @@ button.link:not(.btn) {
   margin-top: map-get($spacers, 1);
   color: var(--bs-secondary);
 
-  ul { margin: 0; }
-  .ok { color: var(--bs-success); }
-  .error { color: var(--bs-danger); }
+  ul {
+    margin: 0;
+  }
+  .ok {
+    color: var(--bs-success);
+  }
+  .error {
+    color: var(--bs-danger);
+  }
 }
 
 // Use bootstrap colors.
 .password-strength {
-  .is-weak { background: var(--bs-danger); }
-  .is-fair { background: var(--bs-warning); }
-  .is-good { background: var(--bs-info); }
-  .is-strong { background: var(--bs-success); }
+  .is-weak {
+    background: var(--bs-danger);
+  }
+  .is-fair {
+    background: var(--bs-warning);
+  }
+  .is-good {
+    background: var(--bs-info);
+  }
+  .is-strong {
+    background: var(--bs-success);
+  }
 
   .password-strength__indicator,
   .password-strength__meter {

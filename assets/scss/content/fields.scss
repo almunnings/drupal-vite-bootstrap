@@ -18,7 +18,7 @@
 }
 
 // Tables in forms use a h4 for the label. Why.
-.field-label :is(h1,h2,h3,h4).label {
+.field-label :is(h1, h2, h3, h4).label {
   display: inline-block;
   margin: 0;
   color: inherit;

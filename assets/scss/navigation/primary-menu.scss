@@ -1,7 +1,8 @@
 // Menu styling.
 .region-primary-menu .nav {
-
-  a { text-decoration: none; }
+  a {
+    text-decoration: none;
+  }
 
   // Level 1
   .nav-link {
@@ -33,8 +34,12 @@
     }
 
     // Fix border wrapping in columns.
-    li { break-inside: avoid-column; }
-    ul ul { border-bottom: 1px solid transparent; }
+    li {
+      break-inside: avoid-column;
+    }
+    ul ul {
+      border-bottom: 1px solid transparent;
+    }
 
     // Active trail.
     .menu-item--active-trail > a {

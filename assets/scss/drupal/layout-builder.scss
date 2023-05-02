@@ -12,7 +12,9 @@ form + .layout-builder {
     padding-top: 10px;
   }
 
-  .form-label { display: block; }
+  .form-label {
+    display: block;
+  }
 
   .form-item {
     min-height: revert;

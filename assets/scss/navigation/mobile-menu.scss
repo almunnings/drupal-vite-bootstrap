@@ -14,9 +14,15 @@
       grid-auto-flow: row;
       gap: 0 0;
 
-      > a { grid-area: link; }
-      .btn { grid-area: button; }
-      .collapse { grid-area: expand; }
+      > a {
+        grid-area: link;
+      }
+      .btn {
+        grid-area: button;
+      }
+      .collapse {
+        grid-area: expand;
+      }
     }
 
     a {
@@ -30,8 +36,12 @@
       --bs-link-color: var(--bs-link-hover-color);
     }
 
-    .fa-chevron-up { @include transition; }
-    .btn.collapsed .fa-chevron-up { transform: rotate(-180deg); }
+    .fa-chevron-up {
+      @include transition;
+    }
+    .btn.collapsed .fa-chevron-up {
+      transform: rotate(-180deg);
+    }
   }
 
   .block + .block {

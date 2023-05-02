@@ -15,11 +15,16 @@ em.placeholder {
 }
 
 // Warning injected by drupal JS.
-abbr.warning { text-decoration: none; }
+abbr.warning {
+  text-decoration: none;
+}
 
 // Messages coming from an admin action and injected dynamically into the interface don't get themed.
 .messages {
-  $messages: ('status': 'success', 'warning': 'danger');
+  $messages: (
+    'status': 'success',
+    'warning': 'danger',
+  );
 
   @each $key, $state in $messages {
     .messages--#{$key} {

@@ -15,7 +15,7 @@
     "hamburgers": "^1.2.1"
   },
   "devDependencies": {
-    "@almunnings/eslint-config": "^0.0.1",
+    "@almunnings/eslint-config": "^0.0.3",
     "sass": "^1.62.1",
     "vite": "^4.3.3",
     "vite-plugin-eslint": "^1.8.1",

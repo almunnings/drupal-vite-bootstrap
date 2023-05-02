@@ -12,9 +12,17 @@
       'bottom bottom';
     grid-template-columns: 1fr 1fr;
 
-    .layout__region--top { grid-area: top; }
-    .layout__region--first { grid-area: left; }
-    .layout__region--second { grid-area: right; }
-    .layout__region--bottom { grid-area: bottom; }
+    .layout__region--top {
+      grid-area: top;
+    }
+    .layout__region--first {
+      grid-area: left;
+    }
+    .layout__region--second {
+      grid-area: right;
+    }
+    .layout__region--bottom {
+      grid-area: bottom;
+    }
   }
 }

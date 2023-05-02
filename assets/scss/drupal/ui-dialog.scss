@@ -26,7 +26,9 @@
     padding: map-get($spacers, 2);
     border-radius: var(--bs-border-radius);
     background: var(--bs-light);
-    a { text-decoration: none; }
+    a {
+      text-decoration: none;
+    }
     a.is-active {
       color: var(--bs-link-color);
     }
@@ -96,8 +98,8 @@
 .ui-dialog-titlebar-close {
   top: 50%;
 
-  &:before,
-  &:after {
+  &::before,
+  &::after {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -108,7 +110,7 @@
     transform-origin: top left;
     background-color: #f0f0f0;
   }
-  &:after {
+  &::after {
     transform: rotate(-45deg) translate(-50%, -50%);
   }
 }
