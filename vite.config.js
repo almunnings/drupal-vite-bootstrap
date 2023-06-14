@@ -28,7 +28,7 @@ const extra_input = [
 // Change output pattern for specific files. (scss = css)
 // Eg assets/ckeditor.css is not hashed.
 const output_map = {
-  'assets/scss/ckeditor.css': 'assets/[name].[ext]'
+  'ckeditor.css': 'assets/[name].[ext]'
 }
 
 export default ({ mode }) => {
@@ -48,7 +48,10 @@ export default ({ mode }) => {
       rollupOptions: {
         input: [...theme_input, ...extra_input],
         output: {
-          assetFileNames: (assetInfo) => output_map[assetInfo.name] || 'assets/[name].[hash].[ext]',
+          assetFileNames: (assetInfo) => {
+            console.log(assetInfo)
+            return output_map[assetInfo.name] || 'assets/[name].[hash].[ext]'
+          },
         }
       },
     },

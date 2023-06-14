@@ -19,6 +19,8 @@ libraries-override:
   gin/ajax: false
   gin/dialog: false
   gin/media_library: false
+  layout_discovery/onecol: false
+  layout_discovery/twocol: false
 
 regions:
   alerts: Alerts

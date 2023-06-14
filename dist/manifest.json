@@ -65,7 +65,7 @@
     "src": "assets/scss/bootstrap.scss"
   },
   "assets/scss/ckeditor.scss": {
-    "file": "assets/ckeditor.4452c54b.css",
+    "file": "assets/ckeditor.css",
     "isEntry": true,
     "src": "assets/scss/ckeditor.scss"
   }
