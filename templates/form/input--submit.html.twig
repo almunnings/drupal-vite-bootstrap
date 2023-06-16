@@ -11,20 +11,33 @@
  */
 #}
 
-{% do attributes.addClass('btn') %}
+{# Only upgrade non-btn defined buttons. #}
+{% if not attributes.hasClass('btn') and not attributes.hasClass('no-btn') %}
+  {% do attributes.addClass('btn') %}
 
-{% if safe_value_label matches '{(reset)}i' %}
-  {% do attributes.addClass('btn-outline-danger') %}
-{% elseif safe_value_label matches '{(delete|remove)}i' %}
-  {% do attributes.addClass('btn-danger') %}
-{% elseif safe_value_label matches '{(back|close|undo|cancel|previous|discard|revert)}i' %}
-  {% do attributes.addClass('btn-outline-secondary') %}
-{% elseif safe_value_label matches '{(preview)}i' %}
-  {% do attributes.addClass('btn-outline-primary') %}
-{% elseif safe_value_label matches '{^(add|edit)}i' %}
-  {% do attributes.addClass('btn-outline-secondary', 'btn-sm') %}
-{% else %}
-  {% do attributes.addClass('btn-primary') %}
+  {% if safe_value_label matches '{(reset)}i' %}
+    {% do attributes.addClass('btn-outline-danger') %}
+  {% elseif safe_value_label matches '{(delete|remove)}i' %}
+    {% do attributes.addClass('btn-danger') %}
+  {% elseif safe_value_label matches '{(back|close|undo|cancel|previous|discard|revert)}i' %}
+    {% do attributes.addClass('btn-outline-secondary') %}
+  {% elseif safe_value_label matches '{(preview)}i' %}
+    {% do attributes.addClass('btn-outline-primary') %}
+  {% elseif safe_value_label matches '{^(add|edit)}i' %}
+    {% do attributes.addClass('btn-outline-secondary', 'btn-sm') %}
+  {% else %}
+    {% do attributes.addClass('btn-primary') %}
+  {% endif %}
+{% endif %}
+
+{# Remove redundant class #}
+{% if attributes.hasClass('button--small') and attributes.hasClass('btn') %}
+  {% do attributes.addClass('btn-sm').removeClass('button--small') %}
+{% endif %}
+
+{# Extra small creates clutter. Resize to sm. #}
+{% if attributes.hasClass('button--extrasmall') and attributes.hasClass('btn') %}
+  {% do attributes.addClass('btn-sm').removeClass('button--extrasmall') %}
 {% endif %}
 
 {% if safe_value_label matches '/</' %}

@@ -36,7 +36,7 @@ input.form-text {
   }
 }
 
-// Small buttons from Drupal.
+// Small buttons from Drupal that snuck through somehow.
 .small .button:not(.btn),
 .button--small,
 .button--extrasmall {
@@ -178,7 +178,12 @@ button.link:not(.btn) {
   border: var(--bs-border-width) solid var(--bs-border-color-translucent);
 }
 
-// Disable media contextuals within form.
+// Disable media contextual links within form.
 form .lpb-layout .field--type-entity-reference .contextual {
   display: none !important;
+}
+
+// Paragraphs weird.
+.js .field--widget-paragraphs th .paragraphs-actions {
+  margin-right: calc(var(--bs-gutter-x) * -0.25);
 }

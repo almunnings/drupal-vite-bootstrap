@@ -1,0 +1,25 @@
+.dropbutton {
+  .btn {
+    width: 100%;
+  }
+
+  .dropbutton-toggle {
+    button {
+      color: var(--bs-white);
+      background-color: var(--bs-link-color);
+      &:hover {
+        background-color: var(--bs-link-hover-color);
+      }
+    }
+  }
+
+  .secondary-action {
+    border-top: var(--bs-border-width) var(--bs-border-style) var(--bs-link-color);
+  }
+}
+
+.dropbutton-widget {
+  border: var(--bs-border-width) var(--bs-border-style) var(--bs-link-color);
+  border-radius: var(--bs-border-radius);
+  background-color: var(--bs-white);
+}

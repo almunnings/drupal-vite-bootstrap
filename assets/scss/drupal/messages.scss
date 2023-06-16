@@ -27,7 +27,8 @@ abbr.warning {
   );
 
   @each $key, $state in $messages {
-    .messages--#{$key} {
+    .messages--#{$key},
+    &.messages--#{$key} {
       --#{$prefix}alert-color: var(--#{$prefix}#{$state}-text-emphasis);
       --#{$prefix}alert-bg: var(--#{$prefix}#{$state}-bg-subtle);
       --#{$prefix}alert-border-color: var(--#{$prefix}#{$state}-border-subtle);
