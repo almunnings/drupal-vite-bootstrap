@@ -11,6 +11,9 @@ use Drupal\Component\Serialization\Json;
 /**
  * Vite asset helper.
  *
+ * This is in the theme to avoid needing a custom module.
+ * Which could be beneficial for SaaS based hosting.
+ *
  * Usage:
  * vite_asset('assets/js/modules/main-menu.js');
  * ViteAssets::alter($libraries);
@@ -30,9 +33,7 @@ final class ViteAssets {
     private ImmutableConfig $performance,
     private ActiveTheme $theme,
     private Client $guzzle
-  ) {
-
-  }
+  ) {}
 
   /**
    * Create with DI.
@@ -55,6 +56,9 @@ final class ViteAssets {
 
   /**
    * Alter Drupal libraries for a theme.
+   *
+   * @param array $libraries
+   *  Libraries array passed by reference.
    */
   public static function alter(array &$libraries): void {
     foreach ($libraries as &$library) {

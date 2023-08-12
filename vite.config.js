@@ -15,10 +15,15 @@ const baseUrl = (themePath ? `${themePath}/dist/` : '/themes/contrib/dvb/dist')
 // Find scss and js in the app yml
 const yml = YAML.parse(fs.readFileSync(ymlPath, 'utf8'))
 
-const theme_input = [
-  ...Object.keys(yml.app.css.theme),
-  ...Object.keys(yml.app.js),
-].filter(v => v.match(/^assets/))
+// Find any library with vite: true
+const theme_input = Object.keys(yml)
+  .filter(v => yml[v].vite)
+  .map(v => [
+    ...Object.keys(yml[v].css?.theme),
+    ...Object.keys(yml[v].js),
+  ])
+  .flat()
+  .filter(v => v.match(/^assets/))
 
 // Anything not in the theme we want to add to the entrypoint.
 const extra_input = [
