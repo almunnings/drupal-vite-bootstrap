@@ -39,3 +39,8 @@ proxy:
   node:
     - node.drupal-boilerplate.lndo.site:3000
 ```
+
+## Pending package.json issues
+
+- Bootstrap has a deprecation for sass 1.65.0
+  https://github.com/twbs/bootstrap/issues/39028

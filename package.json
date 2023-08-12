@@ -1,23 +1,23 @@
 {
   "name": "@almunnings/dvb",
   "private": true,
-  "version": "0.0.2",
+  "version": "0.0.3",
   "scripts": {
     "dev": "vite",
     "build": "vite build"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^6.4.0",
-    "@fortawesome/free-regular-svg-icons": "^6.4.0",
-    "@fortawesome/free-solid-svg-icons": "^6.4.0",
+    "@fortawesome/fontawesome-svg-core": "^6.4.2",
+    "@fortawesome/free-regular-svg-icons": "^6.4.2",
+    "@fortawesome/free-solid-svg-icons": "^6.4.2",
     "accessible-submenu": "^1.0.2",
-    "bootstrap": "^5.3.0-alpha3",
+    "bootstrap": "^5.3.1",
     "hamburgers": "^1.2.1"
   },
   "devDependencies": {
-    "@almunnings/eslint-config": "^0.0.3",
-    "sass": "^1.62.1",
-    "vite": "^4.3.3",
+    "@almunnings/eslint-config": "^0.0.4",
+    "sass": "1.64.2",
+    "vite": "^4.4.9",
     "vite-plugin-eslint": "^1.8.1",
     "vite-plugin-live-reload": "^3.0.2"
   },
