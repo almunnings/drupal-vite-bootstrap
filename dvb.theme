@@ -9,14 +9,14 @@ use Drupal\block\Entity\Block;
 use Drupal\Component\Utility\Xss;
 use Drupal\Core\Entity\FieldableEntityInterface;
 use Drupal\Core\Render\Element;
-use Drupal\dvb\ViteAssets;
+use Drupal\dvb\Utility\Vite;
 
 /**
  * Implements hook_library_info_alter().
  */
 function dvb_library_info_alter(array &$libraries, string $extension): void {
   if ($extension === 'dvb') {
-    $libraries = ViteAssets::create($libraries)->getLibraries();
+    $libraries = (new Vite($libraries))->getLibraries();
   }
 }
 
@@ -27,7 +27,7 @@ function dvb_library_info_alter(array &$libraries, string $extension): void {
  */
 function vite_asset(string $file): string {
   $libraries = \Drupal::service('library.discovery')->getLibrariesByExtension('dvb');
-  return ViteAssets::create($libraries)->find($file);
+  return (new Vite($libraries))->find($file);
 }
 
 /**

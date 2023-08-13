@@ -1,63 +1,57 @@
 <?php
 
-namespace Drupal\dvb;
+namespace Drupal\dvb\Utility;
 
 use Drupal\Component\Serialization\Json;
 use Drupal\Core\Config\ImmutableConfig;
-use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\Theme\ActiveTheme;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ConnectException;
 
 /**
- * Vite asset helper.
- *
- * This is in the theme to avoid needing a custom module.
- * Which could be beneficial for SaaS based hosting.
- *
- * Usage:
- * vite_asset('assets/js/modules/main-menu.js');
- * ViteAssets::alter($libraries);
+ * Vite asset utility.
  */
-final class ViteAssets {
+final class Vite {
+
+  /**
+   * The active theme.
+   *
+   * @var \Drupal\Core\Theme\ActiveTheme
+   */
+  protected ActiveTheme $activeTheme;
+
+  /**
+   * The http client.
+   *
+   * @var \GuzzleHttp\Client
+   */
+  protected Client $httpClient;
+
+  /**
+   * The performance config.
+   *
+   * @var \Drupal\Core\Config\ImmutableConfig
+   */
+  protected ImmutableConfig $performance;
 
   /**
    * Construct a vite manifest on a library.
-   */
-  public function __construct(
-    private FileSystemInterface $fileSystem,
-    private ActiveTheme $activeTheme,
-    private Client $httpClient,
-    private ImmutableConfig $performance,
-    private array $libraries,
-    private int $port,
-  ) {}
-
-  /**
-   * Create with DI.
    *
    * @param array $libraries
-   *   Libraries for the theme.
+   *   The Drupal libraries to alter.
    * @param int $port
-   *   Port for the vite server.
-   *
-   * @return static
-   *   The ViteAssets instance.
+   *   The Vite port.
+   * @param float $timeout
+   *   The timeout for the Vite server.
    */
-  public static function create(array $libraries, int $port = 3000): self {
-    $performance = \Drupal::config('system.performance');
-    $fileSystem = \Drupal::service('file_system');
-    $activeTheme = \Drupal::service('theme.manager')->getActiveTheme();
-    $httpClient = \Drupal::service('http_client');
-
-    return new static(
-      $fileSystem,
-      $activeTheme,
-      $httpClient,
-      $performance,
-      $libraries,
-      $port
-    );
+  public function __construct(
+    private array $libraries,
+    private int $port = 3000,
+    private float $timeout = 0.05,
+  ) {
+    $this->activeTheme = \Drupal::service('theme.manager')->getActiveTheme();
+    $this->httpClient = \Drupal::service('http_client');
+    $this->performance = \Drupal::config('system.performance');
   }
 
   /**
@@ -67,7 +61,6 @@ final class ViteAssets {
    *   The altered libraries.
    */
   public function getLibraries(): array {
-
     if ($this->isDevelopmentMode()) {
       $this->libraries['hmr'] = [
         'header' => TRUE,
@@ -110,7 +103,7 @@ final class ViteAssets {
       }
     }
 
-    // Extra assets loaded by vite client.
+    // Extra assets would be loaded by Vite client.
     if ($this->isDevelopmentMode()) {
       return $library;
     }
@@ -189,7 +182,7 @@ final class ViteAssets {
     $development = &drupal_static(__FUNCTION__);
 
     if (!isset($development)) {
-      $cached = $this->performance->get('cache.page.max_age');
+      $cached = (int) $this->performance->get('cache.page.max_age') > 0;
       $development = $cached ? FALSE : (bool) $this->getDevelopmentHost();
     }
 
@@ -203,22 +196,25 @@ final class ViteAssets {
    *   The host names for node services in Lando.
    */
   protected function getLandoHosts(): array {
-    $lando_info = getenv('LANDO_INFO');
-    $lando_services = $lando_info ? Json::decode($lando_info) : [];
+    $lando_info = Json::decode(getenv('LANDO_INFO') ?: '{}');
 
+    // Get the URLs for the node services.
     $lando_services = array_filter(
-      $lando_services,
+      $lando_info,
       fn($service) => $service['type'] === 'node'
     );
 
-    $results = [];
+    $lando_urls = [];
     foreach ($lando_services as $hostname) {
+      // Prefer HTTPS host, else first.
+      $urls = array_filter($hostname['urls'], fn($url) => strpos($url, 'https') === 0);
+      $url = reset($urls) ?: reset($hostname['urls']);
+
       $internal = reset($hostname['hostnames']);
-      $external = reset($hostname['urls']);
-      $results[$internal] = parse_url($external, PHP_URL_HOST);
+      $lando_urls[$internal] = rtrim($url, '/');
     }
 
-    return $results;
+    return $lando_urls;
   }
 
   /**
@@ -235,8 +231,8 @@ final class ViteAssets {
 
     $hosts = array_merge(
       $this->getLandoHosts(),
-      ['host.docker.internal' => 'localhost:' . $this->port],
-      ['localhost' => 'localhost:' . $this->port],
+      ['host.docker.internal' => 'http://localhost:' . $this->port],
+      ['localhost' => 'http://localhost:' . $this->port],
     );
 
     $result = NULL;
@@ -251,7 +247,7 @@ final class ViteAssets {
   }
 
   /**
-   * Path for the HMR client.
+   * Path for the Vite HMR file.
    *
    * @param string $file
    *   The file to get the path for.
@@ -260,10 +256,7 @@ final class ViteAssets {
    *   The URL to the file.
    */
   protected function getDevelopmentUrl(string $file): string {
-    $host = $this->getDevelopmentHost();
-    $protocol = stristr($host, 'localhost') ? 'http' : 'https';
-
-    return $protocol . '://' . $host . '/' . $file;
+    return $this->getDevelopmentHost() . '/' . $file;
   }
 
   /**
@@ -291,7 +284,7 @@ final class ViteAssets {
   protected function isConnectionOk(string $hostname): bool {
     try {
       $options = [
-        'timeout' => 0.05,
+        'timeout' => $this->timeout,
         'verify' => FALSE,
         'http_errors' => FALSE,
       ];
