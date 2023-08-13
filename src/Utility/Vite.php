@@ -273,7 +273,7 @@ final class Vite {
   }
 
   /**
-   * Check if an internal domain is responding.
+   * Check if an internal host is responding.
    *
    * @param string $hostname
    *   The internal domain to check.

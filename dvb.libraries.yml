@@ -1,6 +1,7 @@
-# Modified by ViteManifest, use the original source location.
+# DVB theme library.
 
 app:
+  # Modified by Vite, use the original source location.
   vite: true
   version: 3.0.0
   dependencies:

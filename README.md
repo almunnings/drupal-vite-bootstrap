@@ -26,7 +26,34 @@ npm run build
 drush cr
 ```
 
+## Vite entry points
+
+- Assets are added to Vite via `dvb.libraries.yml`
+- The `vite: true` key is used enable Vite remapping
+- Any js/css path is converted into an entry point
+
+Vite assets within the yml should map to their location within the `assets/` dir.
+
+```yml
+app:
+  vite: true
+  version: 1.2.3
+  dependencies:
+    - core/drupal
+    - core/drupalSettings
+  css:
+    theme:
+      assets/scss/bootstrap.scss: { minified: true, preprocess: false }
+      assets/scss/app.scss: { minified: true, preprocess: false }
+  js:
+    assets/js/app.js: { minified: true, preprocess: false, attributes: { type: 'module' } }
+```
+
 ## Lando config
+
+The Vite Utility is equipped to handle _node_ type services.
+
+> If you plan to use a HMR theme via the Lando proxy, you need to trust your [Lando SSL certificates](https://docs.lando.dev/core/v3/security.html#trusting-the-ca).
 
 ```yml
 services:
