@@ -16,7 +16,7 @@ use Drupal\dvb\ViteAssets;
  */
 function dvb_library_info_alter(array &$libraries, string $extension): void {
   if ($extension === 'dvb') {
-    ViteAssets::alter($libraries);
+    $libraries = ViteAssets::create($libraries)->getLibraries();
   }
 }
 
@@ -25,8 +25,9 @@ function dvb_library_info_alter(array &$libraries, string $extension): void {
  *
  * Usage: vite_asset('assets/images/something.jpg');
  */
-function vite_asset(string $file, ?string $library_name = NULL): string {
-  return ViteAssets::create($library_name ?: 'dvb/app')->find($file);
+function vite_asset(string $file): string {
+  $libraries = \Drupal::service('library.discovery')->getLibrariesByExtension('dvb');
+  return ViteAssets::create($libraries)->find($file);
 }
 
 /**

@@ -16,12 +16,14 @@ npm i
 
 ```bash
 npm run dev
+drush cr
 ```
 
 ### Build production (static)
 
 ```bash
 npm run build
+drush cr
 ```
 
 ## Lando config
