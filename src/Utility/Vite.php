@@ -201,16 +201,16 @@ final class Vite {
     // Get the URLs for the node services.
     $lando_services = array_filter(
       $lando_info,
-      fn($service) => $service['type'] === 'node'
+      fn($service) => $service['type'] === 'node' && !empty($service['urls'])
     );
 
     $lando_urls = [];
-    foreach ($lando_services as $hostname) {
+    foreach ($lando_services as $service) {
       // Prefer HTTPS host, else first.
-      $urls = array_filter($hostname['urls'], fn($url) => strpos($url, 'https') === 0);
-      $url = reset($urls) ?: reset($hostname['urls']);
+      $urls = array_filter($service['urls'], fn($url) => strpos($url, 'https') === 0);
+      $url = reset($urls) ?: reset($service['urls']);
 
-      $internal = reset($hostname['hostnames']);
+      $internal = reset($service['hostnames']);
       $lando_urls[$internal] = rtrim($url, '/');
     }
 
