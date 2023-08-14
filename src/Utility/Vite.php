@@ -127,14 +127,16 @@ final class Vite {
    *   The manifest contents.
    */
   protected function getManifest(): array {
-    $manifest = &drupal_static(__FUNCTION__);
+    static $manifest;
 
-    if (!isset($manifest)) {
-      $theme = $this->themeHandler->getTheme($this->themeHandler->getDefault());
-      $file = $theme->getPath() . '/dist/manifest.json';
-      $content = file_exists($file) ? file_get_contents($file) : '{}';
-      $manifest = Json::decode($content);
+    if (isset($manifest)) {
+      return $manifest;
     }
+
+    $theme = $this->themeHandler->getTheme($this->themeHandler->getDefault());
+    $file = $theme->getPath() . '/dist/manifest.json';
+    $content = file_exists($file) ? file_get_contents($file) : '{}';
+    $manifest = Json::decode($content);
 
     return $manifest;
   }
@@ -146,14 +148,16 @@ final class Vite {
    *   TRUE if vite client is running locally.
    */
   protected function isDevelopmentMode(): bool {
-    $development = &drupal_static(__FUNCTION__);
+    static $development_mode;
 
-    if (!isset($development)) {
-      $cached = (int) $this->performance->get('cache.page.max_age') > 0;
-      $development = $cached ? FALSE : (bool) $this->getDevelopmentHost();
+    if (isset($development_mode)) {
+      return $development_mode;
     }
 
-    return $development;
+    $cached = (int) $this->performance->get('cache.page.max_age') > 0;
+    $development_mode = $cached ? FALSE : (bool) $this->getDevelopmentHost();
+
+    return $development_mode;
   }
 
   /**
@@ -191,9 +195,10 @@ final class Vite {
    *   The hostname of the first accessible internal domain.
    */
   protected function getDevelopmentHost(): ?string {
-    $result = &drupal_static(__FUNCTION__);
-    if (isset($result)) {
-      return $result;
+    static $development_host;
+
+    if (isset($development_host)) {
+      return $development_host;
     }
 
     $hosts = array_merge(
@@ -202,15 +207,15 @@ final class Vite {
       ['localhost' => 'http://localhost:' . $this->port],
     );
 
-    $result = NULL;
+    $development_host = NULL;
     foreach ($hosts as $internal => $external) {
       if ($this->isConnectionOk($internal)) {
-        $result = $external;
+        $development_host = $external;
         break;
       }
     }
 
-    return $result;
+    return $development_host;
   }
 
   /**
@@ -223,6 +228,7 @@ final class Vite {
    *   The path to the file.
    */
   public function find(string $file): string {
+
     $file = ltrim($file, '/');
 
     if ($this->isDevelopmentMode()) {
