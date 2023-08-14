@@ -4,7 +4,7 @@ namespace Drupal\dvb\Utility;
 
 use Drupal\Component\Serialization\Json;
 use Drupal\Core\Config\ImmutableConfig;
-use Drupal\Core\Theme\ActiveTheme;
+use Drupal\Core\Extension\ThemeHandlerInterface;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ConnectException;
 
@@ -14,11 +14,11 @@ use GuzzleHttp\Exception\ConnectException;
 final class Vite {
 
   /**
-   * The active theme.
+   * Drupal theme handler.
    *
-   * @var \Drupal\Core\Theme\ActiveTheme
+   * @var \Drupal\Core\Extension\ThemeHandlerInterface
    */
-  protected ActiveTheme $activeTheme;
+  protected ThemeHandlerInterface $themeHandler;
 
   /**
    * The http client.
@@ -49,7 +49,7 @@ final class Vite {
     private int $port = 3000,
     private float $timeout = 0.05,
   ) {
-    $this->activeTheme = \Drupal::service('theme.manager')->getActiveTheme();
+    $this->themeHandler = \Drupal::service('theme_handler');
     $this->httpClient = \Drupal::service('http_client');
     $this->performance = \Drupal::config('system.performance');
   }
@@ -90,30 +90,17 @@ final class Vite {
       return $library;
     }
 
-    // Replace defined in library (maintaining order)
+    // Remap defined library js.
     foreach ($library['js'] ?? [] as $file => $options) {
       unset($library['js'][$file]);
-      $library['js'][$this->find($file, TRUE)] = $options;
-    }
+      $library['js'][$this->find($file)] = $options;
 
-    foreach ($library['css'] ?? [] as $category => $css) {
-      foreach ($css as $file => $options) {
-        unset($library['css'][$category][$file]);
-        $library['css'][$category][$this->find($file, TRUE)] = $options;
-      }
-    }
-
-    // Extra assets would be loaded by Vite client.
-    if ($this->isDevelopmentMode()) {
-      return $library;
-    }
-
-    // Add any extra assets for entries.
-    $manifest = $this->getManifest();
-    foreach ($manifest as $asset) {
-      if (!empty($asset['isEntry'])) {
-        foreach ($asset['css'] ?? [] as $child) {
-          $library['css']['theme'][$this->getProductionUrl($child)] = [
+      // Find any child css assets that need to load.
+      // In development mode, Vite client does this.
+      if (!$this->isDevelopmentMode()) {
+        $manifest = $this->getManifest();
+        foreach ($manifest[$file]['css'] ?? [] as $child) {
+          $library['css']['theme'][$child] = [
             'minified' => TRUE,
             'weight' => 10,
             'preprocess' => FALSE,
@@ -122,37 +109,15 @@ final class Vite {
       }
     }
 
+    // Remap defined library css.
+    foreach ($library['css'] ?? [] as $category => $css) {
+      foreach ($css as $file => $options) {
+        unset($library['css'][$category][$file]);
+        $library['css'][$category][$this->find($file)] = $options;
+      }
+    }
+
     return $library;
-  }
-
-  /**
-   * Get dev or manifested file path.
-   *
-   * @param string $file
-   *   The file to find.
-   * @param bool $relative
-   *   Return a relative path.
-   *
-   * @return string
-   *   The path to the file.
-   */
-  public function find(string $file, bool $relative = FALSE): string {
-    $file = ltrim($file, '/');
-
-    if ($this->isDevelopmentMode()) {
-      return $this->getDevelopmentUrl($file);
-    }
-
-    $manifest = $this->getManifest();
-    if (isset($manifest[$file]['file'])) {
-      $file = $this->getProductionUrl($manifest[$file]['file']);
-    }
-
-    if (!$relative) {
-      $file = base_path() . $this->activeTheme->getPath() . '/' . $file;
-    }
-
-    return $file;
   }
 
   /**
@@ -165,11 +130,13 @@ final class Vite {
     $manifest = &drupal_static(__FUNCTION__);
 
     if (!isset($manifest)) {
-      $file = $this->activeTheme->getPath() . '/' . $this->getProductionUrl('manifest.json');
-      $manifest = file_exists($file) ? Json::decode(file_get_contents($file)) : [];
+      $theme = $this->themeHandler->getTheme($this->themeHandler->getDefault());
+      $file = $theme->getPath() . '/dist/manifest.json';
+      $content = file_exists($file) ? file_get_contents($file) : '{}';
+      $manifest = Json::decode($content);
     }
 
-    return $manifest ?: [];
+    return $manifest;
   }
 
   /**
@@ -192,13 +159,14 @@ final class Vite {
   /**
    * Get any node services host names from Lando.
    *
+   * Prefer HTTPS host.
+   *
    * @return array
    *   The host names for node services in Lando.
    */
   protected function getLandoHosts(): array {
     $lando_info = Json::decode(getenv('LANDO_INFO') ?: '{}');
 
-    // Get the URLs for the node services.
     $lando_services = array_filter(
       $lando_info,
       fn($service) => $service['type'] === 'node' && !empty($service['urls'])
@@ -206,7 +174,6 @@ final class Vite {
 
     $lando_urls = [];
     foreach ($lando_services as $service) {
-      // Prefer HTTPS host, else first.
       $urls = array_filter($service['urls'], fn($url) => strpos($url, 'https') === 0);
       $url = reset($urls) ?: reset($service['urls']);
 
@@ -247,6 +214,26 @@ final class Vite {
   }
 
   /**
+   * Get dev or manifested file path.
+   *
+   * @param string $file
+   *   The file to find.
+   *
+   * @return string
+   *   The path to the file.
+   */
+  public function find(string $file): string {
+    $file = ltrim($file, '/');
+
+    if ($this->isDevelopmentMode()) {
+      return $this->getDevelopmentUrl($file);
+    }
+
+    $manifest = $this->getManifest();
+    return $this->getProductionUrl($manifest[$file]['file'] ?? $file);
+  }
+
+  /**
    * Path for the Vite HMR file.
    *
    * @param string $file
@@ -266,7 +253,7 @@ final class Vite {
    *   The file to get the path for.
    *
    * @return string
-   *   The URL to the file.
+   *   The theme relative URL to the file.
    */
   protected function getProductionUrl(string $file): string {
     return 'dist/' . $file;
