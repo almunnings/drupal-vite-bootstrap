@@ -1,5 +1,8 @@
 // An entrypoint file to inject styles into ckeditor 5.
 
+// Wrap in ck-content to avoid style bleed in the admin and frontend UI.
+// @see templates/field/field--text.html.twig
+
 .ck-content {
   /* stylelint-disable no-invalid-position-at-import-rule */
   @import 'content/wysiwyg';

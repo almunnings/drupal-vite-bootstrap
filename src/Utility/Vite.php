@@ -174,7 +174,7 @@ final class Vite {
 
     $lando_urls = [];
     foreach ($lando_services as $service) {
-      $urls = array_filter($service['urls'], fn($url) => strpos($url, 'https') === 0);
+      $urls = array_filter($service['urls'], fn($url) => str_starts_with($url, 'https'));
       $url = reset($urls) ?: reset($service['urls']);
 
       $internal = reset($service['hostnames']);

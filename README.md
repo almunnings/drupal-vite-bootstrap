@@ -4,7 +4,8 @@
 
 It's intended you alter this template as much as you want.
 
-> If using Lando and a node service, prefix the following commands with lando. Example: `lando npm i`
+> If you plan to use Vite HMR via a Lando domain, you need to trust your [Lando SSL certificates](https://docs.lando.dev/core/v3/security.html#trusting-the-ca).
+
 
 ## Install and use
 
@@ -35,6 +36,8 @@ drush cr
 Vite assets within the yml should map to their location within the `assets/` dir.
 
 ```yml
+# Example dvb.libraries.yml
+
 app:
   vite: true
   version: 1.2.3
@@ -56,6 +59,8 @@ The Vite Utility is equipped to handle _node_ type services.
 > If you plan to use a HMR theme via the Lando proxy, you need to trust your [Lando SSL certificates](https://docs.lando.dev/core/v3/security.html#trusting-the-ca).
 
 ```yml
+# Example .lando.yml
+
 services:
   node:
     type: node:18
@@ -67,6 +72,13 @@ services:
 proxy:
   node:
     - node.drupal-boilerplate.lndo.site:3000
+
+tooling:
+  theme:
+    service: node
+    description: Run NPM commands for the theme.
+    dir: /app/web/themes/contrib/dvb
+    cmd: npm
 ```
 
 ## Pending package.json issues

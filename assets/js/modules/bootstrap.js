@@ -1,5 +1,5 @@
 /**
- * IconAgency bootstrap.js
+ * DVB bootstrap.js
  *
  * Adds bootstrap js and functionality.
  */

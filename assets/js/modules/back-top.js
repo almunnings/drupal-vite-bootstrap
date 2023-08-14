@@ -1,5 +1,5 @@
 /**
- * IconAgency back-top.js
+ * DVB back-top.js
  *
  * Adds a floating "back to top" element.
  */
@@ -34,7 +34,7 @@ export default class Module {
   }
 
   toggle() {
-    const y = window.pageYOffset;
+    const y = window.scrollY;
     const button = document.querySelector('.back-to-top');
     const offset = document.querySelector('.site-footer').offsetTop - window.innerHeight + 32;
 

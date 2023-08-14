@@ -54,7 +54,6 @@ export default ({ mode }) => {
         input: [...theme_input, ...extra_input],
         output: {
           assetFileNames: (assetInfo) => {
-            console.log(assetInfo)
             return output_map[assetInfo.name] || 'assets/[name].[hash].[ext]'
           },
         }

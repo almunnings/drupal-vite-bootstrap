@@ -1,5 +1,5 @@
 /**
- * Mobile menu load on demand.
+ * DVB mobile-menu.js
  */
 
 import '../../scss/navigation/mobile-button.scss';

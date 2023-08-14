@@ -31,7 +31,7 @@ export default class Module {
       },
     };
 
-    // Initalize this behaviour.
+    // Initialize this behaviour.
     Drupal.behaviors.fa.attach(document);
   }
 }

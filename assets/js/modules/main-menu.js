@@ -1,3 +1,7 @@
+/**
+ * DVB main-menu.js
+ */
+
 import AccessibleSubmenu from 'accessible-submenu';
 
 export default class Module {
@@ -60,7 +64,7 @@ export default class Module {
    *
    * @param {Event} event Click event
    *
-   * @return {boolean} Event target is doubletapped.
+   * @return {boolean} Event target is double tapped.
    */
   doubleTapped(event) {
     const target = event.currentTarget;
@@ -75,10 +79,10 @@ export default class Module {
   }
 
   /**
-   * Find the element target parents, so we dont close it on the touchstart.
+   * Find the element target parents, so we don't close it on the touchstart.
    *
    * @param {Element} element A HTML element to check.
-   * @param {integer} depth Recurdive depth
+   * @param {integer} depth Recursive depth
    *
    * @return {mixed} Element or false.
    */
@@ -100,7 +104,7 @@ export default class Module {
    * Check if we tapped inside a dropdown.
    *
    * @param {Element} element A HTML element to check.
-   * @param {integer} depth Recurdive depth
+   * @param {integer} depth Recursive depth
    *
    * @return {mixed} Element or false.
    */

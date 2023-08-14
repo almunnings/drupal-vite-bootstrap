@@ -1,6 +1,6 @@
-// IconAgency app.scss
+// DVB app.scss
 
-// Drupal specific fixes that cant be templated.
+// Drupal specific fixes that can't be templated.
 @import 'drupal/drupal';
 
 // Regions
@@ -16,8 +16,5 @@
 @import 'content/spacing';
 @import 'content/fields';
 
-// WYSIWYG content
-.text-formatted {
-  /* stylelint-disable-next-line no-invalid-position-at-import-rule */
-  @import 'content/wysiwyg';
-}
+// WYSIWYG
+@import 'ckeditor';
