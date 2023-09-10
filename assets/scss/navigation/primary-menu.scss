@@ -79,7 +79,6 @@
   position: absolute;
   z-index: 101;
   top: 0;
-  height: -webkit-fill-available;
-  height: fill-available;
+  height: stretch;
   transform: translateX(-50%);
 }

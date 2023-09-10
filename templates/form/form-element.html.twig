@@ -78,18 +78,21 @@
     </div>
   {% endif %}
 
+  {% set prefix = prefix|render|trim %}
+  {% set suffix = suffix|render|trim %}
+
   {% if (prefix is not empty) or (suffix is not empty) %}
     <div class="input-group">
   {% endif %}
 
     {% if prefix is not empty %}
-      <div class="field-prefix input-group-text">{{ prefix }}</div>
+      <div class="field-prefix input-group-text">{{- prefix -}}</div>
     {% endif %}
 
     {{ children }}
 
     {% if suffix is not empty %}
-      <div class="field-suffix input-group-text">{{ suffix }}</div>
+      <div class="field-suffix input-group-text">{{- suffix -}}</div>
     {% endif %}
 
   {% if (prefix is not empty) or (suffix is not empty) %}

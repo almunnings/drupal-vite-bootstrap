@@ -2,8 +2,10 @@ import fs from 'fs'
 import YAML from 'yaml'
 import { resolve } from 'path'
 import { defineConfig, loadEnv } from 'vite'
+import autoprefixer from 'autoprefixer'
 import eslint from 'vite-plugin-eslint'
 import liveReload from 'vite-plugin-live-reload'
+import { viteExternalsPlugin } from 'vite-plugin-externals'
 
 // Resolve dirs.
 const pwd = resolve(__dirname, '.')
@@ -43,6 +45,12 @@ export default ({ mode }) => {
     plugins: [
       eslint(),
       liveReload(__dirname + '/**/*.(php|theme|twig|module)'),
+      viteExternalsPlugin({
+        jquery: 'jQuery',
+        Drupal: 'Drupal',
+        once: 'once',
+        drupalSettings: 'drupalSettings',
+      }),
     ],
 
     base: mode === 'development' ? '/' : baseUrl,
@@ -66,6 +74,11 @@ export default ({ mode }) => {
         scss: {
           additionalData: `@import '/assets/scss/variables.scss';`,
         },
+      },
+      postcss: {
+        plugins: [
+          autoprefixer(),
+        ],
       },
     },
 

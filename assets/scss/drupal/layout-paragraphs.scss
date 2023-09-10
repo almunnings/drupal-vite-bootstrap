@@ -166,3 +166,9 @@ a.lpb-enable-button::before {
     }
   }
 }
+
+#layout-paragraphs-element {
+  .form-wrapper + .form-wrapper {
+    margin-top: map-get($spacers, 3);
+  }
+}

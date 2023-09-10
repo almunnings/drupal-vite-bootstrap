@@ -29,12 +29,12 @@
 {% if has_parent and attributes.hasClass('webform') and not attributes.hasClass('webform-flexbox') %}
   {% set inline = attributes.hasClass('container-inline') %}
   {%
-    set classes = [
+    set classes = classes|merge([
       inline ? 'd-flex',
       inline ? 'align-items-center',
       not inline ? 'd-grid',
       'gap-3',
-    ]
+    ])
   %}
 {% endif %}
 

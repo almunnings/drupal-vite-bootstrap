@@ -21,6 +21,8 @@ libraries-override:
   gin/media_library: false
   layout_discovery/onecol: false
   layout_discovery/twocol: false
+  claro/claro.drupal.dialog: false
+  webform/webform.composite: false
 
 regions:
   alerts: Alerts

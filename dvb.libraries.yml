@@ -5,8 +5,10 @@ app:
   vite: true
   version: 3.0.0
   dependencies:
+    - core/jquery
     - core/drupal
     - core/drupalSettings
+    - core/once
   css:
     theme:
       assets/scss/bootstrap.scss: { minified: true, preprocess: false }

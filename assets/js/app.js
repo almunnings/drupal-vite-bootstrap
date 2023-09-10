@@ -20,3 +20,7 @@ import('./modules/mobile-menu').then(({ default: Module }) => {
 import('./modules/back-top').then(({ default: Module }) => {
   new Module();
 });
+
+import('./modules/jquery-ui').then(({ default: Module }) => {
+  new Module();
+});

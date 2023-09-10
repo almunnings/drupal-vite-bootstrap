@@ -5,11 +5,7 @@ input.form-text {
 
 // Some elements contain multiple form-items in the form-item.
 // Eg password on registration page.
-.form-item > .form-item + .form-item {
-  margin-top: map-get($spacers, 3);
-}
-
-.form-wrapper + .form-wrapper {
+:is(.form-item, .form-wrapper):not(.form--inline) > :is(.form-wrapper, .form-item) + :is(.form-wrapper, .form-item) {
   margin-top: map-get($spacers, 3);
 }
 
@@ -82,8 +78,37 @@ button.link:not(.btn) {
 .webform-scale-option .form-check-label {
   line-height: 1.6;
 }
+.rateit {
+  display: flex;
+}
 .rateit-range {
   vertical-align: middle;
+}
+.webform-flexbox {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  gap: var(--bs-gutter-x);
+  @include media-breakpoint-up(md) {
+    flex-direction: row;
+  }
+}
+.webform-signature-pad {
+  border-radius: var(--bs-border-radius);
+  .button {
+    top: map-get($spacers, 3);
+    right: map-get($spacers, 3);
+  }
+}
+.webform-flexbox + .webform-flexbox {
+  margin-top: map-get($spacers, 3);
+}
+.webform-flex--container {
+  margin: 0;
+}
+.webform-flex--container > .form-wrapper {
+  padding: 0 !important;
+  border: none !important;
 }
 
 // Select 2
@@ -171,11 +196,10 @@ button.link:not(.btn) {
 }
 
 .entity-content-form-footer {
-  @include border-radius();
-
   margin: map-get($spacers, 3) 0;
   padding: map-get($spacers, 3);
   border: var(--bs-border-width) solid var(--bs-border-color-translucent);
+  border-radius: var(--bs-border-radius);
 }
 
 // Disable media contextual links within form.
@@ -186,4 +210,9 @@ form .lpb-layout .field--type-entity-reference .contextual {
 // Paragraphs weird.
 .js .field--widget-paragraphs th .paragraphs-actions {
   margin-right: calc(var(--bs-gutter-x) * -0.25);
+}
+
+// Poorly made composites
+.input-group .field-prefix:empty {
+  display: none;
 }

@@ -1,122 +1,12 @@
-/**
- * @file
- * Styles for Drupal's modal windows
- */
-
-.ui-dialog {
-  --space-m: #{map-get($spacers, 3)};
-  --space-l: #{map-get($spacers, 4)};
-  --space-s: #{map-get($spacers, 1)};
-  --jui-dialog-close-button-reserved-space: 4rem;
-  --jui-dialog-title-color: var(--bs-light);
-  --jui-dialog-border-radius: var(--bs-border-radius);
-  --jui-dialog-title-bg-color: var(--bs-dark);
-  --jui-dialog-close-button-size: 2rem;
-  --jui-dialog-close-button-border-radius: 50%;
-  --jui-dialog--focus-outline: none;
-  --color-text: var(--bs-body-color);
-  --color-white: var(--bs-white);
-  --color-focus: var(--bs-primary);
-  --color-gray-050: var(--bs-light);
-}
-
-.ui-widget-content {
-  .view-header {
-    margin: map-get($spacers, 2) 0 map-get($spacers, 4);
-    padding: map-get($spacers, 2);
-    border-radius: var(--bs-border-radius);
-    background: var(--bs-light);
-    a {
-      text-decoration: none;
-    }
-    a.is-active {
-      color: var(--bs-link-color);
-    }
-  }
-}
-
-/* Corner radius */
-.ui-corner-all,
-.ui-corner-top,
-.ui-corner-left,
-.ui-corner-tl {
-  border-top-left-radius: var(--bs-border-radius);
-}
-
-.ui-corner-all,
-.ui-corner-top,
-.ui-corner-right,
-.ui-corner-tr {
-  border-top-right-radius: var(--bs-border-radius);
-}
-
-.ui-corner-all,
-.ui-corner-bottom,
-.ui-corner-left,
-.ui-corner-bl {
-  border-bottom-left-radius: var(--bs-border-radius);
-}
-
-.ui-corner-all,
-.ui-corner-bottom,
-.ui-corner-right,
-.ui-corner-br {
-  border-bottom-right-radius: var(--bs-border-radius);
-}
-
-.ui-dialog {
-  padding: 0;
-}
-
-.ui-dialog .ui-dialog-content {
-  padding: $modal-inner-padding;
-}
-
-.ui-widget.ui-widget-content {
-  border: none;
-}
-
-.ui-dialog:not(.ui-dialog-off-canvas) .views-exposed-form.views-exposed-form {
-  border-radius: var(--bs-border-radius);
-}
-
-.ui-dialog-titlebar.ui-corner-all {
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
-}
-
-.ui-dialog > .ui-dialog-buttonpane {
-  margin-top: 0;
-}
-
-.ui-dialog .ui-dialog-titlebar .ui-dialog-title {
-  @include font-size($font-size-base);
-
-  font-weight: $font-weight-bold;
-}
-
-.ui-dialog-titlebar-close {
-  top: 50%;
-
-  &::before,
-  &::after {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 3px;
-    height: 1rem;
-    content: '';
-    transform: rotate(45deg) translate(-50%, -50%);
-    transform-origin: top left;
-    background-color: #f0f0f0;
-  }
-  &::after {
-    transform: rotate(-45deg) translate(-50%, -50%);
-  }
-}
-
 .ui-dialog:not(.ui-dialog-off-canvas) {
-  max-width: map-get($container-max-widths, 'xxl');
+  @include box-shadow;
+
+  max-width: map-get($container-max-widths, 'xl');
+  padding: 0;
+  border: 0 none !important;
+  border-radius: var(--bs-border-radius);
+  background: var(--bs-body-bg);
+
   // Dialog without title
   .ui-dialog-content:first-of-type {
     border-top-left-radius: var(--bs-border-radius);
@@ -127,10 +17,147 @@
     outline: 2px dotted transparent;
     box-shadow: $input-focus-box-shadow;
   }
+
+  @media (forced-colors: active) {
+    border: 1px solid buttonBorder !important;
+  }
+}
+
+@include media-breakpoint-down(sm) {
+  .ui-dialog:not(.ui-dialog-off-canvas) {
+    min-width: 92%;
+    max-width: 92%;
+  }
+}
+
+.ui-dialog {
+  position: absolute;
+  top: 0;
+  left: 0;
+  outline: none;
+  font-family: var(--bs-body-font-family);
+
+  .ui-dialog-titlebar {
+    position: relative;
+    padding: map-get($spacers, 3);
+    border: 0 none;
+    border-radius: var(--bs-border-radius) var(--bs-border-radius) 0 0;
+    background: var(--bs-dark);
+    line-height: var(--bs-body-line-height);
+
+    @media (forced-colors: active) {
+      border-bottom: var(--bs-border-width) var(--bs-border-style) buttonBorder;
+    }
+  }
+
+  .ui-dialog-title {
+    box-sizing: border-box;
+    width: 100%;
+    padding-right: map-get($spacers, 5);
+    color: var(--bs-light);
+    font-weight: normal;
+  }
+
+  .ui-dialog-content {
+    padding: map-get($spacers, 3);
+    color: var(--bs-body-color);
+  }
+
+  .ui-widget-content.ui-dialog-buttonpane {
+    padding: map-get($spacers, 3);
+    border-top: var(--bs-border-width) var(--bs-border-style) var(--bs-border-color);
+    border-bottom-right-radius: var(--bs-border-radius);
+    border-bottom-left-radius: var(--bs-border-radius);
+    background: var(--bs-tertiary-bg);
+
+    .button {
+      margin-top: 0;
+      margin-right: map-get($spacers, 3);
+      margin-bottom: 0;
+
+      &:last-of-type {
+        margin-right: 0;
+      }
+    }
+  }
+
+  .ui-dialog-buttonset {
+    margin-top: 0;
+  }
+
+  .ui-dialog-titlebar-close {
+    position: absolute;
+    top: 50%;
+    right: map-get($spacers, 3);
+    left: auto;
+    margin: 0;
+    transform: translateY(-50%);
+    opacity: 0.8;
+    border: none !important;
+    background: none !important;
+
+    .ui-icon-closethick {
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      transform: none;
+      background: var(--bs-light) !important;
+      mask-image: url(../images/close.svg#close-view);
+      mask-size: #{map-get($spacers, 4)} #{map-get($spacers, 4)};
+      mask-repeat: no-repeat;
+      mask-position: center center;
+      @media (forced-colors: active) {
+        background: linktext;
+      }
+    }
+
+    .ui-button-text {
+      position: absolute;
+      top: -9999px;
+      left: -9999px;
+    }
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  .ui-widget-content.ui-dialog-content {
+    padding-right: map-get($spacers, 3);
+    padding-left: map-get($spacers, 3);
+    background: var(--bs-body-bg);
+  }
 }
 
 .ui-widget-overlay {
-  z-index: 1259;
-  opacity: $modal-backdrop-opacity;
-  background: $modal-backdrop-bg;
+  opacity: $modal-backdrop-opacity !important;
+  background: $modal-backdrop-bg !important;
+}
+
+.views-ui-dialog {
+  .views-offset-bottom {
+    border-top: var(--bs-border-width) var(--bs-border-style) var(--bs-border-color);
+
+    @media (forced-colors: active) {
+      border-top: none;
+    }
+  }
+}
+
+.ui-dialog-buttons.lpb-dialog .ui-dialog-content > form > .form-actions {
+  display: none !important;
+}
+
+// Scroll
+.ui-dialog .ui-widget-content.ui-dialog-content {
+  overflow: auto;
+}
+
+// Token
+table.treetable {
+  tr.branch {
+    background-color: transparent;
+  }
 }
