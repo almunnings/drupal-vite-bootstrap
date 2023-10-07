@@ -6,7 +6,6 @@ It's intended you alter this template as much as you want.
 
 > If you plan to use Vite HMR via a Lando domain, you need to trust your [Lando SSL certificates](https://docs.lando.dev/core/v3/security.html#trusting-the-ca).
 
-
 ## Install and use
 
 ```bash
@@ -80,8 +79,3 @@ tooling:
     dir: /app/web/themes/contrib/dvb
     cmd: npm
 ```
-
-## Pending package.json issues
-
-- Bootstrap has a deprecation for sass 1.65.0
-  https://github.com/twbs/bootstrap/issues/39028

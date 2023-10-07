@@ -1,4 +1,8 @@
 {
+  "assets/images/close.svg": {
+    "file": "assets/close.f4841ee8.svg",
+    "src": "assets/images/close.svg"
+  },
   "assets/images/no-thumbnail.png": {
     "file": "assets/no-thumbnail.2e94d652.png",
     "src": "assets/images/no-thumbnail.png"
@@ -9,9 +13,10 @@
       "assets/js/modules/main-menu.js",
       "assets/js/modules/bootstrap.js",
       "assets/js/modules/mobile-menu.js",
-      "assets/js/modules/back-top.js"
+      "assets/js/modules/back-top.js",
+      "assets/js/modules/jquery-ui.js"
     ],
-    "file": "assets/app-1468b49b.js",
+    "file": "assets/app-a7d8cdc8.js",
     "isEntry": true,
     "src": "assets/js/app.js"
   },
@@ -28,7 +33,7 @@
     "src": "assets/js/modules/back-top.js"
   },
   "assets/js/modules/bootstrap.js": {
-    "file": "assets/bootstrap-7689dcd7.js",
+    "file": "assets/bootstrap-f8bb8920.js",
     "isDynamicEntry": true,
     "src": "assets/js/modules/bootstrap.js"
   },
@@ -36,6 +41,11 @@
     "file": "assets/fontawesome-cf27161e.js",
     "isDynamicEntry": true,
     "src": "assets/js/modules/fontawesome.js"
+  },
+  "assets/js/modules/jquery-ui.js": {
+    "file": "assets/jquery-ui-26181ce4.js",
+    "isDynamicEntry": true,
+    "src": "assets/js/modules/jquery-ui.js"
   },
   "assets/js/modules/main-menu.js": {
     "file": "assets/main-menu-7ad47cd9.js",
@@ -55,12 +65,12 @@
     "src": "assets/js/modules/mobile-menu.js"
   },
   "assets/scss/app.scss": {
-    "file": "assets/app.59a0f009.css",
+    "file": "assets/app.048c0d6a.css",
     "isEntry": true,
     "src": "assets/scss/app.scss"
   },
   "assets/scss/bootstrap.scss": {
-    "file": "assets/bootstrap.c888c4a5.css",
+    "file": "assets/bootstrap.963af704.css",
     "isEntry": true,
     "src": "assets/scss/bootstrap.scss"
   },

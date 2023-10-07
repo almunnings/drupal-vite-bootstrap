@@ -17,7 +17,7 @@
   "devDependencies": {
     "@almunnings/eslint-config": "^0.0.4",
     "autoprefixer": "^10.4.15",
-    "sass": "1.64.2",
+    "sass": "^1.64.2",
     "vite": "^4.4.9",
     "vite-plugin-eslint": "^1.8.1",
     "vite-plugin-externals": "^0.6.2",
