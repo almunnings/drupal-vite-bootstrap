@@ -89,29 +89,27 @@ export default ({ mode }) => {
     },
   }
 
-  // Enable mapping back to a Lando domain.
-  const lando_app = env?.LANDO_APP_NAME
-
-  if (lando_app) {
-    // Get the URLs for this service.
+  if (env.LANDO_INFO) {
     const lando_info = JSON.parse(env.LANDO_INFO)
-    const lando_urls = (lando_info[env.LANDO_SERVICE_NAME].urls || []).map(url => new URL(url))
+    const lando_urls = lando_info[env.LANDO_SERVICE_NAME].urls || ['http://localhost']
 
     // Prefer https host. Else first.
-    const host = lando_urls.find(url => !!url.protocol.match(/^https/i)) || lando_urls.shift()
+    const { protocol, hostname, port } = new URL(
+      lando_urls.find(url => !!url.match(/^https/i)) || lando_urls.shift()
+    );
 
     // Set HMR to the node service proxy domain.
     // Use the lando proxy to do all SSL termination.
     config.server.hmr = {
-      protocol: !!host.protocol.match(/^https/i) ? 'wss' : 'ws',
-      host: host.hostname || 'localhost',
-      port: host.port
+      protocol: !!protocol.match(/^https/i) ? 'wss' : 'ws',
+      host: hostname,
+      port
     }
 
     // Proxy some common paths back to the default domain.
     config.server.proxy = {
-      '^/(system|api|jsonapi|graphql)/.*': {
-        target: `${host.protocol}//${lando_app}.lndo.site`,
+      '^/(system|api|jsonapi|graphql|oauth)/.*': {
+        target: `${protocol}//${env.LANDO_APP_NAME}.lndo.site`,
         changeOrigin: true,
       },
     }
