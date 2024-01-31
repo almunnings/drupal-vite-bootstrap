@@ -89,15 +89,13 @@ export default ({ mode }) => {
     },
   }
 
-  if (env.LANDO_INFO) {
+  if (env.LANDO_INFO && mode === 'development') {
     const lando_info = JSON.parse(env.LANDO_INFO)
-    const lando_urls = lando_info[env.LANDO_SERVICE_NAME].urls || ['http://localhost']
-
-    console.log('Proxy urls available', lando_urls)
+    const lando_urls = lando_info[env.LANDO_SERVICE_NAME]?.urls || []
 
     // Prefer https host. Else first.
     const { protocol, hostname, port } = new URL(
-      lando_urls.find(url => !!url.match(/^https/i)) || lando_urls.shift()
+      lando_urls.find(url => !!url.match(/^https/i)) || lando_urls.shift() || 'http://localhost'
     );
 
     // Set HMR to the node service proxy domain.
