@@ -93,6 +93,8 @@ export default ({ mode }) => {
     const lando_info = JSON.parse(env.LANDO_INFO)
     const lando_urls = lando_info[env.LANDO_SERVICE_NAME].urls || ['http://localhost']
 
+    console.log('Proxy urls available', lando_urls)
+
     // Prefer https host. Else first.
     const { protocol, hostname, port } = new URL(
       lando_urls.find(url => !!url.match(/^https/i)) || lando_urls.shift()
