@@ -1,7 +1,7 @@
 {
   "name": "@almunnings/dvb",
   "private": true,
-  "version": "0.0.4",
+  "version": "0.0.5",
   "scripts": {
     "dev": "vite",
     "build": "vite build"
@@ -15,7 +15,7 @@
     "hamburgers": "^1.2.1"
   },
   "devDependencies": {
-    "@almunnings/eslint-config": "^0.0.4",
+    "@almunnings/eslint-config": "^0.0.6",
     "autoprefixer": "^10.4.17",
     "sass": "^1.70.0",
     "vite": "^4.5.2",

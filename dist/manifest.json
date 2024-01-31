@@ -16,7 +16,7 @@
       "assets/js/modules/back-top.js",
       "assets/js/modules/jquery-ui.js"
     ],
-    "file": "assets/app-a7d8cdc8.js",
+    "file": "assets/app-5281b264.js",
     "isEntry": true,
     "src": "assets/js/app.js"
   },
@@ -38,7 +38,7 @@
     "src": "assets/js/modules/bootstrap.js"
   },
   "assets/js/modules/fontawesome.js": {
-    "file": "assets/fontawesome-cf27161e.js",
+    "file": "assets/fontawesome-d10823f9.js",
     "isDynamicEntry": true,
     "src": "assets/js/modules/fontawesome.js"
   },
