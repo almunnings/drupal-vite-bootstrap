@@ -1,6 +1,7 @@
 {
   "name": "@almunnings/dvb",
   "private": true,
+  "type": "module",
   "version": "0.0.5",
   "scripts": {
     "dev": "vite",
@@ -18,7 +19,7 @@
     "@almunnings/eslint-config": "^0.0.6",
     "autoprefixer": "^10.4.17",
     "sass": "^1.70.0",
-    "vite": "^4.5.2",
+    "vite": "^5.0.12",
     "vite-plugin-eslint": "^1.8.1",
     "vite-plugin-externals": "^0.6.2",
     "vite-plugin-live-reload": "^3.0.3"

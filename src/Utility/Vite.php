@@ -65,15 +65,41 @@ final class Vite {
       $this->libraries['hmr'] = [
         'header' => TRUE,
         'js' => [
-          $this->getDevelopmentUrl('@vite/client') => [
+          $this->find('@vite/client') => [
             'type' => 'external',
-            'attributes' => ['type' => 'module'],
+            'attributes' => [
+              'type' => 'module',
+            ],
           ],
         ],
       ];
     }
 
-    return array_map([$this, 'remap'], $this->libraries);
+    return array_map(
+      fn ($definition) => $this->remap($definition),
+      $this->libraries
+    );
+  }
+
+  /**
+   * Get dev or manifested file path.
+   *
+   * @param string $file
+   *   The file to find.
+   *
+   * @return string
+   *   The path to the file.
+   */
+  public function find(string $file): string {
+    $file = ltrim($file, '/');
+
+    if ($this->isDevelopmentMode()) {
+      return $this->getDevelopmentHost() . '/' . $file;
+    }
+
+    $manifest = $this->getManifest();
+
+    return 'dist/' . ($manifest[$file]['file'] ?? $file);
   }
 
   /**
@@ -85,12 +111,11 @@ final class Vite {
    * @return array
    *   The altered library.
    */
-  protected function remap(array $library): array {
+  private function remap(array $library): array {
     if (empty($library['vite'])) {
       return $library;
     }
 
-    // Remap defined library js.
     foreach ($library['js'] ?? [] as $file => $options) {
       unset($library['js'][$file]);
       $library['js'][$this->find($file)] = $options;
@@ -99,6 +124,9 @@ final class Vite {
       // In development mode, Vite client does this.
       if (!$this->isDevelopmentMode()) {
         $manifest = $this->getManifest();
+
+        dump($manifest);
+
         foreach ($manifest[$file]['css'] ?? [] as $child) {
           $library['css']['theme'][$child] = [
             'minified' => TRUE,
@@ -109,7 +137,6 @@ final class Vite {
       }
     }
 
-    // Remap defined library css.
     foreach ($library['css'] ?? [] as $category => $css) {
       foreach ($css as $file => $options) {
         unset($library['css'][$category][$file]);
@@ -126,15 +153,14 @@ final class Vite {
    * @return array
    *   The manifest contents.
    */
-  protected function getManifest(): array {
+  private function getManifest(): array {
     static $manifest;
-
     if (isset($manifest)) {
       return $manifest;
     }
 
     $theme = $this->themeHandler->getTheme($this->themeHandler->getDefault());
-    $file = $theme->getPath() . '/dist/manifest.json';
+    $file = $theme->getPath() . '/dist/.vite/manifest.json';
     $content = file_exists($file) ? file_get_contents($file) : '{}';
     $manifest = Json::decode($content);
 
@@ -147,15 +173,15 @@ final class Vite {
    * @return bool
    *   TRUE if vite client is running locally.
    */
-  protected function isDevelopmentMode(): bool {
+  private function isDevelopmentMode(): bool {
     static $development_mode;
-
     if (isset($development_mode)) {
       return $development_mode;
     }
 
-    $cached = (int) $this->performance->get('cache.page.max_age') > 0;
-    $development_mode = $cached ? FALSE : (bool) $this->getDevelopmentHost();
+    $development_mode = ($this->performance->get('cache.page.max_age') <= 0)
+      ? (bool) $this->getDevelopmentHost()
+      : FALSE;
 
     return $development_mode;
   }
@@ -163,13 +189,15 @@ final class Vite {
   /**
    * Get any node services host names from Lando.
    *
-   * Prefer HTTPS host.
-   *
    * @return array
    *   The host names for node services in Lando.
    */
-  protected function getLandoHosts(): array {
-    $lando_info = Json::decode(getenv('LANDO_INFO') ?: '{}');
+  private function getHostsForLando(): array {
+    if (!getenv('LANDO_INFO')) {
+      return [];
+    }
+
+    $lando_info = Json::decode(getenv('LANDO_INFO'));
 
     $lando_services = array_filter(
       $lando_info,
@@ -191,23 +219,21 @@ final class Vite {
   /**
    * Get any node services host names from ddev.
    *
-   * Prefer HTTPS host.
-   *
    * @return array
    *   The host names for node services in ddev.
    */
-  protected function getDdevHosts(): array {
-
-    if (!getenv('DDEV_HOSTNAME') || !getenv('HTTPS_EXPOSE')) {
+  private function getHostsForDdev(): array {
+    if (!getenv('DDEV_HOSTNAME') || !getenv('HTTPS_EXPOSE') || !getenv('HOSTNAME')) {
       return [];
     }
 
-    // Find whatever the external port mapped to.
+    // Get the bindings from the DDEV string.
     $bindings = array_map(
       fn($mapping) => explode(':', $mapping),
       explode(',', getenv('HTTPS_EXPOSE'))
     );
 
+    // Find the binding that maps port 3000.
     $binding = array_filter(
       $bindings,
       fn($binding) => $binding[1] === (string) $this->port
@@ -221,79 +247,45 @@ final class Vite {
   }
 
   /**
+   * Get any docker host names to try.
+   *
+   * @return array
+   *   The host names for node services in ddev.
+   */
+  private function getHostsForDocker(): array {
+    return file_exists('/.dockerenv')
+      ? ['host.docker.internal' => 'http://localhost:' . $this->port]
+      : [];
+  }
+
+  /**
    * Get the Vite development host.
    *
    * @return string|null
    *   The hostname of the first accessible internal domain.
    */
-  protected function getDevelopmentHost(): ?string {
+  private function getDevelopmentHost(): ?string {
     static $development_host;
-
     if (isset($development_host)) {
       return $development_host;
     }
 
     $hosts = array_merge(
-      $this->getLandoHosts(),
-      $this->getDdevHosts(),
-      ['host.docker.internal' => 'http://localhost:' . $this->port],
+      $this->getHostsForLando(),
+      $this->getHostsForDdev(),
+      $this->getHostsForDocker(),
       ['localhost' => 'http://localhost:' . $this->port],
     );
 
+    $development_host = NULL;
     foreach ($hosts as $internal => $external) {
       if ($this->isConnectionOk($internal)) {
-        return $external;
+        $development_host = $external;
+        break;
       }
     }
 
-    return NULL;
-  }
-
-  /**
-   * Get dev or manifested file path.
-   *
-   * @param string $file
-   *   The file to find.
-   *
-   * @return string
-   *   The path to the file.
-   */
-  public function find(string $file): string {
-
-    $file = ltrim($file, '/');
-
-    if ($this->isDevelopmentMode()) {
-      return $this->getDevelopmentUrl($file);
-    }
-
-    $manifest = $this->getManifest();
-    return $this->getProductionUrl($manifest[$file]['file'] ?? $file);
-  }
-
-  /**
-   * Path for the Vite HMR file.
-   *
-   * @param string $file
-   *   The file to get the path for.
-   *
-   * @return string
-   *   The URL to the file.
-   */
-  protected function getDevelopmentUrl(string $file): string {
-    return $this->getDevelopmentHost() . '/' . $file;
-  }
-
-  /**
-   * Path relative to theme dist.
-   *
-   * @param string $file
-   *   The file to get the path for.
-   *
-   * @return string
-   *   The theme relative URL to the file.
-   */
-  protected function getProductionUrl(string $file): string {
-    return 'dist/' . $file;
+    return $development_host;
   }
 
   /**
@@ -305,7 +297,7 @@ final class Vite {
    * @return bool
    *   TRUE if the domain is responding.
    */
-  protected function isConnectionOk(string $hostname): bool {
+  private function isConnectionOk(string $hostname): bool {
     try {
       $options = [
         'timeout' => $this->timeout,
@@ -315,8 +307,10 @@ final class Vite {
 
       // HEAD request to avoid downloading the whole page.
       // Only need to know if the server is responding.
-      $url = 'http://' . $hostname . ':' . $this->port;
-      return (bool) $this->httpClient->head($url, $options);
+      return (bool) $this->httpClient->head(
+        'http://' . $hostname . ':' . $this->port,
+        $options
+      );
     }
     catch (ConnectException) {
       return FALSE;

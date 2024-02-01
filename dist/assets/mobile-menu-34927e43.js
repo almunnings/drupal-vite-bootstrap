@@ -1,1 +1,0 @@
-class o{constructor(){this.button=document.getElementById("mobile-nav-button"),this.bind(this.button)}bind(t){const e="is-active",s=document.querySelector(t.dataset.bsTarget);s.addEventListener("show.bs.offcanvas",()=>{t.classList.add(e)}),s.addEventListener("hidden.bs.offcanvas",()=>{t.classList.remove(e)})}}export{o as default};
