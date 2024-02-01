@@ -9,21 +9,21 @@ It's intended you alter this template as much as you want.
 ## Install and use
 
 ```bash
-npm i
+npm ci
 ```
 
 ### Local development (live reloading)
 
+Enable developer mode, visit `/admin/appearance/settings/dvb` and check the enable option.
+
 ```bash
 npm run dev
-drush cr
 ```
 
 ### Build production (static)
 
 ```bash
 npm run build
-drush cr
 ```
 
 ## Vite entry points
@@ -52,8 +52,6 @@ app:
 ```
 
 ## Lando config
-
-The Vite Utility is equipped to handle _node_ type services.
 
 > If you plan to use a HMR theme via the Lando proxy, you need to trust your [Lando SSL certificates](https://docs.lando.dev/core/v3/security.html#trusting-the-ca).
 

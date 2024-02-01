@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\dvb\Utility;
 
 use Drupal\Component\Serialization\Json;
-use Drupal\Core\Config\ImmutableConfig;
 use Drupal\Core\Extension\ThemeHandlerInterface;
+use Drupal\Core\State\StateInterface;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ConnectException;
 
@@ -28,11 +30,11 @@ final class Vite {
   protected Client $httpClient;
 
   /**
-   * The performance config.
+   * The environment state.
    *
-   * @var \Drupal\Core\Config\ImmutableConfig
+   * @var \Drupal\Core\State\StateInterface
    */
-  protected ImmutableConfig $performance;
+  protected StateInterface $state;
 
   /**
    * Construct a vite manifest on a library.
@@ -47,11 +49,11 @@ final class Vite {
   public function __construct(
     private array $libraries,
     private int $port = 3000,
-    private float $timeout = 0.05,
+    private float $timeout = 0.1,
   ) {
     $this->themeHandler = \Drupal::service('theme_handler');
     $this->httpClient = \Drupal::service('http_client');
-    $this->performance = \Drupal::config('system.performance');
+    $this->state = \Drupal::service('state');
   }
 
   /**
@@ -166,22 +168,13 @@ final class Vite {
   }
 
   /**
-   * Check if vite client is running locally.
+   * Check if we should attempt loading vite dev.
    *
    * @return bool
    *   TRUE if vite client is running locally.
    */
   private function isDevelopmentMode(): bool {
-    static $development_mode;
-    if (isset($development_mode)) {
-      return $development_mode;
-    }
-
-    $development_mode = ($this->performance->get('cache.page.max_age') <= 0)
-      ? (bool) $this->getDevelopmentHost()
-      : FALSE;
-
-    return $development_mode;
+    return (bool) $this->state->get('theme_dvb_developer_mode', FALSE);
   }
 
   /**
