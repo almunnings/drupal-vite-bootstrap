@@ -10,6 +10,10 @@ export default class Module {
   constructor() {
     const $ = jQuery;
 
+    if (!$.ui.dialog) {
+      return;
+    }
+
     $.widget('ui.dialog', $.ui.dialog, {
       open: function () {
         const close = `

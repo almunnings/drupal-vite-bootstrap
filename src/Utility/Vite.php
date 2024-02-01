@@ -189,6 +189,38 @@ final class Vite {
   }
 
   /**
+   * Get any node services host names from ddev.
+   *
+   * Prefer HTTPS host.
+   *
+   * @return array
+   *   The host names for node services in ddev.
+   */
+  protected function getDdevHosts(): array {
+
+    if (!getenv('DDEV_HOSTNAME') || !getenv('HTTPS_EXPOSE')) {
+      return [];
+    }
+
+    // Find whatever the external port mapped to.
+    $bindings = array_map(
+      fn($mapping) => explode(':', $mapping),
+      explode(',', getenv('HTTPS_EXPOSE'))
+    );
+
+    $binding = array_filter(
+      $bindings,
+      fn($binding) => $binding[1] === (string) $this->port
+    );
+
+    $binding = reset($binding);
+
+    return $binding
+      ? [getenv('HOSTNAME') => 'https://' . getenv('DDEV_HOSTNAME') . ':' . $binding[0]]
+      : [];
+  }
+
+  /**
    * Get the Vite development host.
    *
    * @return string|null
@@ -203,19 +235,18 @@ final class Vite {
 
     $hosts = array_merge(
       $this->getLandoHosts(),
+      $this->getDdevHosts(),
       ['host.docker.internal' => 'http://localhost:' . $this->port],
       ['localhost' => 'http://localhost:' . $this->port],
     );
 
-    $development_host = NULL;
     foreach ($hosts as $internal => $external) {
       if ($this->isConnectionOk($internal)) {
-        $development_host = $external;
-        break;
+        return $external;
       }
     }
 
-    return $development_host;
+    return NULL;
   }
 
   /**

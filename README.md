@@ -70,12 +70,26 @@ services:
 
 proxy:
   node:
-    - node.drupal-boilerplate.lndo.site:3000
+    - node-drupal-boilerplate.lndo.site:3000
 
 tooling:
-  theme:
+  npm:
     service: node
-    description: Run NPM commands for the theme.
-    dir: /app/web/themes/contrib/dvb
-    cmd: npm
 ```
+
+You can now run `lando npm run dev` within the theme directory to start the Vite server.
+
+## DDEV config
+
+```yml
+# Example .ddev/config.yaml
+
+nodejs_version: '18'
+
+web_extra_exposed_ports:
+  - name: nodejs
+    container_port: 3000
+    https_port: 3333
+```
+
+You can now run `ddev npm run dev` within the theme directory to start the Vite server.
