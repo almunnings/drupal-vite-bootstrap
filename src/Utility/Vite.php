@@ -125,8 +125,6 @@ final class Vite {
       if (!$this->isDevelopmentMode()) {
         $manifest = $this->getManifest();
 
-        dump($manifest);
-
         foreach ($manifest[$file]['css'] ?? [] as $child) {
           $library['css']['theme'][$child] = [
             'minified' => TRUE,
