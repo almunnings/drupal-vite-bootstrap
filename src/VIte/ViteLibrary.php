@@ -15,11 +15,11 @@ final class ViteLibrary implements ContainerInjectionInterface {
   /**
    * Construct the vite library utility.
    *
-   * @param \Drupal\dvb\ViteViteAsset $asset
+   * @param \Drupal\dvb\Vite\ViteAsset $asset
    *   The vite asset.
-   * @param \Drupal\dvb\ViteViteManifest $manifest
+   * @param \Drupal\dvb\Vite\ViteManifest $manifest
    *   The vite manifest.
-   * @param \Drupal\dvb\ViteViteMode $mode
+   * @param \Drupal\dvb\Vite\ViteMode $mode
    *   The vite mode.
    */
   public function __construct(
