@@ -10,8 +10,8 @@ import { viteExternalsPlugin } from 'vite-plugin-externals'
 // Resolve dirs.
 const pwd = path.resolve(__dirname, '.')
 const drupalPath = path.resolve(__dirname, '../../../../')
-const themePath = pwd.match(/\/themes\/[^\/]+\/[^\/]+/i)[0]
-const basePath = `${themePath}/dist/`
+const themePath = pwd.match(/\/themes\/[^\/]+\/[^\/]+/i)
+const basePath = `${themePath ? themePath[0] : ''}/dist/`
 
 // Extract YML as object.
 const yaml = (filename) => {
