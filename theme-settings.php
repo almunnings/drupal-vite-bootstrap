@@ -18,17 +18,42 @@ function dvb_form_system_theme_settings_alter(&$form, FormStateInterface $form_s
     return;
   }
 
-  $form['dvb'] = [
+  $form['vite'] = [
     '#type' => 'details',
     '#title' => t('Vite'),
     '#open' => TRUE,
+    '#tree' => TRUE,
   ];
 
-  $form['dvb']['developer_mode'] = [
+  $form['vite']['developer_mode'] = [
     '#type' => 'checkbox',
-    '#title' => t('Developer Mode'),
-    '#default_value' => \Drupal::state()->get('theme_dvb_developer_mode', FALSE),
+    '#title' => t('Developer mode'),
+    '#default_value' => \Drupal::state()->get('vite.developer_mode', FALSE),
     '#description' => t('Enable Vite HMR developer mode. Do not use in production.'),
+  ];
+
+  $form['vite']['port'] = [
+    '#type' => 'textfield',
+    '#title' => t('Vite port'),
+    '#default_value' => theme_get_setting('vite.port'),
+    '#description' => t('The port to listen for Vite.'),
+    '#required' => TRUE,
+  ];
+
+  $form['vite']['dist_path'] = [
+    '#type' => 'textfield',
+    '#title' => t('Vite dist path'),
+    '#default_value' => theme_get_setting('vite.dist_path'),
+    '#description' => t('The path to the Vite dist directory.'),
+    '#required' => TRUE,
+  ];
+
+  $form['vite']['manifest_path'] = [
+    '#type' => 'textfield',
+    '#title' => t('Vite manifest Path'),
+    '#default_value' => theme_get_setting('vite.manifest_path'),
+    '#description' => t('The path to the Vite manifest.'),
+    '#required' => TRUE,
   ];
 
   $form['#submit'][] = 'dvb_form_system_theme_settings_submit';
@@ -39,11 +64,11 @@ function dvb_form_system_theme_settings_alter(&$form, FormStateInterface $form_s
  */
 function dvb_form_system_theme_settings_submit($form, FormStateInterface $form_state) {
   \Drupal::state()->set(
-      'theme_dvb_developer_mode',
-      (bool) $form_state->getValue('developer_mode')
-    );
+    'vite.developer_mode',
+    (bool) $form_state->getValue(['vite', 'developer_mode'])
+  );
 
-  $form_state->unsetValue('developer_mode');
+  $form_state->unsetValue(['vite', 'developer_mode']);
 
   drupal_flush_all_caches();
 }
