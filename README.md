@@ -20,7 +20,7 @@ Enable developer mode, visit `/admin/appearance/settings/dvb` and check the enab
 npm run dev
 ```
 
-### Build production (static)
+### Build production (dist)
 
 ```bash
 npm run build
