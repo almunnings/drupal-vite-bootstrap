@@ -87,6 +87,7 @@ nodejs_version: '18'
 web_extra_exposed_ports:
   - name: nodejs
     container_port: 3000
+    http_port: 3330
     https_port: 3333
 ```
 

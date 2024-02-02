@@ -44,12 +44,12 @@ final class ViteLibrary implements ContainerInjectionInterface {
   /**
    * Get the Vite altered libraries.
    *
+   * (Optionally) Create the HMR library for development mode
+   *
    * @return array
    *   The altered libraries.
    */
   public function alter(array $libraries): array {
-
-    // Create the HMR library for development mode.
     if ($this->mode->developer()) {
       $libraries['hmr'] = [
         'header' => TRUE,
