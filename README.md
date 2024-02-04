@@ -2,7 +2,7 @@
 
 ![NPM build](https://github.com/almunnings/drupal-vite-bootstrap/actions/workflows/npm-ci.yml/badge.svg?branch=main)
 
-It's intended you alter this template as much as you want.
+It's intended you copy this repo, and alter this template as much as you want.
 
 > If you plan to use Vite HMR via a Lando domain, you need to trust your [Lando SSL certificates](https://docs.lando.dev/core/v3/security.html#trusting-the-ca).
 
@@ -92,3 +92,11 @@ web_extra_exposed_ports:
 ```
 
 You can now run `ddev npm run dev` within the theme directory to start the Vite server.
+
+## Get a Vite asset path manually
+
+You could create a utility to resolve the Vite asset path.
+
+```php
+\Drupal::classResolver(ViteAsset::class)->find('assets/scss/whatever.scss', $absolute = TRUE);
+```

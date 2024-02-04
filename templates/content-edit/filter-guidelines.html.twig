@@ -17,7 +17,11 @@
  * @see template_preprocess_filter_tips()
  */
 #}
-<div{{ attributes.addClass('small', 'text-muted') }}>
-  <h4>{{ format.label }}</h4>
-  {{ tips }}
-</div>
+{% set tips = tips|render %}
+
+{% if tips|striptags|trim %}
+  <div{{ attributes.addClass('small', 'text-muted', 'border', 'rounded', 'p-2') }}>
+    <h4>{{ format.label }}</h4>
+    {{ tips }}
+  </div>
+{% endif %}

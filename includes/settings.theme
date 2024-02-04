@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Drupal Vite Bootstrap Theme Settings.
+ * DVB theme settings.
  */
 
 declare(strict_types=1);
@@ -12,7 +12,7 @@ use Drupal\Core\Form\FormStateInterface;
 /**
  * Implements THEME_form_system_theme_settings_alter().
  */
-function dvb_form_system_theme_settings_alter(&$form, FormStateInterface $form_state, $form_id = NULL) {
+function dvb_form_system_theme_settings_alter(array &$form, FormStateInterface $form_state, ?string $form_id = NULL): void {
   // Work-around for a core bug affecting admin themes. See issue #943212.
   if (isset($form_id)) {
     return;
@@ -62,7 +62,7 @@ function dvb_form_system_theme_settings_alter(&$form, FormStateInterface $form_s
 /**
  * Form submit callback for dvb_form_system_theme_settings_alter().
  */
-function dvb_form_system_theme_settings_submit($form, FormStateInterface $form_state) {
+function dvb_form_system_theme_settings_submit(array $form, FormStateInterface $form_state): void {
   \Drupal::state()->set(
     'vite.developer_mode',
     (bool) $form_state->getValue(['vite', 'developer_mode'])

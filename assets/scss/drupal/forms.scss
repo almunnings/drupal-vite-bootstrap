@@ -40,6 +40,7 @@ input.form-text {
 }
 
 // Button to style as plain text.
+.filter-wrapper a,
 button.webform-details-toggle-state,
 button.link:not(.btn) {
   @include font-size($font-size-sm);
