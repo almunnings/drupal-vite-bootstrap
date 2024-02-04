@@ -44,7 +44,7 @@ final class ViteLibrary implements ContainerInjectionInterface {
   /**
    * Get the Vite altered libraries.
    *
-   * (Optionally) Create the HMR library for development mode
+   * (Optionally) Create the HMR library for development mode.
    *
    * @return array
    *   The altered libraries.
