@@ -1,6 +1,6 @@
 # Drupal Vite Bootstrap theme
 
-![NPM build](https://github.com/almunnings/drupal-vite-bootstrap/actions/workflows/npm-ci.yml/badge.svg?branch=main)
+![NPM build](https://github.com/almunnings/drupal-vite-bootstrap/actions/workflows/build.yml/badge.svg?branch=main)
 
 It's intended you copy this repo, and alter this template as much as you want.
 

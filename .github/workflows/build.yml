@@ -1,0 +1,59 @@
+name: Node.js CI
+
+on:
+  release:
+    types: [created]
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+env:
+  PHP_VERSION: 8.1
+  NODE_VERSION: 18.x
+  TERM: xterm
+
+jobs:
+  phpcs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: 'actions/checkout@v4'
+        with:
+          fetch-depth: 0
+
+      - name: Set up PHP
+        uses: 'shivammathur/setup-php@v2'
+        with:
+          php-version: '${{ env.PHP_VERSION }}'
+          tools: 'phpcs, composer'
+
+      - name: Lint
+        run: |
+          composer global config --no-plugins allow-plugins.dealerdirect/phpcodesniffer-composer-installer true
+          composer global require --ignore-platform-reqs drupal/coder
+          phpcs --standard=Drupal,DrupalPractice -n --extensions="php,module,inc,install,test,profile,theme,yml" .
+
+  build:
+    runs-on: ubuntu-latest
+
+    needs: [phpcs]
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Cleaning up dist
+        run: |
+          rm -rf dist
+          ls -la
+
+      - name: Install Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - run: npm ci
+
+      - run: npm run build --if-present --verbose
