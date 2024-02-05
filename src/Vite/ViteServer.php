@@ -80,9 +80,7 @@ final class ViteServer implements ContainerInjectionInterface {
     }
 
     if (!$base_url) {
-      $message = $this->t('Vite server not running. Run `npm run dev` and clear caches, or disable development mode in the theme settings.');
-      $this->messenger()->addError($message);
-      throw new \Exception($message->__toString());
+      throw new \Exception('Vite server not running. Run `npm run dev` and clear caches, or disable development mode in the theme settings.');
     }
 
     return $base_url;
