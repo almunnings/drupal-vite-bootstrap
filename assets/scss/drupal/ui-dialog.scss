@@ -32,6 +32,7 @@
 
 .ui-dialog {
   position: absolute;
+  z-index: 1260;
   top: 0;
   left: 0;
   outline: none;
@@ -132,6 +133,7 @@
 }
 
 .ui-widget-overlay {
+  z-index: 1259;
   opacity: $modal-backdrop-opacity !important;
   background: $modal-backdrop-bg !important;
 }

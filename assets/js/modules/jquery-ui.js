@@ -10,7 +10,7 @@ export default class Module {
   constructor() {
     const $ = jQuery;
 
-    if (!$.ui.dialog) {
+    if (!$.ui?.dialog) {
       return;
     }
 
