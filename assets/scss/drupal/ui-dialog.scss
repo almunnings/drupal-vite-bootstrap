@@ -60,8 +60,13 @@
   }
 
   .ui-dialog-content {
+    position: static;
     padding: map-get($spacers, 3);
     color: var(--bs-body-color);
+  }
+
+  .ui-widget-content.ui-dialog-content {
+    background: var(--bs-body-bg);
   }
 
   .ui-widget-content.ui-dialog-buttonpane {
@@ -124,12 +129,6 @@
       opacity: 1;
     }
   }
-
-  .ui-widget-content.ui-dialog-content {
-    padding-right: map-get($spacers, 3);
-    padding-left: map-get($spacers, 3);
-    background: var(--bs-body-bg);
-  }
 }
 
 .ui-widget-overlay {
@@ -150,11 +149,6 @@
 
 .ui-dialog-buttons.lpb-dialog .ui-dialog-content > form > .form-actions {
   display: none !important;
-}
-
-// Scroll
-.ui-dialog .ui-widget-content.ui-dialog-content {
-  overflow: auto;
 }
 
 // Token
