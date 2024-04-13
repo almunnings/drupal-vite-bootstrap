@@ -60,7 +60,7 @@ app:
 
 services:
   node:
-    type: node:18
+    type: node:20
     ssl: true
     sslExpose: false
     port: 3000
@@ -82,7 +82,7 @@ You can now run `lando npm run dev` within the theme directory to start the Vite
 ```yml
 # Example .ddev/config.yaml
 
-nodejs_version: '18'
+nodejs_version: '20'
 
 web_extra_exposed_ports:
   - name: nodejs
