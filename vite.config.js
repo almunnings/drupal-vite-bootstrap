@@ -88,7 +88,6 @@ export default ({ mode }) => {
     },
 
     server: {
-      https: false,
       host: true,
       port: 3000,
     },
@@ -98,9 +97,7 @@ export default ({ mode }) => {
 
   if (env.LANDO_APP_NAME) {
     proxyTarget = `https://${env.LANDO_APP_NAME}.${env.LANDO_DOMAIN}`
-  }
-
-  if (env.DDEV_PRIMARY_URL) {
+  } else if (env.DDEV_PRIMARY_URL) {
     proxyTarget = env.DDEV_PRIMARY_URL
   }
 

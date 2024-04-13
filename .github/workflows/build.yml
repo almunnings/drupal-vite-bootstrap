@@ -9,8 +9,8 @@ on:
     branches: [main]
 
 env:
-  PHP_VERSION: 8.1
-  NODE_VERSION: 18.x
+  PHP_VERSION: 8.2
+  NODE_VERSION: 20.x
   TERM: xterm
 
 jobs:
